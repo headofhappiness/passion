@@ -806,7 +806,7 @@
           <textarea id="message" name="message" required placeholder="Vad behöver ni hjälp med?"></textarea>
         </div>
         <button type="submit" class="form-submit">Skicka meddelande</button>
-        <p class="form-note" id="form-note">Meddelandet skickas direkt till Lisa.</p>
+        <p class="form-note" id="form-note">Öppnar din e-postklient med meddelandet ifyllt.</p>
       </form>
     </div>
   </section>
@@ -834,15 +834,11 @@
     }, { threshold: 0.1 });
     reveals.forEach(el => io.observe(el));
 
-    // Contact form -> Supabase (sparas direkt, ingen mejlklient behöver öppnas)
-    const SUPABASE_URL = 'https://gndzalmkbsfhclpoidqi.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduZHphbG1rYnNmaGNscG9pZHFpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDAxODcsImV4cCI6MjA5NTAxNjE4N30.Om9UOmTFR8CZZKu5qyiu1YImGdVxzI3KtlgukUV3Q-s';
-
+    // Contact form -> mailto (öppnar besökarens e-postklient med allt ifyllt)
     const form = document.getElementById('contact-form');
     const formNote = document.getElementById('form-note');
-    const submitBtn = form.querySelector('.form-submit');
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
       const name = document.getElementById('name').value.trim();
       const company = document.getElementById('company').value.trim();
@@ -850,34 +846,11 @@
       const phone = document.getElementById('phone').value.trim();
       const message = document.getElementById('message').value.trim();
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Skickar...';
-
-      try {
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/headofpassion_contacts`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_ANON_KEY,
-            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-          },
-          body: JSON.stringify({ name, company, email, phone, message }),
-        });
-
-        if (!res.ok) throw new Error('Request failed');
-
-        form.reset();
-        submitBtn.textContent = 'Skickat ✓';
-        formNote.textContent = 'Tack! Meddelandet är mottaget – jag återkommer inom kort.';
-        setTimeout(() => {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Skicka meddelande';
-        }, 3000);
-      } catch (err) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Skicka meddelande';
-        formNote.textContent = 'Något gick fel. Prova igen, eller mejla lisa@headofhappiness.se direkt.';
-      }
+      const subject = encodeURIComponent(`Förfrågan från ${name}${company ? ' (' + company + ')' : ''}`);
+      const body = encodeURIComponent(
+        `Namn: ${name}\nFöretag: ${company}\nE-post: ${email}\nTelefon: ${phone}\n\nMeddelande:\n${message}`
+      );
+      window.location.href = `mailto:lisa@headofhappiness.se?subject=${subject}&body=${body}`;
     });
   </script>
 </body>
