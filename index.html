@@ -77,6 +77,22 @@
       transition: background 0.25s, transform 0.2s;
     }
     .nav-cta:hover { background: var(--amber); transform: translateY(-1px); }
+    .nav-actions { display: flex; align-items: center; gap: 0.8rem; }
+    .nav-cta-outline {
+      font-family: var(--heading);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--navy);
+      background: transparent;
+      border: 1.5px solid var(--navy);
+      padding: 0.65rem 1.4rem;
+      border-radius: 3px;
+      transition: background 0.25s, color 0.25s, transform 0.2s;
+    }
+    .nav-cta-outline:hover { background: var(--navy); color: var(--white); transform: translateY(-1px); }
 
     /* HERO */
     .hero {
@@ -639,6 +655,7 @@
       nav { padding: 1rem 5vw; }
       .nav-logo { font-size: 0.95rem; }
       .nav-cta { font-size: 0.62rem; padding: 0.6rem 1rem; }
+      .nav-cta-outline { display: none; }
       .hero-left { padding-top: 2.5rem; }
       .hero-actions { flex-direction: column; align-items: stretch; }
       .hero-actions a { text-align: center; }
@@ -654,19 +671,21 @@
 
   <nav id="main-nav">
     <a href="index.html" class="nav-logo">Head of <span>Passion</span></a>
-    <a href="#kontakt" class="nav-cta">Hör av dig</a>
+    <div class="nav-actions">
+      <a href="timbanken.html" class="nav-cta-outline">Här för Timbanken?</a>
+      <a href="#kontakt" class="nav-cta">Hör av dig</a>
+    </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-left">
-      <span class="hero-eyebrow" style="display:block; color: rgba(255,255,255,0.5); margin-bottom: 0.4rem;">Entreprenöriell</span>
-      <span class="hero-eyebrow">Verksamhetsutvecklare · Koordinator · Administratör · Projektstöd</span>
-      <h1 class="hero-h1">Ser<br>möjligheterna.<br><span>Agerar på dem.</span></h1>
-      <p class="hero-sub">Jag går in som koordinator/projektstöd/administratör. Erfaren, självgående och med skarp blick för vad som kan utvecklas – och driv att agera på det själv. Använder AI aktivt (framförallt Claude) när det gör jobbet snabbare och bättre.</p>
+      <span class="hero-eyebrow">Verksamhetsutveckling · Projektstöd · Koordinering · Administration</span>
+      <h1 class="hero-h1">Jag ser vad<br>som behöver göras.<br><span>Och får det gjort.</span></h1>
+      <p class="hero-sub">Jag går in där det behövs struktur, framdrift och någon som tar ansvar. Jag kombinerar affärsförståelse, administration och utveckling – och använder AI och smarta digitala verktyg när det gör arbetet enklare, snabbare och bättre.</p>
       <div class="hero-actions">
-        <a href="#kontakt" class="btn-primary">Hör av dig</a>
-        <a href="#tjanster" class="btn-outline">Se vad jag gör</a>
+        <a href="#kontakt" class="btn-primary">Prata med mig</a>
+        <a href="#tjanster" class="btn-outline">Så kan jag hjälpa till</a>
       </div>
       <div class="hero-stats">
         <div class="hero-stat"><strong>Bred</strong><span>Erfarenhet</span></div>

@@ -321,6 +321,39 @@
     .intro-content h2 span { color: #e1957a; }
 
     /* SERVICES */
+    .testimonials {
+      padding: 6rem 8vw;
+      background: var(--navy);
+    }
+    .testimonials-header { max-width: 640px; margin-bottom: 3rem; }
+    .testimonials-header h2 { color: var(--white); }
+    .testimonials-header h2 span { color: var(--peach); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 2.2rem 1.8rem;
+    }
+    .testimonial-card p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.92);
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+    .testimonial-card .attribution {
+      font-family: var(--heading);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
     .services {
       padding: 7rem 8vw;
       background: var(--off);
@@ -567,6 +600,7 @@
       .intro, .timbanken, .ai-section { grid-template-columns: 1fr; gap: 2.5rem; }
       .intro-badge { right: 0; bottom: -1rem; }
       .services-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 0.6rem; text-align: center; }
       .intro, .services, .timbanken, .ai-section, .contact { padding: 4.5rem 6vw; }
     }
@@ -618,6 +652,24 @@
       <p class="reveal">Jag har flera års erfarenhet av tidiga faser i företagande och en bred affärsutvecklingskompetens. Med ett coachande förhållningssätt hittar vi din väg framåt – och tar oss an den tillsammans.</p>
       <p class="reveal">Jag är duktig på att lyssna, fånga upp och paketera, och jag är utvecklingsdriven med lätt för att ta till mig ny teknik. I praktiken lyssnar jag av vad du erbjuder, hjälper dig konceptualisera och paketera det – och kan ta fram förslag på marknadsföringsmaterial eller hemsida.</p>
       <p class="reveal">Utöver rådgivning driver jag <strong>headofhappiness.se</strong> – en tjänst för välmående med digitalt program och app. Erfarenheter därifrån tar jag gärna med in i våra samtal.</p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="testimonials-header">
+      <span class="section-label reveal" style="color: var(--gold);">Röster från rådgivningen</span>
+      <h2 class="section-h2 reveal">Vad andra<br><span>säger</span></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <p>"Jag upplevde rådgivningen som personlig och konkret, snarare än att du kom med generella råd."</p>
+        <span class="attribution">Marcus Widén</span>
+      </div>
+      <div class="testimonial-card reveal">
+        <p>"…ett perfekt sätt att bolla sina idéer och förstå att man är på rätt väg."</p>
+        <span class="attribution">Blivande företagare, Halland</span>
+      </div>
     </div>
   </section>
 
