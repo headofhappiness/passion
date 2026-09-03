@@ -106,7 +106,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 7vw 5vw 7vw 8vw;
+      padding: clamp(2rem, 6svh, 6rem) 5vw clamp(2rem, 6svh, 6rem) 8vw;
     }
     .hero-eyebrow {
       font-family: var(--heading);
@@ -115,18 +115,18 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--peach);
-      margin-bottom: 1.6rem;
+      margin-bottom: clamp(0.8rem, 2svh, 1.6rem);
       opacity: 0;
       animation: fadeUp 0.7s 0.2s ease forwards;
     }
     .hero-h1 {
       font-family: var(--heading);
-      font-size: clamp(2.4rem, 4.5vw, 5rem);
+      font-size: clamp(2.4rem, min(4.5vw, 8svh), 5rem);
       font-weight: 800;
       line-height: 1.05;
       text-transform: uppercase;
       color: var(--white);
-      margin-bottom: 1.6rem;
+      margin-bottom: clamp(0.8rem, 2svh, 1.6rem);
       letter-spacing: 0.01em;
       opacity: 0;
       animation: fadeUp 0.7s 0.35s ease forwards;
@@ -137,7 +137,7 @@
       font-weight: 300;
       color: rgba(255,255,255,0.72);
       max-width: 440px;
-      margin-bottom: 2.8rem;
+      margin-bottom: clamp(1.2rem, 3.4svh, 2.8rem);
       line-height: 1.75;
       opacity: 0;
       animation: fadeUp 0.7s 0.5s ease forwards;
@@ -178,7 +178,7 @@
     }
     .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); transform: translateY(-2px); }
     .hero-stats {
-      margin-top: 3rem;
+      margin-top: clamp(1.2rem, 3.4svh, 3rem);
       display: flex; gap: 2.4rem; flex-wrap: wrap;
       opacity: 0;
       animation: fadeUp 0.7s 0.8s ease forwards;
