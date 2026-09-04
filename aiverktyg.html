@@ -164,6 +164,17 @@
   .rule-row b{color:var(--white);}
   .rule-row span{font-family:var(--heading);font-weight:800;color:var(--terracotta);font-size:0.86rem;text-transform:uppercase;letter-spacing:0.02em;white-space:nowrap;}
 
+  /* ===== HUB ===== */
+  .hub-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;}
+  .hub-card{
+    background:var(--white);border-radius:12px;padding:1.5rem 1rem;text-align:center;
+    text-decoration:none;box-shadow:0 1px 2px rgba(18,50,82,0.05);
+    transition:transform .15s, box-shadow .15s;display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+  }
+  .hub-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(18,50,82,0.12);}
+  .hub-card .hub-emoji{font-size:1.7rem;line-height:1;}
+  .hub-card .hub-label{font-family:var(--heading);font-weight:700;font-size:0.82rem;color:var(--navy);}
+
   /* ===== NYSTARTAD ===== */
   .use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
   .use-card{background:var(--white);border-radius:12px;padding:1.5rem;box-shadow:0 1px 2px rgba(18,50,82,0.05);display:flex;flex-direction:column;gap:0.8rem;}
@@ -345,6 +356,7 @@
     .specialist{grid-template-columns:1fr;gap:1.2rem;}
     .feat-grid{grid-template-columns:1fr 1fr;}
     .use-grid{grid-template-columns:1fr 1fr;}
+    .hub-grid{grid-template-columns:repeat(3,1fr);}
     .steps{grid-template-columns:1fr 1fr;}
     .rule-banner{grid-template-columns:1fr;}
     footer .foot-meta{text-align:left;}
@@ -352,6 +364,7 @@
   @media (max-width:480px){
     .feat-grid{grid-template-columns:1fr;}
     .use-grid{grid-template-columns:1fr;}
+    .hub-grid{grid-template-columns:1fr 1fr;}
     .steps{grid-template-columns:1fr;}
     nav#main-nav{padding:0.9rem 5vw;}
     .nav-logo{font-size:0.9rem;}
@@ -370,11 +383,15 @@
   <div class="hero">
     <div class="wrap">
       <span class="eyebrow">En guide inför din rådgivning</span>
-      <h1>Vilket AI-verktyg <em>ska jag använda?</em></h1>
-      <p class="lede">Fem områden. Ett förstahandsval i varje. Och en enkel regel för var du börjar — plus exakt hur du kommer igång med varenda ett.</p>
+      <h1>Få mer gjort <em>med AI</em></h1>
+      <p class="lede">En enkel guide för dig som driver eller startar företag. Du behöver inte kunna AI — börja bara med det du vill få gjort.</p>
       <div class="signature"><span class="dot"></span> Sammanställd av Lisa Jonsson, Head of Passion.</div>
       <nav class="toc">
-        <a href="#regeln">Regeln</a>
+        <a href="#borja-har">Börja här</a>
+        <a href="#hub">Vad vill du göra?</a>
+        <a href="#tank-pa">Tänk på detta</a>
+        <a href="#prompt-skola">Prompt-skolan</a>
+        <a href="#startpaket">Mitt AI-startpaket</a>
         <a href="#nystartad">Nystartad?</a>
         <a href="#bollplank">AI som bollplank</a>
         <a href="#projekt">Projekt</a>
@@ -385,6 +402,8 @@
         <a href="#video">Video</a>
         <a href="#presentationer">Presentationer</a>
         <a href="#bygg-hemsida">Bygg en hemsida</a>
+        <a href="#kundmejl">Kundmejl</a>
+        <a href="#administration">Möten & administration</a>
         <a href="#agenter">AI-agenter</a>
         <a href="#svenska">Svenska favoriter</a>
         <a href="#funktioner">Funktioner värda att kolla</a>
@@ -395,7 +414,130 @@
     </div>
   </div>
 
+  <!-- BÖRJA HÄR -->
+  <section id="borja-har">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Om du är helt ny</span>
+        <h2>Tre saker att förstå — sen kan du börja</h2>
+      </div>
+      <div class="big-four">
+        <div class="tool-card">
+          <div class="tool-head">
+            <div class="tool-icon" style="background:#eef0fb;"><svg viewBox="0 0 24 24" fill="none" stroke="#5b5fc7" stroke-width="1.8"><path d="M4 5h16v11H9l-4 4V5z" stroke-linejoin="round"/></svg></div>
+            <h3>1. Du behöver inte "prata AI-språk"</h3>
+          </div>
+          <p class="good">Beskriv vad du vill ha hjälp med ungefär som om du pratade med en kunnig kollega. Vanligt språk räcker.</p>
+        </div>
+        <div class="tool-card">
+          <div class="tool-head">
+            <div class="tool-icon" style="background:#e9f2ea;"><svg viewBox="0 0 24 24" fill="none" stroke="#4a7c52" stroke-width="1.8"><path d="M4 12a8 8 0 1014-5.3M18 4v4h-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>2. Första svaret behöver inte vara bra</h3>
+          </div>
+          <p class="good">Säg vad du gillar, vad du inte gillar, och be den göra om. Det är ofta i dialogen resultatet blir bra — inte i det första svaret.</p>
+        </div>
+        <div class="tool-card">
+          <div class="tool-head">
+            <div class="tool-icon" style="background:#f3e9df;"><svg viewBox="0 0 24 24" fill="none" stroke="#a5493c" stroke-width="1.8"><path d="M12 9v4M12 16.5h.01" stroke-linecap="round"/><circle cx="12" cy="12" r="9"/></svg></div>
+            <h3>3. AI kan göra fel</h3>
+          </div>
+          <p class="good">Kontrollera fakta, siffror och sådant som är viktigt innan du använder det. Det räcker som första AI-introduktion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HUB -->
+  <section class="tinted" id="hub">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Vad vill du få gjort?</span>
+        <h2>Klicka på det du behöver hjälp med</h2>
+      </div>
+      <div class="hub-grid">
+        <a class="hub-card" href="#bollplank"><span class="hub-emoji">💡</span><span class="hub-label">Utveckla min idé</span></a>
+        <a class="hub-card" href="#bygg-hemsida"><span class="hub-emoji">🌐</span><span class="hub-label">Göra hemsida</span></a>
+        <a class="hub-card" href="#nystartad"><span class="hub-emoji">✍️</span><span class="hub-label">Skriva texter</span></a>
+        <a class="hub-card" href="#bilder"><span class="hub-emoji">📷</span><span class="hub-label">Skapa bilder</span></a>
+        <a class="hub-card" href="#video"><span class="hub-emoji">🎥</span><span class="hub-label">Göra video</span></a>
+        <a class="hub-card" href="#innehall"><span class="hub-emoji">📣</span><span class="hub-label">Marknadsföra</span></a>
+        <a class="hub-card" href="#kundmejl"><span class="hub-emoji">📧</span><span class="hub-label">Skriva kundmejl</span></a>
+        <a class="hub-card" href="#nystartad"><span class="hub-emoji">💰</span><span class="hub-label">Budget & ekonomi</span></a>
+        <a class="hub-card" href="#funktioner"><span class="hub-emoji">🔎</span><span class="hub-label">Research</span></a>
+        <a class="hub-card" href="#extra-verktyg"><span class="hub-emoji">⚙️</span><span class="hub-label">Jobba smartare</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TÄNK PÅ DETTA -->
+  <section id="tank-pa">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Innan du kör igång</span>
+        <h2>Tänk på detta innan du använder AI</h2>
+      </div>
+      <div class="feat-grid">
+        <div class="feat">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#123252" stroke-width="1.8"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke-linecap="round"/></svg></div>
+          <h4>Känslig information</h4>
+          <p>Klistra inte in sådant du inte bör dela — lösenord, avtal med sekretess, eller annat privat.</p>
+        </div>
+        <div class="feat">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#123252" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke-linecap="round"/></svg></div>
+          <h4>Personuppgifter</h4>
+          <p>Var försiktig med information om kunder, anställda och andra personer.</p>
+        </div>
+        <div class="feat">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#123252" stroke-width="1.8"><path d="M12 9v4M12 16.5h.01" stroke-linecap="round"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <h4>Fakta</h4>
+          <p>AI kan ha fel. Kontrollera viktiga uppgifter, siffror och påståenden innan du använder dem.</p>
+        </div>
+        <div class="feat">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#123252" stroke-width="1.8"><path d="M12 3l2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4z" stroke-linejoin="round"/></svg></div>
+          <h4>Upphovsrätt</h4>
+          <p>Använd inte AI för att kopiera någon annans material rakt av — text, bilder eller annat.</p>
+        </div>
+        <div class="feat">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#123252" stroke-width="1.8"><path d="M8 12.5l2.8 2.8L16.5 9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <h4>Du ansvarar</h4>
+          <p>AI föreslår. Du bestämmer vad som faktiskt används, skickas eller publiceras.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMPT-SKOLAN -->
+  <section class="tinted" id="prompt-skola">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Inte 40 sidor om prompting</span>
+        <h2>Prompt-skolan på en minut</h2>
+        <p class="lede">En bra instruktion innehåller ofta fyra saker:</p>
+      </div>
+      <div class="rule-banner" style="grid-template-columns:1fr;">
+        <div>
+          <div class="rule-list">
+            <div class="rule-row"><b>Bakgrund</b><span>"Jag driver ett nystartat hunddagis…"</span></div>
+            <div class="rule-row"><b>Vad du vill göra</b><span>"Jag behöver skriva startsidan…"</span></div>
+            <div class="rule-row"><b>Vem det är till</b><span>"Mina kunder är hundägare i Kungsbacka…"</span></div>
+            <div class="rule-row"><b>Hur du vill ha svaret</b><span>"Skriv varmt, enkelt, max 150 ord."</span></div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:1.4rem;font-size:0.9rem;color:var(--ink-soft);max-width:64ch;">Och den viktigaste lektionen av alla — <b style="color:var(--navy);">fortsätt prata:</b> "Kortare." · "Jag gillar inte rubriken, ge mig fem alternativ." · "Mer som jag själv pratar." · "Det där känns för säljigt." · "Behåll första stycket men skriv om resten." Det är nästan viktigare än den perfekta första prompten.</p>
+    </div>
+  </section>
+
   <!-- REGELN -->
+  <section id="startpaket">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="eyebrow">Mitt AI-startpaket</span>
+        <h2>Det här räcker för att komma igång</h2>
+        <p class="lede">Inte 25 AI-verktyg — bara de du faktiskt behöver. Allt annat längre ner på sidan är fördjupning du kan spara till senare.</p>
+      </div>
+    </div>
+  </section>
   <section id="regeln">
     <div class="wrap">
       <div class="rule-banner">
@@ -691,6 +833,50 @@
     </div>
   </section>
 
+  <!-- KUNDMEJL -->
+  <section class="tinted" id="kundmejl">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Skriva kundmejl</span>
+        <h2>Skillnaden mellan en dålig och en bra instruktion</h2>
+        <p class="lede">Det här är precis den sortens sak du kan använda dagen efter ett rådgivningsmöte.</p>
+      </div>
+
+      <div class="options" style="max-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;">
+        <div class="option">
+          <div class="opt-head"><span class="opt-name">Första kontakt-mejl</span><span class="opt-tag">Skaffa kunder</span></div>
+          <div class="howto"><ol>
+            <li data-n="✕"><span style="color:var(--terracotta-deep);">Dålig: "Skriv ett säljmejl."</span></li>
+            <li data-n="✓">Bra: "Jag driver [företag] och hjälper [målgrupp] med [problem]. Jag vill kontakta en person som [roll]. Skriv ett kort personligt första mejl. Målet är inte att sälja direkt utan att få ett 20-minuters samtal. Undvik överdrivet säljspråk."</li>
+          </ol></div>
+          <p style="font-size:0.82rem;color:var(--ink-soft);margin-top:0.7rem;">Se även <a href="#nystartad">researchtipset</a> — ge AI:n mottagarens webbadress också, så blir mejlet ännu mer träffsäkert.</p>
+        </div>
+        <div class="option">
+          <div class="opt-head"><span class="opt-name">Mejlen som tar tid</span><span class="opt-tag">Snabba vinster</span></div>
+          <p>Svara på en kundfråga · Formulera ett vänligt nej · Påminna om en obetald faktura · Följa upp ett möte · Be om en testimonial · Svara på ett klagomål · Skriva ett offertmejl · Boka om en tid · Översätta · Ändra ton (varmare / mer professionell / kortare).</p>
+          <div class="howto"><ol>
+            <li data-n="→">"Klistra in mejlet du fått → ta bort känsliga uppgifter → be AI skriva ett utkast → redigera själv → skicka."</li>
+          </ol></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÖTEN & ADMINISTRATION -->
+  <section id="administration">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Sånt man inte tänker på</span>
+        <h2>Möten & administration</h2>
+        <p class="lede">Här finns massor som sparar enormt mycket tid, men som få tänker på att fråga AI om.</p>
+      </div>
+      <div class="use-card" style="max-width:100%;">
+        <p style="font-size:0.95rem;color:var(--ink);">Mötesagenda · Förbereda frågor inför ett möte · Sammanfatta anteckningar · Göra en att-göra-lista · Skriva mötesuppföljning · Skapa checklistor · Göra arbetsinstruktioner · Sortera långa dokument · Jämföra två avtal eller texter · Skapa frågor till ett formulär · Göra en kundundersökning.</p>
+        <div class="try-box"><span class="try-label">Prova att skriva</span><code>"Här är mina anteckningar från dagens möte: [klistra in]. Sammanfatta besluten och gör en att-göra-lista med ansvarig person för varje punkt."</code></div>
+      </div>
+    </div>
+  </section>
+
   <!-- DE FYRA STORA -->
   <section class="tinted" id="fyra-stora">
     <div class="wrap">
@@ -839,6 +1025,7 @@
           <span class="num">Specialist · Bilder</span>
           <h3>Du kommer långt med gratis. Midjourney om du ska vara proffs.</h3>
           <p class="lede">Testa gratistjänsterna först — de är bra. Midjourney blir intressant den dag estetiken är affärskritisk.</p>
+          <p style="margin-top:0.9rem;font-size:0.86rem;color:var(--ink-soft);"><b style="color:var(--navy);">Tre olika saker, lätt att blanda ihop:</b> generera en helt ny person (bilden liknar ingen verklig person) · använda ett foto som referens (behåller ditt ansikte, byter t.ex. miljö) · redigera ett befintligt foto (samma bild, en detalj ändrad). Var tydlig med vilket du vill ha.</p>
         </div>
         <div class="options">
           <div class="option">
@@ -890,6 +1077,7 @@
           <span class="num">Specialist · Video</span>
           <h3>Två slags AI-video, för två olika behov</h3>
           <p class="lede">OpenAI lade ner Sora-appen i april 2026 — bygg inte din video där.</p>
+          <p style="margin-top:0.9rem;font-size:0.86rem;color:var(--ink-soft);"><b style="color:var(--navy);">Tre nivåer, börja på den lägsta:</b> Enkelt — AI skriver manus till en video du själv spelar in. Nästa steg — AI gör textning, klippning och rätt format. Mer avancerat — AI skapar hela videoklipp, en avatar eller voice-over (som HeyGen-exemplet nedan).</p>
         </div>
         <div class="options">
           <div class="option">
@@ -1134,21 +1322,21 @@
             </div></details>
           </div>
           <div class="option">
-            <div class="opt-head"><span class="opt-name">Lovable</span><span class="opt-tag">Appar & sajter</span></div>
-            <p>Beskriv appen i text och få den byggd. Stockholmsbolag — omkring en miljon projekt startas per vecka i juni 2026.</p>
-            <div class="howto"><ol><li data-n="→">Gå till <code>lovable.dev</code>, beskriv vad du vill bygga i ett textfält.</li></ol></div>
-            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
-              <div class="flow"><span class="chip"><span class="glyph">✍️</span> Beskriv appen</span><span class="arrow">→</span><span class="chip"><span class="glyph">💻</span> Får en fungerande version</span></div>
-              <p>Du skriver t.ex. "en bokningssida för min frisörsalong" i ett textfält, och verktyget bygger en riktig, testbar version direkt — utan att du behöver kunna programmera.</p>
-            </div></details>
-          </div>
-          <div class="option">
             <div class="opt-head"><span class="opt-name">Sana</span><span class="opt-tag">Internt kunskap</span></div>
             <p>AI-assistent för allt ditt företag vet. Köptes upp av Workday 2025.</p>
             <div class="howto"><ol><li data-n="→">Koppla era interna dokument till Sana, ställ frågor i vanligt språk.</li></ol></div>
             <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">📁</span> Koppla era dokument</span><span class="arrow">→</span><span class="chip"><span class="glyph">❓</span> Ställ frågor</span></div>
               <p>Fungerar som en sökmotor för det bara ni vet — kopplas till era interna rutiner och manualer, och svarar sedan på frågor om dem i vanligt språk.</p>
+            </div></details>
+          </div>
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">Lovable</span><span class="opt-tag">Mer tekniskt · valfritt</span></div>
+            <p>Beskriv appen i text och få den byggd. Stockholmsbolag — omkring en miljon projekt startas per vecka i juni 2026. Inget för dag ett, men bra att känna till när du vill bygga något själv utöver hemsidan (se <a href="#agenter">AI-agenter</a>).</p>
+            <div class="howto"><ol><li data-n="→">Gå till <code>lovable.dev</code>, beskriv vad du vill bygga i ett textfält.</li></ol></div>
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
+              <div class="flow"><span class="chip"><span class="glyph">✍️</span> Beskriv appen</span><span class="arrow">→</span><span class="chip"><span class="glyph">💻</span> Får en fungerande version</span></div>
+              <p>Du skriver t.ex. "en bokningssida för min frisörsalong" i ett textfält, och verktyget bygger en riktig, testbar version direkt — utan att du behöver kunna programmera.</p>
             </div></details>
           </div>
         </div>
@@ -1285,6 +1473,7 @@
             <p>Många AI-verktyg (bland annat Claude) kan kopplas direkt till Trello. När kopplingen är gjord kan du be AI:n hantera tavlan åt dig utan att öppna Trello själv:</p>
             <p>"Lägg till <b>'Ring fem potentiella kunder'</b> på min lista för nästa vecka." · "Markera uppgiften <b>'Skicka offert till Anna'</b> som klar." · "Visa vad jag fortfarande har kvar att göra den här veckan." · "Utifrån våra diskussioner — skapa ett förslag på att-göra-lista för nästa vecka."</p>
             <p>Skillnaden mot att bara prata i en chatt: planeringen hamnar på samma ställe där du faktiskt håller reda på arbetet, inte kvar i en chattlogg ingen tittar på igen.</p>
+            <p><b>Fler kopplingar:</b> Anthropic har ett eget paket, "Claude for Small Business", som utöver Trello-liknande kopplingar även kan anslutas till bland annat QuickBooks, HubSpot, Google Workspace, Microsoft 365, Canva, PayPal och DocuSign — så AI:n kan jobba direkt i fler av verktygen ni redan har. Värt att söka upp om ni växer ur en enkel Trello-koppling.</p>
           </div></details>
         </div>
         <div class="option">
