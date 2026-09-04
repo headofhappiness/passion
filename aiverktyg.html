@@ -179,6 +179,18 @@
   .try-box code{
     display:block;font-family:var(--mono);font-size:0.8rem;line-height:1.6;color:var(--navy);
   }
+  .use-grid .use-card:nth-child(6n+1) .try-box{background:rgba(191,106,91,0.10);}
+  .use-grid .use-card:nth-child(6n+1) .try-label{color:var(--terracotta-deep);}
+  .use-grid .use-card:nth-child(6n+2) .try-box{background:rgba(249,224,169,0.4);}
+  .use-grid .use-card:nth-child(6n+2) .try-label{color:#8a6a1f;}
+  .use-grid .use-card:nth-child(6n+3) .try-box{background:rgba(228,163,143,0.22);}
+  .use-grid .use-card:nth-child(6n+3) .try-label{color:#a5493c;}
+  .use-grid .use-card:nth-child(6n+4) .try-box{background:rgba(18,50,82,0.07);}
+  .use-grid .use-card:nth-child(6n+4) .try-label{color:var(--navy);}
+  .use-grid .use-card:nth-child(6n+5) .try-box{background:rgba(165,73,60,0.09);}
+  .use-grid .use-card:nth-child(6n+5) .try-label{color:var(--terracotta-deep);}
+  .use-grid .use-card:nth-child(6n+6) .try-box{background:rgba(28,64,102,0.08);}
+  .use-grid .use-card:nth-child(6n+6) .try-label{color:var(--navy-soft);}
 
   /* ===== BIG FOUR ===== */
   .big-four{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;}
@@ -401,6 +413,8 @@
         <span class="eyebrow">Helt ny som företagare?</span>
         <h2>Så kan AI hjälpa dig redan från dag ett</h2>
         <p class="lede">Du behöver inte kunna något om AI för att ha nytta av det. Kopiera exemplen rakt av och byt ut det som står inom hakparenteser.</p>
+        <p class="lede" style="margin-top:0.6rem;"><b style="color:var(--navy);">Vilket verktyg?</b> Alla exempel funkar i vilket som helst av de fyra stora (ChatGPT, Claude, Copilot eller Gemini) — klistra bara in texten i chattrutan. Har du inget konto än, testa <a href="#fyra-stora">ChatGPT eller Claude</a>, båda gratis att komma igång med.</p>
+        <p class="lede" style="margin-top:0.6rem;"><b style="color:var(--navy);">Litet tips:</b> AI-chattar är hjälpsamma till sin natur och gillar att hålla med dig. Be den vara tydligt ärlig och kritisk — t.ex. "var helt ärlig" eller "hitta minst tre svagheter" — så får du mest nytta av framför allt affärsidé- och säljsamtalsövningen nedan.</p>
       </div>
       <div class="use-grid">
 
@@ -472,7 +486,7 @@
               <li data-n="3.">Vill du ha en bild: skriv <code>"skapa en bild av …"</code> — eller klicka gem-ikonen för att ladda upp en fil att utgå från.</li>
             </ol>
           </div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">💬</span> Ett chattfönster</span><span class="arrow">→</span><span class="chip"><span class="glyph">✍️</span> Text eller bild</span></div>
             <p>Tänk på det som ett mycket kunnigt bollplank du chattar med i ett vanligt textfält — du skriver en fråga eller uppgift, det svarar direkt. Den breda användningen gör det till ett tryggt förstahandsval om du är helt ny på AI.</p>
           </div></details>
@@ -495,7 +509,7 @@
               <li data-n="3.">Dra in ett dokument (Word, PDF, Excel) direkt i rutan för att få hjälp med det du redan skrivit.</li>
             </ol>
           </div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">📄</span> Dra in ett dokument</span><span class="arrow">→</span><span class="chip"><span class="glyph">✍️</span> Får hjälp med det</span></div>
             <p>Fungerar som ChatGPT rent tekniskt, men är extra bra på att jobba med dokument du redan har — dra in en fil så läser den innehållet direkt, istället för att du klistrar in text för hand.</p>
           </div></details>
@@ -518,7 +532,7 @@
               <li data-n="3.">Skriv vad du behöver hjälp med — t.ex. <code>"sammanfatta den här tråden"</code> markerat i Outlook.</li>
             </ol>
           </div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">📧</span> Redan i Outlook/Teams</span><span class="arrow">→</span><span class="chip"><span class="glyph">🤝</span> Hjälper i jobbet</span></div>
             <p>Istället för ett eget fönster dyker Copilot upp som en liten ikon inuti programmen ni redan använder — du behöver inte byta verktyg för att fråga den något.</p>
           </div></details>
@@ -541,7 +555,7 @@
               <li data-n="3.">För dokument-research: prova <code>notebooklm.google.com</code> och ladda upp filerna du vill fråga om.</li>
             </ol>
           </div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">🔍</span> Kopplat till Google</span><span class="arrow">→</span><span class="chip"><span class="glyph">📚</span> Research i dina filer</span></div>
             <p>Fungerar bäst ihop med Google-tjänster ni redan har (Gmail, Docs, Kalender) — och NotebookLM-delen är särskilt bra på att svara på frågor om dokument du själv laddar upp.</p>
           </div></details>
@@ -576,16 +590,21 @@
               <li data-n="2.">Skriv vad du vill ha, t.ex. <code>"gör om det här fotot till ett professionellt porträtt i affärsklädsel, ljus neutral bakgrund"</code>.</li>
               <li data-n="3.">Be om ett par varianter om du vill jämföra — <code>"visa mig två till, med annan bakgrund"</code> — och spara den du gillar bäst.</li>
             </ol></div>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">📤</span> Ladda upp ett foto av dig</span><span class="arrow">→</span><span class="chip"><span class="glyph">✍️</span> Beskriv stil & miljö</span><span class="arrow">→</span><span class="chip"><span class="glyph">✨</span> Nytt porträtt</span></div>
               <p>Utan ett foto att utgå från vet ChatGPT inte hur du ser ut — så för bilder av dig själv laddar du alltid upp ett riktigt foto <b>först</b>, och beskriver sedan bara vad som ska ändras (kläder, bakgrund, ljus). Resultatet är AI-bearbetat, bra för profilbild på LinkedIn eller hemsidan — men ersätter inte en riktig fotograf om du vill ha ett helt nytaget foto.</p>
+            </div></details>
+            <details class="explain"><summary>Proffstips: strukturera ditt prompt</summary><div class="explain-body">
+              <p>Vill du ha mer kontroll över resultatet, dela upp beskrivningen i tydliga kategorier istället för en enda mening — det gör att AI:n missar mindre:</p>
+              <p><b>Komposition</b> (hur bilden är beskuren och vinklad) · <b>Ljussättning</b> (varifrån ljuset kommer, mjukt eller hårt) · <b>Material & textur</b> (tygets, hudens, hårets känsla) · <b>Stämning</b> (vad bilden ska kännas som) · <b>Kameravinkel</b> (t.ex. "porträttlins, axelhöjd") · och avsluta gärna med en <b>"undvik"-lista</b> (t.ex. "undvik övertydlig retuschering, konstlat ljus, förvrängda händer").</p>
+              <p>Samma princip funkar i alla bildverktyg, inte bara ChatGPT.</p>
             </div></details>
           </div>
           <div class="option">
             <div class="opt-head"><span class="opt-name">Nano Banana (i Gemini)</span><span class="opt-tag">Kostnadsfritt</span></div>
             <p>Redigerar befintliga bilder: byter bakgrund och träffar exakt varumärkesfärg.</p>
             <div class="howto"><ol><li data-n="→">Ladda upp din befintliga bild i Gemini, skriv <code>"byt bakgrund till …"</code> eller <code>"gör texten guld"</code>.</li></ol></div>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">📤</span> Du laddar upp ett foto</span><span class="arrow">→</span><span class="chip"><span class="glyph">🎨</span> AI:n ändrar det</span></div>
               <p>Skillnaden mot ChatGPT-bilder: du utgår från ett foto du redan har, och skriver bara vad som ska ändras. AI:n redigerar istället för att rita en helt ny bild från grunden.</p>
             </div></details>
@@ -594,7 +613,7 @@
             <div class="opt-head"><span class="opt-name">Midjourney</span><span class="opt-tag">Proffsklassen</span></div>
             <p>Där estetiken sitter: moodboards och kampanjkänsla. Kräver eget abonnemang och lite tid att lära sig.</p>
             <div class="howto"><ol><li data-n="→">Skapa konto via Discord på <code>midjourney.com</code>, skriv <code>/imagine</code> följt av din beskrivning i Midjourney-kanalen.</li></ol></div>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">💬</span> Du skriver i Discord</span><span class="arrow">→</span><span class="chip"><span class="glyph">🖼️</span> Får flera bildförslag</span></div>
               <p>Fungerar via chattappen Discord, vilket gör tröskeln lite högre än de andra. Du skriver en kommandorad följt av din beskrivning och får flera varianter att välja mellan.</p>
             </div></details>
@@ -618,7 +637,7 @@
             <div class="opt-head"><span class="opt-name">Gemini — genererade klipp</span><span class="opt-tag">Annonser & socialt</span></div>
             <p>Du beskriver scenen och får en film. Text, bild och ljud i ett steg. Ingår i Gemini.</p>
             <div class="howto"><ol><li data-n="→">Öppna videogeneratorn i Gemini, skriv en scenbeskrivning: vad som händer, var, i vilken stämning.</li></ol></div>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">✍️</span> Du beskriver scenen</span><span class="arrow">→</span><span class="chip"><span class="glyph">🎬</span> AI:n skapar filmen</span></div>
               <p>Samma princip som bildgenerering, fast rörligt: beskriv vad som händer, var, och i vilken stämning — t.ex. "en kaffekopp som ångar på ett träbord, morgonljus".</p>
             </div></details>
@@ -627,7 +646,7 @@
             <div class="opt-head"><span class="opt-name">HeyGen — du på skärmen</span><span class="opt-tag">Utbildning & sälj</span></div>
             <p>Din avatar läser manuset. Ingen kamera, ingen inspelning. Samma film på 175 språk enligt HeyGen.</p>
             <div class="howto"><ol><li data-n="1.">Gå till <code>heygen.com</code> och skapa din avatar (eller använd en färdig).</li><li data-n="2.">Klistra in manuset som text, välj språk och röst, klicka generera.</li></ol></div>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">📝</span> Du skriver ett manus</span><span class="arrow">→</span><span class="chip"><span class="glyph">🧑‍💼</span> Avataren läser upp det</span></div>
               <p>En "avatar" är en AI-genererad person som läser din text högt med rörliga läppar och naturliga rörelser — du behöver aldrig ställa dig framför en kamera själv.</p>
             </div></details>
@@ -651,7 +670,7 @@
             <div class="opt-head"><span class="opt-name">Gamma</span><span class="opt-tag">Snabbast</span></div>
             <p>Klistra in ett dokument och få en presentation på några minuter.</p>
             <div class="howto"><ol><li data-n="→">Gå till <code>gamma.app</code>, klistra in text eller ladda upp ett dokument, välj tema.</li></ol></div>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">📄</span> Klistra in text</span><span class="arrow">→</span><span class="chip"><span class="glyph">📊</span> Får en presentation</span></div>
               <p>Du klistrar in text du redan har, t.ex. ett Word-dokument eller ett gammalt mejl, och AI:n bygger om det till presentationsformat — rubriker, punktlistor och bilder på plats.</p>
             </div></details>
@@ -660,7 +679,7 @@
             <div class="opt-head"><span class="opt-name">Claude Design</span><span class="opt-tag favorite">★ Min favorit</span></div>
             <p>Mer kontroll — du ser utkastet och styr det innan det byggs klart, i din egen grafiska profil. Den här guiden är byggd där.</p>
             <div class="howto"><ol><li data-n="1.">I Claude, be om en presentation och beskriv innehållet.</li><li data-n="2.">Ladda upp era färger, typsnitt och logotyp om ni har en grafisk profil.</li></ol></div>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">✍️</span> Beskriv innehållet</span><span class="arrow">→</span><span class="chip"><span class="glyph">👀</span> Se utkast</span><span class="arrow">→</span><span class="chip"><span class="glyph">✅</span> Justera & klart</span></div>
               <p>Skillnaden mot Gamma: du ser ett utkast innan det byggs klart och kan be om ändringar — som att ge feedback till en formgivare, inte bara få ett färdigt facit direkt.</p>
             </div></details>
@@ -669,7 +688,7 @@
             <div class="opt-head"><span class="opt-name">Canva</span><span class="opt-tag">Om ni redan är där</span></div>
             <p>Har ni mallar och brand kit i Canva ligger AI:n numera inuti verktyget ni redan kan.</p>
             <div class="howto"><ol><li data-n="→">Öppna ert brand kit i Canva, leta efter "Magic Design" när ni skapar en ny presentation.</li></ol></div>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">🎨</span> Ert brand kit</span><span class="arrow">→</span><span class="chip"><span class="glyph">✨</span> AI:n håller stilen</span></div>
               <p>Har ni redan mallar och färger sparade i Canva (kallas "brand kit") känner AI:n av dem automatiskt, utan att du behöver mata in något extra.</p>
             </div></details>
@@ -705,7 +724,7 @@
               <li data-n="2.">Be om ändringar i vanligt språk — <code>"gör rubriken större"</code>, <code>"byt till varmare färger"</code> — och se resultatet direkt.</li>
             </ol>
           </div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">💬</span> Du beskriver</span><span class="arrow">→</span><span class="chip"><span class="glyph">👀</span> Ser skissen direkt</span><span class="arrow">→</span><span class="chip"><span class="glyph">🔁</span> Be om ändringar</span></div>
             <p>Ingen kod, inga tekniska ord — bara ett samtal där du beskriver och ser resultatet direkt, tills det ser ut som du vill. Precis den här guiden är byggd på det här sättet.</p>
           </div></details>
@@ -726,7 +745,7 @@
               <li data-n="2.">Fortsätt beskriva ändringar i vanligt språk — samma sätt som i steg ett.</li>
             </ol>
           </div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">🎨</span> Skissen</span><span class="arrow">→</span><span class="chip"><span class="glyph">💻</span> Blir riktig kod</span></div>
             <p>Du behöver inte kunna programmera. Du fortsätter bara beskriva vad du vill ha — skillnaden är att det som byggs nu är riktiga filer, inte bara en skiss bara du kan se.</p>
           </div></details>
@@ -747,7 +766,7 @@
               <li data-n="2.">Be Claude Code spara ("pusha") dina hemsidefiler dit — den sköter det tekniska.</li>
             </ol>
           </div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">💻</span> Dina filer</span><span class="arrow">→</span><span class="chip"><span class="glyph">🗄️</span> Sparas på GitHub</span></div>
             <p>Tänk på det som en molnbackup, fast byggd specifikt för kod, med full historik över varje ändring du någonsin gjort.</p>
           </div></details>
@@ -768,7 +787,7 @@
               <li data-n="2.">Vänta någon minut — sidan är live. Ett eget domännamn går att koppla på senare.</li>
             </ol>
           </div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">🗄️</span> Filerna på GitHub</span><span class="arrow">→</span><span class="chip"><span class="glyph">🌍</span> Live hemsida</span></div>
             <p>Det sista steget kostar inget extra och kräver inget nytt konto någon annanstans — hemsidan bor på samma ställe som koden.</p>
           </div></details>
@@ -794,7 +813,7 @@
           <div class="option">
             <div class="opt-head"><span class="opt-name">Copilot Studio</span><span class="opt-tag">Microsoft 365</span></div>
             <p>Agenten bor i Teams, där arbetet redan sker.</p>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <p>Du beskriver i vanligt språk vad agenten ska kunna svara på eller göra — t.ex. "svara på frågor om vår semesterpolicy utifrån det här dokumentet". Agenten dyker sedan upp som en liten chattbot i Teams som kollegor kan fråga.</p>
               <p><b>Exempel:</b> en agent som svarar på vanliga interna HR-frågor, dygnet runt, utan att någon människa behöver göra det.</p>
             </div></details>
@@ -802,7 +821,7 @@
           <div class="option">
             <div class="opt-head"><span class="opt-name">Workspace Studio</span><span class="opt-tag">Google Workspace</span></div>
             <p>Du beskriver agenten i vanligt språk, och det ingår i planen.</p>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <p>Samma idé som Copilot Studio, fast för Google. Du skriver en instruktion i ett textfält — vad agenten ska göra och när — och den körs sedan automatiskt i era Google-verktyg.</p>
               <p><b>Exempel:</b> en agent som varje måndagmorgon sammanfattar förra veckans kundmail i ett dokument.</p>
             </div></details>
@@ -810,7 +829,7 @@
           <div class="option">
             <div class="opt-head"><span class="opt-name">ChatGPT Agent</span><span class="opt-tag">Kräver betalkonto</span></div>
             <p>Agentläget ligger redan i verktyget du kan. Har ett tak per månad.</p>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <p>Skillnaden mot att bara chatta: ett vanligt svar ger dig text du själv agerar på. I agent-läget utför ChatGPT flera steg i följd åt dig — söker på webben, öppnar sidor, sammanställer resultat — och visar sedan vad den gjort.</p>
               <p><b>Exempel:</b> be den jämföra priser hos tre leverantörer och sammanställa en tabell.</p>
             </div></details>
@@ -818,7 +837,7 @@
           <div class="option">
             <div class="opt-head"><span class="opt-name">Claude Cowork</span></div>
             <p>Arbetar som en kollega i dina riktiga filer och mappar.</p>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <p>Istället för att klistra in text i en chatt ger du Claude tillgång till en avgränsad mapp på din dator. Den kan sedan läsa, skriva och organisera filer där direkt — ungefär som att lämna en hög papper till en ny kollega och be dem sortera den.</p>
               <p><b>Exempel:</b> be den gå igenom en mapp med kvitton och sortera dem per kategori i ett kalkylblad.</p>
             </div></details>
@@ -845,7 +864,7 @@
             <div class="opt-head"><span class="opt-name">Klang</span><span class="opt-tag">Möten</span></div>
             <p>Mötestranskribering byggd för svenska. Protokoll och beslut ur varje möte, med GDPR nära till hands.</p>
             <div class="howto"><ol><li data-n="→">Koppla Klang till din kalender, eller ladda upp en mötesinspelning direkt på <code>klang.ai</code>.</li></ol></div>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">📅</span> Kopplas till kalendern</span><span class="arrow">→</span><span class="chip"><span class="glyph">🎙️</span> Går med i mötet</span><span class="arrow">→</span><span class="chip"><span class="glyph">📝</span> Skriver ut protokoll</span></div>
               <p>Du behöver <b>inte spela in själv</b> — Klang går med i mötet automatiskt, som en tyst deltagare i Teams, Zoom eller Google Meet, och skriver ut vad som sades och beslutades. Har du redan en inspelning kan du också ladda upp den filen direkt istället.</p>
             </div></details>
@@ -854,7 +873,7 @@
             <div class="opt-head"><span class="opt-name">Lovable</span><span class="opt-tag">Appar & sajter</span></div>
             <p>Beskriv appen i text och få den byggd. Stockholmsbolag — omkring en miljon projekt startas per vecka i juni 2026.</p>
             <div class="howto"><ol><li data-n="→">Gå till <code>lovable.dev</code>, beskriv vad du vill bygga i ett textfält.</li></ol></div>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">✍️</span> Beskriv appen</span><span class="arrow">→</span><span class="chip"><span class="glyph">💻</span> Får en fungerande version</span></div>
               <p>Du skriver t.ex. "en bokningssida för min frisörsalong" i ett textfält, och verktyget bygger en riktig, testbar version direkt — utan att du behöver kunna programmera.</p>
             </div></details>
@@ -863,7 +882,7 @@
             <div class="opt-head"><span class="opt-name">Sana</span><span class="opt-tag">Internt kunskap</span></div>
             <p>AI-assistent för allt ditt företag vet. Köptes upp av Workday 2025.</p>
             <div class="howto"><ol><li data-n="→">Koppla era interna dokument till Sana, ställ frågor i vanligt språk.</li></ol></div>
-            <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">📁</span> Koppla era dokument</span><span class="arrow">→</span><span class="chip"><span class="glyph">❓</span> Ställ frågor</span></div>
               <p>Fungerar som en sökmotor för det bara ni vet — kopplas till era interna rutiner och manualer, och svarar sedan på frågor om dem i vanligt språk.</p>
             </div></details>
@@ -886,11 +905,12 @@
         <div class="feat">
           <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#123252" stroke-width="1.8"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0012 0M12 17v4M9 21h6" stroke-linecap="round"/></svg></div>
           <h4>Röst till text</h4>
-          <p>Diktera i stället för att skriva. Finns i alla verktygen.</p>
+          <p>Diktera i stället för att skriva. Finns i alla verktygen — men olika bra på svenska.</p>
           <div class="howto"><ol><li data-n="→">Klicka mikrofon-ikonen i chattrutan, prata, låt AI:n skriva ut det.</li></ol></div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">🎙️</span> Prata</span><span class="arrow">→</span><span class="chip"><span class="glyph">⌨️</span> Blir text</span></div>
             <p>Precis som röstmemon i telefonen, fast texten skrivs ut automatiskt istället för att bara spelas upp som ljud.</p>
+            <p><b>Bäst på svenska:</b> ChatGPT tolkar talad svenska väldigt bra. Claudes röstfunktion är mindre träffsäker på svenska just nu. Ett bra knep: prata in i ChatGPT, kopiera texten och klistra in i Claude om det är där du vill fortsätta jobba.</p>
           </div></details>
         </div>
 
@@ -899,7 +919,7 @@
           <h4>Skills</h4>
           <p>Lär AI:n ditt arbetssätt en gång — inte den svåraste uppgiften, utan den du gör oftast. Skriv, spara, sluta upprepa dig.</p>
           <div class="howto"><ol><li data-n="1.">Välj en återkommande uppgift, t.ex. mötesanteckningar eller kundmail.</li><li data-n="2.">Skriv ner hur du vill ha den gjord — som till en ny kollega.</li><li data-n="3.">Ladda upp som en skill i inställningarna (Claude, ChatGPT och Copilot stöder samma format).</li></ol></div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">📋</span> Beskriv arbetssättet</span><span class="arrow">→</span><span class="chip"><span class="glyph">🔁</span> AI:n minns det</span></div>
             <p>Utan skill måste du förklara hur du vill ha saker gjorda varje gång. Med en skill sparat behöver du bara säga vilken uppgift det gäller — AI:n kommer redan ihåg hur du vill ha den.</p>
           </div></details>
@@ -910,7 +930,7 @@
           <h4>Claude Design</h4>
           <p>Grafik och rörligt material ur en beskrivning, i din egen profil.</p>
           <div class="howto"><ol><li data-n="→">Beskriv vad du vill ha (bild, sida, presentation) direkt i ett Claude-samtal.</li></ol></div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">💬</span> Beskriv vad du vill ha</span><span class="arrow">→</span><span class="chip"><span class="glyph">🎨</span> Får det byggt</span></div>
             <p>Samma AI du redan chattar med kan också bygga sidor, bilder och presentationer — du skriver bara vad du vill ha, istället för att bara ställa en fråga och få text tillbaka.</p>
           </div></details>
@@ -921,7 +941,7 @@
           <h4>AI i Excel</h4>
           <p>Läser hela arbetsboken, räknar och spårar formelfel.</p>
           <div class="howto"><ol><li data-n="→">Öppna Copilot-panelen i Excel, fråga t.ex. <code>"varför ger den här formeln fel?"</code></li></ol></div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">📊</span> Öppna panelen</span><span class="arrow">→</span><span class="chip"><span class="glyph">❓</span> Fråga om kalkylen</span></div>
             <p>Istället för att själv leta reda på ett formelfel kan du fråga rakt ut: "varför blir den här cellen fel?" — och få ett svar direkt i Excel, utan att lämna programmet.</p>
           </div></details>
@@ -932,7 +952,7 @@
           <h4>Djupresearch</h4>
           <p>AI:n arbetar i minuter och redovisar källor. Finns i alla fyra stora.</p>
           <div class="howto"><ol><li data-n="→">Välj forskningsläge i verktyget, skriv din fråga, vänta — och läs källhänvisningarna.</li></ol></div>
-          <details class="explain"><summary>Förklara enkelt</summary><div class="explain-body">
+          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">❓</span> Ställ en fråga</span><span class="arrow">→</span><span class="chip"><span class="glyph">📚</span> Källhänvisad rapport</span></div>
             <p>Skillnaden mot ett vanligt svar: AI:n letar själv upp och läser flera källor innan den svarar — ungefär som att be en praktikant googla åt dig i en kvart, och du kan klicka dig vidare till källorna.</p>
           </div></details>
