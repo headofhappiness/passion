@@ -164,6 +164,18 @@
   .rule-row b{color:var(--white);}
   .rule-row span{font-family:var(--heading);font-weight:800;color:var(--terracotta);font-size:0.86rem;text-transform:uppercase;letter-spacing:0.02em;white-space:nowrap;}
 
+  /* ===== CHAPTER DIVIDER ===== */
+  .chapter{
+    background:var(--navy);
+    padding:1.3rem 6vw;
+    display:flex;align-items:baseline;gap:0.9rem;
+  }
+  .chapter .chapter-num{font-family:var(--heading);font-weight:800;font-size:1rem;color:var(--terracotta);flex:none;}
+  .chapter .chapter-title{
+    font-family:var(--heading);font-weight:800;font-size:1.05rem;color:var(--white);
+    text-transform:uppercase;letter-spacing:0.06em;
+  }
+
   /* ===== HUB ===== */
   .hub-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;}
   .hub-card{
@@ -413,6 +425,8 @@
     </div>
   </div>
 
+  <div class="chapter"><span class="chapter-num">Kapitel 1</span><span class="chapter-title">Kom igång</span></div>
+
   <!-- BÖRJA HÄR -->
   <section id="borja-har">
     <div class="wrap">
@@ -511,6 +525,8 @@
       <p style="margin-top:0.8rem;font-size:0.9rem;color:var(--ink-soft);max-width:64ch;">Fungerar också för att <b style="color:var(--navy);">lära dig något nytt</b>, inte bara skriva: "Jag förstår inte det här: [begrepp]. Förklara enklare, och ställ frågor till mig efteråt för att kontrollera att jag hänger med."</p>
     </div>
   </section>
+
+  <div class="chapter"><span class="chapter-num">Kapitel 2</span><span class="chapter-title">Jobba med AI som din kollega</span></div>
 
   <!-- REGELN -->
   <section id="startpaket">
@@ -682,6 +698,8 @@
     </div>
   </section>
 
+  <div class="chapter"><span class="chapter-num">Kapitel 3</span><span class="chapter-title">Skapa & marknadsför</span></div>
+
   <!-- INNEHÅLLSIDÉER -->
   <section id="innehall">
     <div class="wrap">
@@ -769,6 +787,8 @@
       </div>
     </div>
   </section>
+
+  <div class="chapter"><span class="chapter-num">Kapitel 4</span><span class="chapter-title">Verktygen</span></div>
 
   <!-- DE FYRA STORA -->
   <section class="tinted" id="fyra-stora">
