@@ -164,6 +164,22 @@
   .rule-row b{color:var(--white);}
   .rule-row span{font-family:var(--heading);font-weight:800;color:var(--terracotta);font-size:0.86rem;text-transform:uppercase;letter-spacing:0.02em;white-space:nowrap;}
 
+  /* ===== NYSTARTAD ===== */
+  .use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+  .use-card{background:var(--white);border-radius:12px;padding:1.5rem;box-shadow:0 1px 2px rgba(18,50,82,0.05);display:flex;flex-direction:column;gap:0.8rem;}
+  .use-card h4{font-family:var(--heading);font-weight:700;font-size:1.02rem;color:var(--navy);text-transform:none;}
+  .use-card p{font-size:0.88rem;color:var(--ink-soft);}
+  .try-box{
+    background:var(--cream);border-radius:8px;padding:0.85rem 1rem;
+  }
+  .try-box .try-label{
+    font-family:var(--heading);font-size:0.62rem;font-weight:700;letter-spacing:0.1em;
+    text-transform:uppercase;color:var(--terracotta-deep);margin-bottom:0.4rem;display:block;
+  }
+  .try-box code{
+    display:block;font-family:var(--mono);font-size:0.8rem;line-height:1.6;color:var(--navy);
+  }
+
   /* ===== BIG FOUR ===== */
   .big-four{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;}
   .tool-card{
@@ -313,12 +329,14 @@
     .big-four{grid-template-columns:1fr;}
     .specialist{grid-template-columns:1fr;gap:1.2rem;}
     .feat-grid{grid-template-columns:1fr 1fr;}
+    .use-grid{grid-template-columns:1fr 1fr;}
     .steps{grid-template-columns:1fr 1fr;}
     .rule-banner{grid-template-columns:1fr;}
     footer .foot-meta{text-align:left;}
   }
   @media (max-width:480px){
     .feat-grid{grid-template-columns:1fr;}
+    .use-grid{grid-template-columns:1fr;}
     .steps{grid-template-columns:1fr;}
     nav#main-nav{padding:0.9rem 5vw;}
     .nav-logo{font-size:0.9rem;}
@@ -342,6 +360,7 @@
       <div class="signature"><span class="dot"></span> Sammanställd av Lisa Jonsson, Head of Passion — skicka gärna vidare till andra i din verksamhet.</div>
       <nav class="toc">
         <a href="#regeln">Regeln</a>
+        <a href="#nystartad">Nystartad?</a>
         <a href="#fyra-stora">De fyra stora</a>
         <a href="#bilder">Bilder</a>
         <a href="#video">Video</a>
@@ -350,6 +369,8 @@
         <a href="#svenska">Svenska favoriter</a>
         <a href="#funktioner">Funktioner värda att kolla</a>
         <a href="#kom-igang">Kom igång</a>
+        <a href="#extra-verktyg">Trello & Cal.com</a>
+        <a href="#bokforing">Bokföring</a>
       </nav>
     </div>
   </div>
@@ -368,6 +389,56 @@
           <div class="rule-row"><b>Arbetar du i Google Workspace</b><span>→ Gemini</span></div>
           <div class="rule-row"><b>Vill du ha ett fristående specialistverktyg</b><span>→ ChatGPT / Claude</span></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NYSTARTAD -->
+  <section id="nystartad">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Helt ny som företagare?</span>
+        <h2>Så kan AI hjälpa dig redan från dag ett</h2>
+        <p class="lede">Du behöver inte kunna något om AI för att ha nytta av det. Kopiera exemplen rakt av och byt ut det som står inom hakparenteser.</p>
+      </div>
+      <div class="use-grid">
+
+        <div class="use-card">
+          <h4>Bolla din affärsidé</h4>
+          <p>Beskriv idén som för en vän, och be AI:n ställa kritiska frågor. Bra sätt att hitta luckor innan du pratar med riktiga kunder.</p>
+          <div class="try-box"><span class="try-label">Prova att skriva</span><code>"Här är min affärsidé: [beskriv kort]. Vilka tre frågor skulle en skeptisk kund eller investerare ställa?"</code></div>
+        </div>
+
+        <div class="use-card">
+          <h4>Räkna ut vad du ska ta betalt</h4>
+          <p>Beskriv dina kostnader, hur lång tid en uppgift tar, och vilken lön du vill ha. AI:n hjälper dig räkna baklänges till ett pris som går ihop.</p>
+          <div class="try-box"><span class="try-label">Prova att skriva</span><code>"Jag vill ha [X] kr i lön, jobbar [X] timmar/vecka och har [X] kr i kostnader. Vad borde jag ta i timpris?"</code></div>
+        </div>
+
+        <div class="use-card">
+          <h4>Skriva texter om verksamheten</h4>
+          <p>Du kan din verksamhet bäst — beskriv den i vanligt tal, så hjälper AI:n dig hitta rätt ord för hemsidan, en annons eller ett säljmejl.</p>
+          <div class="try-box"><span class="try-label">Prova att skriva</span><code>"Skriv en kort 'om oss'-text för min hemsida. Jag gör [vad], för [vem], och det som gör mig annorlunda är [vad]."</code></div>
+        </div>
+
+        <div class="use-card">
+          <h4>Öva säljsamtal</h4>
+          <p>Be AI:n låtsas vara en skeptisk kund som ifrågasätter ditt pris — öva på att svara innan du möter en riktig kund.</p>
+          <div class="try-box"><span class="try-label">Prova att skriva</span><code>"Låtsas vara en kund som tycker mitt pris är för högt. Ifrågasätt mig, jag övar på att svara."</code></div>
+        </div>
+
+        <div class="use-card">
+          <h4>Koll på konkurrenterna</h4>
+          <p>Be AI:n sammanfatta vad liknande företag i din bransch gör och tar betalt — snabbare än att googla runt själv.</p>
+          <div class="try-box"><span class="try-label">Prova att skriva</span><code>"Gör en djupresearch: hur prissätter tre företag som gör [vad du gör] i [din stad/region]?"</code></div>
+        </div>
+
+        <div class="use-card">
+          <h4>Sortera allt som snurrar i huvudet</h4>
+          <p>Känns det rörigt? Beskriv allt du tänker på för AI:n och be den sortera det i en enkel, prioriterad lista.</p>
+          <div class="try-box"><span class="try-label">Prova att skriva</span><code>"Här är allt jag behöver göra just nu: [lista huller om buller]. Sortera det efter vad som är viktigast först."</code></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -801,6 +872,54 @@
     </div>
   </section>
 
+  <!-- UTÖVER AI -->
+  <section class="tinted" id="extra-verktyg">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Utöver AI</span>
+        <h2>Två verktyg till värda att ha koll på</h2>
+        <p class="lede">Inte AI, men de löser vardagsproblem de flesta nya företagare stöter på.</p>
+      </div>
+      <div class="options" style="max-width:640px;">
+        <div class="option">
+          <div class="opt-head"><span class="opt-name">Trello</span><span class="opt-tag">Struktur & översikt</span></div>
+          <p>Digitala tavlor med kort du flyttar mellan kolumner — ett enkelt sätt att se vad som är att göra, pågår och är klart.</p>
+          <div class="howto"><ol>
+            <li data-n="1.">Öppna <a href="https://trello.com/invite/b/66f5326531cc8db5bf7e0648/ATTIdd0eb5c74a5b978edef7b29a8abb0ab882001248/demo-kopiera-och-anvand-hur-du-vill" target="_blank" rel="noopener">min exempeltavla</a> — du kan använda den precis som den är.</li>
+            <li data-n="2.">Klicka menyn <code>"···"</code> uppe till höger → <code>"Copy board"</code> för att få en egen kopia du kan redigera fritt.</li>
+          </ol></div>
+        </div>
+        <div class="option">
+          <div class="opt-head"><span class="opt-name">Cal.com</span><span class="opt-tag">Bokningar</span></div>
+          <p>Dela en länk där andra bokar tid direkt i din kalender — slipp mejl-pingpong om vilken tid som passar.</p>
+          <div class="howto"><ol>
+            <li data-n="1.">Skapa konto på <code>cal.com</code> och koppla din kalender.</li>
+            <li data-n="2.">Ställ in vilka tider du är tillgänglig, dela din personliga bokningslänk i mejlsignaturen eller på hemsidan.</li>
+          </ol></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOKFÖRING -->
+  <section id="bokforing">
+    <div class="wrap">
+      <div class="rule-banner" style="grid-template-columns:1fr;">
+        <div>
+          <span class="eyebrow">Bokföring</span>
+          <h2 style="text-transform:none;">Vill du ha mitt tips på bokföringsprogram?</h2>
+          <p style="color:rgba(255,255,255,0.75);font-size:0.92rem;margin-top:0.9rem;max-width:52ch;">Jag har testat flera och rekommenderar ett särskilt — bland annat för att det har riktig telefon- och chattsupport när du kör fast, till skillnad från flera andra. Lämna din mejladress så hör jag av mig med tipset.</p>
+          <p style="color:rgba(255,255,255,0.5);font-size:0.78rem;margin-top:0.8rem;max-width:52ch;">Transparent: väljer du att bli kund via min länk kan jag få en ersättning från leverantören. Det påverkar inte vad jag rekommenderar dig.</p>
+          <form id="bookkeeping-form" style="margin-top:1.4rem;display:flex;gap:0.7rem;flex-wrap:wrap;">
+            <input type="email" id="bk-email" name="email" required placeholder="din@mejladress.se" style="flex:1 1 240px;padding:0.75rem 1rem;border-radius:6px;border:none;font-family:var(--body);font-size:0.9rem;" />
+            <button type="submit" class="nav-cta" style="border:none;cursor:pointer;">Skicka mig tipset</button>
+          </form>
+          <p id="bk-note" style="margin-top:0.8rem;font-size:0.82rem;color:rgba(255,255,255,0.65);"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer>
     <div class="wrap">
       <div class="foot-grid">
@@ -812,6 +931,32 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    const bkForm = document.getElementById('bookkeeping-form');
+    const bkNote = document.getElementById('bk-note');
+    bkForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = bkForm.querySelector('button');
+      btn.disabled = true;
+      bkNote.textContent = 'Skickar...';
+      try {
+        const fd = new FormData(bkForm);
+        fd.append('_subject', 'Bokföringstips – vill bli kontaktad (aiverktyg.html)');
+        const res = await fetch('https://formspree.io/f/xkjwqyed', { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
+        if (res.ok) {
+          bkForm.reset();
+          bkNote.textContent = 'Tack! Jag hör av mig till dig inom kort.';
+        } else {
+          throw new Error('Formspree responded with an error');
+        }
+      } catch (err) {
+        bkNote.textContent = 'Något gick fel. Mejla mig gärna direkt istället: lisa@headofpassion.se';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
 
 </body>
 </html>
