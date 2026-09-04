@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vilket AI-verktyg? – Head of Passion</title>
+  <meta name="description" content="Praktisk guide: fem områden, ett förstahandsval i varje, och exakt hur du kommer igång med varenda ett. Från Lisa Jonsson, Head of Passion." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#123252;
+    --navy-soft:#1c4066;
+    --terracotta:#bf6a5b;
+    --terracotta-deep:#a5493c;
+    --cream:#fbf7ef;
+    --cream-deep:#f2e9d8;
+    --gold:#f9e0a9;
+    --rose:#e4a38f;
+    --ink:#2a2620;
+    --ink-soft:#5c5648;
+    --white:#ffffff;
+    --rule:rgba(18,50,82,0.14);
+    --heading:'Montserrat',sans-serif;
+    --body:'Open Sans',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{max-width:100%;}
+  ::selection{background:var(--gold);color:var(--navy);}
+
+  a{color:var(--terracotta-deep);}
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 6vw;}
+
+  h1,h2,h3{font-family:var(--heading);text-wrap:balance;color:var(--navy);margin:0;}
+  p{margin:0;}
+
+  .eyebrow{
+    font-family:var(--heading);
+    font-weight:700;
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--terracotta-deep);
+  }
+
+  /* ===== NAV ===== */
+  nav#main-nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1.1rem 6vw;
+    background:rgba(251,247,239,0.94);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--rule);
+  }
+  .nav-logo{
+    font-family:var(--heading);font-weight:800;font-size:1.05rem;
+    letter-spacing:0.03em;text-transform:uppercase;color:var(--navy);text-decoration:none;
+  }
+  .nav-logo span{color:var(--terracotta);}
+  .nav-cta{
+    font-family:var(--heading);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;
+    text-transform:uppercase;text-decoration:none;color:var(--white);background:var(--navy);
+    padding:0.65rem 1.3rem;border-radius:100px;transition:background .2s;
+  }
+  .nav-cta:hover{background:var(--terracotta-deep);}
+
+  /* ===== HERO ===== */
+  .hero{
+    background:var(--navy);
+    background-image:radial-gradient(circle at 85% -10%, rgba(249,224,169,0.16), transparent 55%),
+                      radial-gradient(circle at -10% 110%, rgba(191,106,91,0.22), transparent 50%);
+    padding:6.6rem 0 3.6rem;
+  }
+  .hero .wrap{display:flex;flex-direction:column;gap:1.6rem;}
+  .hero .eyebrow{color:var(--gold);}
+  .hero h1{
+    color:var(--white);
+    font-weight:800;
+    font-size:clamp(2.1rem,4.4vw,3.4rem);
+    line-height:1.08;
+    text-transform:uppercase;
+    letter-spacing:0.005em;
+    max-width:14ch;
+  }
+  .hero h1 em{font-style:normal;color:var(--gold);}
+  .hero .lede{
+    color:rgba(255,255,255,0.82);
+    font-size:1.08rem;
+    max-width:56ch;
+  }
+  .hero .signature{
+    display:flex;align-items:flex-start;gap:0.7rem;
+    margin-top:0.6rem;
+    font-size:0.86rem;
+    color:rgba(255,255,255,0.65);
+  }
+  .hero .signature .dot{width:6px;height:6px;margin-top:0.5em;border-radius:50%;background:var(--terracotta);flex:none;}
+
+  .hero .toc{
+    display:flex;flex-wrap:wrap;gap:0.5rem 0.7rem;
+    margin-top:1.2rem;
+    padding-top:1.4rem;
+    border-top:1px solid rgba(255,255,255,0.14);
+  }
+  .hero .toc a{
+    font-family:var(--heading);
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.75);
+    text-decoration:none;
+    padding:0.4rem 0.85rem;
+    border:1px solid rgba(255,255,255,0.22);
+    border-radius:100px;
+    transition:border-color .2s, color .2s;
+  }
+  .hero .toc a:hover{border-color:var(--gold);color:var(--gold);}
+
+  /* ===== SECTION SCAFFOLD ===== */
+  section{padding:3.6rem 0;}
+  section.tinted{background:var(--cream-deep);}
+  .section-head{max-width:62ch;margin-bottom:2.2rem;}
+  .section-head h2{
+    font-weight:800;
+    font-size:clamp(1.5rem,2.6vw,2.1rem);
+    text-transform:uppercase;
+    line-height:1.14;
+    margin-top:0.5rem;
+  }
+  .section-head .lede{color:var(--ink-soft);font-size:1rem;margin-top:0.7rem;}
+
+  /* ===== RULE BANNER ===== */
+  .rule-banner{
+    background:var(--navy);
+    border-radius:14px;
+    padding:2.4rem 2.4rem;
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:2rem;
+    align-items:center;
+  }
+  .rule-banner .eyebrow{color:var(--gold);}
+  .rule-banner h2{color:var(--white);font-size:clamp(1.35rem,2.4vw,1.9rem);margin-top:0.5rem;text-transform:none;line-height:1.2;}
+  .rule-banner h2 strong{color:var(--gold);font-weight:800;}
+  .rule-list{display:flex;flex-direction:column;gap:0.85rem;}
+  .rule-row{
+    display:grid;grid-template-columns:1fr auto;gap:0.9rem;align-items:baseline;
+    padding-bottom:0.85rem;border-bottom:1px solid rgba(255,255,255,0.14);
+    color:rgba(255,255,255,0.85);font-size:0.94rem;
+  }
+  .rule-row:last-child{border-bottom:none;padding-bottom:0;}
+  .rule-row b{color:var(--white);}
+  .rule-row span{font-family:var(--heading);font-weight:800;color:var(--terracotta);font-size:0.86rem;text-transform:uppercase;letter-spacing:0.02em;white-space:nowrap;}
+
+  /* ===== BIG FOUR ===== */
+  .big-four{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;}
+  .tool-card{
+    background:var(--white);
+    border-radius:14px;
+    padding:1.9rem 1.9rem 1.7rem;
+    box-shadow:0 1px 2px rgba(18,50,82,0.05);
+    display:flex;flex-direction:column;gap:0.9rem;
+  }
+  .tool-card .tool-head{display:flex;align-items:center;gap:0.75rem;}
+  .tool-icon{
+    width:2.6rem;height:2.6rem;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+  }
+  .tool-icon svg{width:1.3rem;height:1.3rem;}
+  .tool-card h3{font-size:1.15rem;font-weight:800;text-transform:none;}
+  .tool-card .good{font-size:0.95rem;color:var(--ink);}
+  .tool-card .catch{font-size:0.88rem;color:var(--ink-soft);font-style:italic;}
+  .tool-card .catch::before{content:"Men: ";font-style:normal;font-weight:700;color:var(--terracotta-deep);}
+
+  .howto{
+    margin-top:0.3rem;
+    background:var(--cream);
+    border-radius:10px;
+    padding:0.95rem 1.05rem;
+  }
+  .howto .howto-label{
+    font-family:var(--heading);font-size:0.62rem;font-weight:700;
+    letter-spacing:0.12em;text-transform:uppercase;color:var(--terracotta-deep);
+    margin-bottom:0.5rem;display:block;
+  }
+  .howto ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:0.4rem;}
+  .howto li{
+    font-family:var(--mono);font-size:0.82rem;line-height:1.55;color:var(--navy);
+    padding-left:1.3rem;position:relative;
+  }
+  .howto li::before{
+    content:attr(data-n);
+    position:absolute;left:0;top:0.05em;
+    font-weight:600;color:var(--terracotta);
+  }
+  .howto code{background:var(--gold);color:var(--navy);padding:0.05em 0.35em;border-radius:4px;font-weight:600;}
+
+  .stat-aside{
+    margin-top:0.5rem;
+    display:flex;gap:1.4rem;flex-wrap:wrap;
+    padding:1.3rem 1.5rem;
+    border:1px dashed var(--rule);
+    border-radius:12px;
+  }
+  .stat-aside .stat{display:flex;flex-direction:column;gap:0.1rem;}
+  .stat-aside .stat b{font-family:var(--heading);font-size:1.5rem;color:var(--navy);}
+  .stat-aside .stat span{font-size:0.78rem;color:var(--ink-soft);}
+  .stat-aside .note{flex:1 1 200px;font-size:0.86rem;color:var(--ink-soft);align-self:center;}
+
+  /* ===== SPECIALISTS ===== */
+  .specialist{
+    display:grid;grid-template-columns:0.85fr 1.15fr;gap:2.4rem;align-items:start;
+    padding:2.6rem 0;border-top:1px solid var(--rule);
+  }
+  .specialist:first-of-type{border-top:none;}
+  .specialist .num{
+    font-family:var(--heading);font-weight:800;color:var(--rose);font-size:0.78rem;
+    letter-spacing:0.14em;text-transform:uppercase;margin-bottom:0.4rem;display:block;
+  }
+  .specialist h3{font-size:1.5rem;font-weight:800;text-transform:uppercase;line-height:1.12;}
+  .specialist .lede{color:var(--ink-soft);margin-top:0.6rem;font-size:0.96rem;}
+  .options{display:flex;flex-direction:column;gap:1.1rem;}
+  .option{
+    background:var(--white);border-radius:12px;padding:1.15rem 1.3rem;
+    box-shadow:0 1px 2px rgba(18,50,82,0.05);
+  }
+  .option .opt-head{display:flex;align-items:baseline;justify-content:space-between;gap:0.6rem;flex-wrap:wrap;}
+  .option .opt-name{font-family:var(--heading);font-weight:700;font-size:1rem;color:var(--navy);}
+  .option .opt-tag{
+    font-family:var(--heading);font-size:0.62rem;font-weight:700;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--terracotta-deep);background:var(--gold);
+    padding:0.18rem 0.55rem;border-radius:100px;
+  }
+  .option p{font-size:0.9rem;color:var(--ink-soft);margin-top:0.35rem;}
+  .option .howto{margin-top:0.7rem;}
+  .option.favorite{background:var(--cream-deep);}
+  .opt-tag.favorite{background:var(--terracotta);color:var(--white);}
+
+  /* ===== FEATURES GRID ===== */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+  .feat{background:var(--white);border-radius:12px;padding:1.5rem;box-shadow:0 1px 2px rgba(18,50,82,0.05);}
+  .feat .feat-icon{width:2.2rem;height:2.2rem;border-radius:8px;background:var(--cream-deep);display:flex;align-items:center;justify-content:center;margin-bottom:0.9rem;}
+  .feat .feat-icon svg{width:1.15rem;height:1.15rem;}
+  .feat h4{font-family:var(--heading);font-weight:700;font-size:1rem;color:var(--navy);text-transform:none;}
+  .feat p{font-size:0.87rem;color:var(--ink-soft);margin-top:0.45rem;}
+  .feat .howto{margin-top:0.8rem;padding:0.8rem 0.9rem;}
+  .feat .howto li{font-size:0.78rem;}
+
+  /* ===== GET STARTED ===== */
+  .start{background:var(--navy);border-radius:14px;padding:2.6rem 2.4rem;}
+  .start .eyebrow{color:var(--gold);}
+  .start h2{color:var(--white);margin-top:0.5rem;font-size:clamp(1.4rem,2.6vw,2rem);text-transform:uppercase;}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;margin-top:1.8rem;}
+  .step{color:rgba(255,255,255,0.88);}
+  .step .step-n{
+    font-family:var(--heading);font-size:1.7rem;font-weight:800;color:var(--terracotta);
+    display:block;margin-bottom:0.5rem;
+  }
+  .step b{display:block;color:var(--white);font-size:0.97rem;margin-bottom:0.3rem;}
+  .step span{font-size:0.85rem;color:rgba(255,255,255,0.65);}
+
+  /* ===== FOOTER ===== */
+  footer{padding:2.6rem 0 3.6rem;}
+  footer .foot-grid{display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:1.8rem;}
+  footer .foot-name{font-family:var(--heading);font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:0.02em;font-size:1rem;}
+  footer .foot-name span{color:var(--terracotta);}
+  footer .foot-meta{font-size:0.8rem;color:var(--ink-soft);text-align:right;}
+  footer .foot-meta a{color:var(--terracotta-deep);text-decoration:none;font-weight:600;}
+
+  @media (max-width:760px){
+    .big-four{grid-template-columns:1fr;}
+    .specialist{grid-template-columns:1fr;gap:1.2rem;}
+    .feat-grid{grid-template-columns:1fr 1fr;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .rule-banner{grid-template-columns:1fr;}
+    footer .foot-meta{text-align:left;}
+  }
+  @media (max-width:480px){
+    .feat-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+    nav#main-nav{padding:0.9rem 5vw;}
+    .nav-logo{font-size:0.9rem;}
+    .nav-cta{font-size:0.6rem;padding:0.55rem 1rem;}
+  }
+</style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <a href="index.html" class="nav-logo">Head of <span>Passion</span></a>
+    <a href="timbanken.html" class="nav-cta">Boka kostnadsfritt möte med Lisa</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap">
+      <span class="eyebrow">En guide inför din rådgivning</span>
+      <h1>Vilket AI-verktyg <em>ska jag använda?</em></h1>
+      <p class="lede">Fem områden. Ett förstahandsval i varje. Och en enkel regel för var du börjar — plus exakt hur du kommer igång med varenda ett.</p>
+      <div class="signature"><span class="dot"></span> Sammanställd av Lisa Jonsson, Head of Passion — skicka gärna vidare till andra i din verksamhet.</div>
+      <nav class="toc">
+        <a href="#regeln">Regeln</a>
+        <a href="#fyra-stora">De fyra stora</a>
+        <a href="#bilder">Bilder</a>
+        <a href="#video">Video</a>
+        <a href="#presentationer">Presentationer</a>
+        <a href="#agenter">AI-agenter</a>
+        <a href="#svenska">Svenska favoriter</a>
+        <a href="#funktioner">Funktioner värda att kolla</a>
+        <a href="#kom-igang">Kom igång</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- REGELN -->
+  <section id="regeln">
+    <div class="wrap">
+      <div class="rule-banner">
+        <div>
+          <span class="eyebrow">Regeln</span>
+          <h2>Utgångspunkten är <strong>verktygen du redan har.</strong></h2>
+          <p style="color:rgba(255,255,255,0.7);font-size:0.92rem;margin-top:0.9rem;">De ligger i systemen du arbetar i varje dag, och de är redan betalda. När en uppgift kräver mer lägger du till en fristående specialist: ChatGPT eller Claude.</p>
+        </div>
+        <div class="rule-list">
+          <div class="rule-row"><b>Arbetar du i Microsoft 365</b><span>→ Copilot</span></div>
+          <div class="rule-row"><b>Arbetar du i Google Workspace</b><span>→ Gemini</span></div>
+          <div class="rule-row"><b>Vill du ha ett fristående specialistverktyg</b><span>→ ChatGPT / Claude</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DE FYRA STORA -->
+  <section class="tinted" id="fyra-stora">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">De fyra stora</span>
+        <h2>Vad de är bra på, och var de tar slut</h2>
+        <p class="lede">Fyra olika profiler. Det är därför svaret beror på uppgiften — inte på vilket som är "bäst". Källa: oberoende recensioner och tester, augusti 2026.</p>
+      </div>
+
+      <div class="big-four">
+
+        <div class="tool-card">
+          <div class="tool-head">
+            <div class="tool-icon" style="background:#e8f0fb;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2f6fb0" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 13c1 1.3 2.2 2 4 2s3-.7 4-2" stroke-linecap="round"/><circle cx="9" cy="10" r="1" fill="#2f6fb0" stroke="none"/><circle cx="15" cy="10" r="1" fill="#2f6fb0" stroke="none"/></svg>
+            </div>
+            <h3>ChatGPT</h3>
+          </div>
+          <p class="good">Det bredaste utbudet, och det verktyg de flesta i din omgivning redan använder. Bild, röst och egna GPT:er i samma fönster.</p>
+          <p class="catch">Kvaliteten varierar mellan svaren, och den är en ja-sägare — kolla upp viktiga svar en extra gång.</p>
+          <div class="howto">
+            <span class="howto-label">Så kommer du igång</span>
+            <ol>
+              <li data-n="1.">Gå till <code>chatgpt.com</code> och skapa konto med mejl eller Google-konto.</li>
+              <li data-n="2.">Skriv din fråga direkt i rutan längst ner och tryck enter.</li>
+              <li data-n="3.">Vill du ha en bild: skriv <code>"skapa en bild av …"</code> — eller klicka gem-ikonen för att ladda upp en fil att utgå från.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-head">
+            <div class="tool-icon" style="background:#f3e9df;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#a5493c" stroke-width="1.8"><path d="M12 3l2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4z" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Claude</h3>
+          </div>
+          <p class="good">Byggd för arbetsuppgifter. Starkast på text och kod, och enklast att bygga egna agenter i.</p>
+          <p class="catch">Använder du den mycket tar kvoten slut under dagen. Genererar inte bilder.</p>
+          <div class="howto">
+            <span class="howto-label">Så kommer du igång</span>
+            <ol>
+              <li data-n="1.">Gå till <code>claude.ai</code> och skapa konto.</li>
+              <li data-n="2.">Klicka <code>"Nytt samtal"</code> och skriv eller klistra in din text.</li>
+              <li data-n="3.">Dra in ett dokument (Word, PDF, Excel) direkt i rutan för att få hjälp med det du redan skrivit.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-head">
+            <div class="tool-icon" style="background:#e9f2ea;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#4a7c52" stroke-width="1.8"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>
+            </div>
+            <h3>Copilot</h3>
+          </div>
+          <p class="good">Finns där arbetet redan sker: mejlen, Teams, Excel. Säkerhet och styrning byggd för företag.</p>
+          <p class="catch">Flera olika produkter bär samma namn — lite svårt att veta var man ska vara.</p>
+          <div class="howto">
+            <span class="howto-label">Så kommer du igång</span>
+            <ol>
+              <li data-n="1.">Har ni Microsoft 365: leta efter Copilot-ikonen i menyraden i Word, Outlook eller Teams.</li>
+              <li data-n="2.">Annars: gå till <code>copilot.microsoft.com</code> och logga in med jobbkontot.</li>
+              <li data-n="3.">Skriv vad du behöver hjälp med — t.ex. <code>"sammanfatta den här tråden"</code> markerat i Outlook.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-head">
+            <div class="tool-icon" style="background:#eef0fb;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#5b5fc7" stroke-width="1.8"><path d="M12 4v4M12 16v4M4 12h4M16 12h4M6.3 6.3l2.8 2.8M14.9 14.9l2.8 2.8M6.3 17.7l2.8-2.8M14.9 9.1l2.8-2.8" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Gemini</h3>
+          </div>
+          <p class="good">Tekniskt i toppskiktet och generös gratisnivå. NotebookLM gör research direkt i dina egna dokument.</p>
+          <p class="catch">Sortimentet är spretigt. Det tar en stund att lära sig var man gör vad.</p>
+          <div class="howto">
+            <span class="howto-label">Så kommer du igång</span>
+            <ol>
+              <li data-n="1.">Har ni Google Workspace: klicka Gemini-ikonen i Gmail eller Docs.</li>
+              <li data-n="2.">Annars: gå till <code>gemini.google.com</code>, logga in med Google-kontot.</li>
+              <li data-n="3.">För dokument-research: prova <code>notebooklm.google.com</code> och ladda upp filerna du vill fråga om.</li>
+            </ol>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="stat-aside">
+        <div class="stat"><b>70%</b><span>ChatGPT</span></div>
+        <div class="stat"><b>18%</b><span>Gemini</span></div>
+        <div class="stat"><b>8%</b><span>Copilot</span></div>
+        <p class="note">Claude fanns inte med i mätningen (Recon Analytics, 150 000+ anställda, februari 2026) — den saknas i statistiken, inte på marknaden. Siffrorna säger något om vad som är installerat, inte om vad som är bäst för uppgiften. De flesta använder flera verktyg parallellt, till olika saker.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALIST 1 — BILDER -->
+  <section id="bilder">
+    <div class="wrap">
+      <div class="specialist">
+        <div>
+          <span class="num">Specialist · Bilder</span>
+          <h3>Du kommer långt med gratis. Midjourney om du ska vara proffs.</h3>
+          <p class="lede">Testa gratistjänsterna först — de är bra. Midjourney blir intressant den dag estetiken är affärskritisk.</p>
+        </div>
+        <div class="options">
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">ChatGPT för bilder</span><span class="opt-tag">Kostnadsfritt</span></div>
+            <p>Bra för porträtt på dig själv, skyltar och enklare illustrationer.</p>
+            <div class="howto"><ol><li data-n="→">Skriv <code>"skapa en bild av …"</code> direkt i chatten och beskriv stil, miljö och stämning.</li></ol></div>
+          </div>
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">Nano Banana (i Gemini)</span><span class="opt-tag">Kostnadsfritt</span></div>
+            <p>Redigerar befintliga bilder: byter bakgrund och träffar exakt varumärkesfärg.</p>
+            <div class="howto"><ol><li data-n="→">Ladda upp din befintliga bild i Gemini, skriv <code>"byt bakgrund till …"</code> eller <code>"gör texten guld"</code>.</li></ol></div>
+          </div>
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">Midjourney</span><span class="opt-tag">Proffsklassen</span></div>
+            <p>Där estetiken sitter: moodboards och kampanjkänsla. Kräver eget abonnemang och lite tid att lära sig.</p>
+            <div class="howto"><ol><li data-n="→">Skapa konto via Discord på <code>midjourney.com</code>, skriv <code>/imagine</code> följt av din beskrivning i Midjourney-kanalen.</li></ol></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALIST 2 — VIDEO -->
+  <section class="tinted" id="video">
+    <div class="wrap">
+      <div class="specialist">
+        <div>
+          <span class="num">Specialist · Video</span>
+          <h3>Två slags AI-video, för två olika behov</h3>
+          <p class="lede">OpenAI lade ner Sora-appen i april 2026 — bygg inte din video där.</p>
+        </div>
+        <div class="options">
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">Gemini — genererade klipp</span><span class="opt-tag">Annonser & socialt</span></div>
+            <p>Du beskriver scenen och får en film. Text, bild och ljud i ett steg. Ingår i Gemini.</p>
+            <div class="howto"><ol><li data-n="→">Öppna videogeneratorn i Gemini, skriv en scenbeskrivning: vad som händer, var, i vilken stämning.</li></ol></div>
+          </div>
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">HeyGen — du på skärmen</span><span class="opt-tag">Utbildning & sälj</span></div>
+            <p>Din avatar läser manuset. Ingen kamera, ingen inspelning. Samma film på 175 språk enligt HeyGen.</p>
+            <div class="howto"><ol><li data-n="1.">Gå till <code>heygen.com</code> och skapa din avatar (eller använd en färdig).</li><li data-n="2.">Klistra in manuset som text, välj språk och röst, klicka generera.</li></ol></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALIST 3 — PRESENTATIONER -->
+  <section id="presentationer">
+    <div class="wrap">
+      <div class="specialist">
+        <div>
+          <span class="num">Specialist · Presentationer</span>
+          <h3>Från utkast till färdig presentation</h3>
+          <p class="lede">Mata in din grafiska profil, färger, typsnitt och logotyp — det är där skillnaden mot den generiska AI-looken uppstår. Arbetet kan också ske direkt i PowerPoint: Copilot, ChatGPT och Claude har alla tillägg där, och Gemini gör samma sak i Google Slides.</p>
+        </div>
+        <div class="options">
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">Gamma</span><span class="opt-tag">Snabbast</span></div>
+            <p>Klistra in ett dokument och få en presentation på några minuter.</p>
+            <div class="howto"><ol><li data-n="→">Gå till <code>gamma.app</code>, klistra in text eller ladda upp ett dokument, välj tema.</li></ol></div>
+          </div>
+          <div class="option favorite">
+            <div class="opt-head"><span class="opt-name">Claude Design</span><span class="opt-tag favorite">★ Min favorit</span></div>
+            <p>Mer kontroll — du ser utkastet och styr det innan det byggs klart, i din egen grafiska profil. Den här guiden är byggd där.</p>
+            <div class="howto"><ol><li data-n="1.">I Claude, be om en presentation och beskriv innehållet.</li><li data-n="2.">Ladda upp era färger, typsnitt och logotyp om ni har en grafisk profil.</li></ol></div>
+          </div>
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">Canva</span><span class="opt-tag">Om ni redan är där</span></div>
+            <p>Har ni mallar och brand kit i Canva ligger AI:n numera inuti verktyget ni redan kan.</p>
+            <div class="howto"><ol><li data-n="→">Öppna ert brand kit i Canva, leta efter "Magic Design" när ni skapar en ny presentation.</li></ol></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALIST 4 — AGENTER -->
+  <section class="tinted" id="agenter">
+    <div class="wrap">
+      <div class="specialist">
+        <div>
+          <span class="num">Specialist · AI-agenter</span>
+          <h3>När AI ska utföra arbetet</h3>
+          <p class="lede">Här finns ingen rangordning. Du börjar i den plattform du redan lever i, och väljer en uppgift du gör varje vecka att automatisera först.</p>
+        </div>
+        <div class="options">
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">Copilot Studio</span><span class="opt-tag">Microsoft 365</span></div>
+            <p>Agenten bor i Teams, där arbetet redan sker.</p>
+          </div>
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">Workspace Studio</span><span class="opt-tag">Google Workspace</span></div>
+            <p>Du beskriver agenten i vanligt språk, och det ingår i planen.</p>
+          </div>
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">ChatGPT Agent</span><span class="opt-tag">Kräver betalkonto</span></div>
+            <p>Agentläget ligger redan i verktyget du kan. Har ett tak per månad.</p>
+          </div>
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">Claude Cowork</span></div>
+            <p>Arbetar som en kollega i dina riktiga filer och mappar.</p>
+          </div>
+          <div class="option" style="background:transparent;box-shadow:none;padding:0.4rem 0;">
+            <p style="font-size:0.82rem;"><b style="color:var(--navy);">Vill du längre:</b> Lindy · Hermes · Grok Bot · Make · n8n · Claude Code · ChatGPT Codex.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALIST 5 — SVENSKA -->
+  <section id="svenska">
+    <div class="wrap">
+      <div class="specialist">
+        <div>
+          <span class="num">Specialist · Svenska favoriter</span>
+          <h3>Tre svenska verktyg som håller internationellt</h3>
+          <p class="lede">Svenska språket och GDPR gör valet enklare när du hanterar kunduppgifter.</p>
+        </div>
+        <div class="options">
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">Klang</span><span class="opt-tag">Möten</span></div>
+            <p>Mötestranskribering byggd för svenska. Protokoll och beslut ur varje möte, med GDPR nära till hands.</p>
+            <div class="howto"><ol><li data-n="→">Koppla Klang till din kalender, eller ladda upp en mötesinspelning direkt på <code>klang.ai</code>.</li></ol></div>
+          </div>
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">Lovable</span><span class="opt-tag">Appar & sajter</span></div>
+            <p>Beskriv appen i text och få den byggd. Stockholmsbolag — omkring en miljon projekt startas per vecka i juni 2026.</p>
+            <div class="howto"><ol><li data-n="→">Gå till <code>lovable.dev</code>, beskriv vad du vill bygga i ett textfält.</li></ol></div>
+          </div>
+          <div class="option">
+            <div class="opt-head"><span class="opt-name">Sana</span><span class="opt-tag">Internt kunskap</span></div>
+            <p>AI-assistent för allt ditt företag vet. Köptes upp av Workday 2025.</p>
+            <div class="howto"><ol><li data-n="→">Koppla era interna dokument till Sana, ställ frågor i vanligt språk.</li></ol></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNKTIONER -->
+  <section class="tinted" id="funktioner">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Funktioner före program</span>
+        <h2>Fem funktioner värda att använda</h2>
+        <p class="lede">Programmen byter namn och skepnad. Funktionerna känner du igen i nästa verktyg.</p>
+      </div>
+      <div class="feat-grid">
+
+        <div class="feat">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#123252" stroke-width="1.8"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0012 0M12 17v4M9 21h6" stroke-linecap="round"/></svg></div>
+          <h4>Röst till text</h4>
+          <p>Diktera i stället för att skriva. Finns i alla verktygen.</p>
+          <div class="howto"><ol><li data-n="→">Klicka mikrofon-ikonen i chattrutan, prata, låt AI:n skriva ut det.</li></ol></div>
+        </div>
+
+        <div class="feat">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#123252" stroke-width="1.8"><path d="M12 3l2.2 6h6.3l-5.1 3.8L17.3 19 12 15.2 6.7 19l1.9-6.2L3.5 9h6.3z" stroke-linejoin="round"/></svg></div>
+          <h4>Skills</h4>
+          <p>Lär AI:n ditt arbetssätt en gång — inte den svåraste uppgiften, utan den du gör oftast. Skriv, spara, sluta upprepa dig.</p>
+          <div class="howto"><ol><li data-n="1.">Välj en återkommande uppgift, t.ex. mötesanteckningar eller kundmail.</li><li data-n="2.">Skriv ner hur du vill ha den gjord — som till en ny kollega.</li><li data-n="3.">Ladda upp som en skill i inställningarna (Claude, ChatGPT och Copilot stöder samma format).</li></ol></div>
+        </div>
+
+        <div class="feat">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#123252" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M9 9v11" stroke-linecap="round"/></svg></div>
+          <h4>Claude Design</h4>
+          <p>Grafik och rörligt material ur en beskrivning, i din egen profil.</p>
+          <div class="howto"><ol><li data-n="→">Beskriv vad du vill ha (bild, sida, presentation) direkt i ett Claude-samtal.</li></ol></div>
+        </div>
+
+        <div class="feat">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#123252" stroke-width="1.8"><rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M3.5 9.5h17M9 9.5V20" stroke-linecap="round"/></svg></div>
+          <h4>AI i Excel</h4>
+          <p>Läser hela arbetsboken, räknar och spårar formelfel.</p>
+          <div class="howto"><ol><li data-n="→">Öppna Copilot-panelen i Excel, fråga t.ex. <code>"varför ger den här formeln fel?"</code></li></ol></div>
+        </div>
+
+        <div class="feat">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#123252" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8" stroke-linecap="round"/></svg></div>
+          <h4>Djupresearch</h4>
+          <p>AI:n arbetar i minuter och redovisar källor. Finns i alla fyra stora.</p>
+          <div class="howto"><ol><li data-n="→">Välj forskningsläge i verktyget, skriv din fråga, vänta — och läs källhänvisningarna.</li></ol></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- KOM IGÅNG -->
+  <section id="kom-igang">
+    <div class="wrap">
+      <div class="start">
+        <span class="eyebrow">Kom igång</span>
+        <h2>Fyra steg, utan att testa allt själv</h2>
+        <div class="steps">
+          <div class="step">
+            <span class="step-n">1</span>
+            <b>Välj en uppgift som återkommer.</b>
+            <span>Mötesanteckningar, offertutkast, kundmail.</span>
+          </div>
+          <div class="step">
+            <span class="step-n">2</span>
+            <b>Ta verktyget som passar dig.</b>
+            <span>Oftast det du redan har. En betalversion ligger kring 200–350 kr/månad.</span>
+          </div>
+          <div class="step">
+            <span class="step-n">3</span>
+            <b>Lär dig det på djupet.</b>
+            <span>Projekt, egna assistenter, och var det brister. Kunskapen följer med till nästa verktyg.</span>
+          </div>
+          <div class="step">
+            <span class="step-n">4</span>
+            <b>Hanterar du kunduppgifter?</b>
+            <span>Ta företagsversionen framför det privata kontot — då tränar dina data inte modellen.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-name">Head of <span>Passion</span></div>
+        <div class="foot-meta">
+          Frågor om något i guiden? <a href="timbanken.html">Boka en kostnadsfri rådgivningstimme via Timbanken →</a><br>
+          © 2026 Head of Happiness AB. Materialet får inte spridas eller återges utan tillstånd.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
