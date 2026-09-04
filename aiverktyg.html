@@ -415,7 +415,6 @@
         <a href="#bygg-hemsida">Bygg en hemsida</a>
         <a href="#kundmejl">Kundmejl</a>
         <a href="#administration">Möten & administration</a>
-        <a href="#agenter">AI-agenter</a>
         <a href="#svenska">Svenska favoriter</a>
         <a href="#funktioner">Funktioner värda att kolla</a>
         <a href="#kom-igang">Kom igång</a>
@@ -509,7 +508,7 @@
       <div class="section-head">
         <span class="eyebrow">Inte 40 sidor om prompting</span>
         <h2>Prompt-skolan på en minut</h2>
-        <p class="lede">En bra instruktion innehåller ofta fyra saker:</p>
+        <p class="lede"><b style="color:var(--navy);">En "prompt" är bara det du skriver till AI:n</b> — frågan eller instruktionen du skriver i rutan. Inget märkvärdigare än så. En bra prompt innehåller ofta fyra saker:</p>
       </div>
       <div class="rule-banner" style="grid-template-columns:1fr;">
         <div>
@@ -1203,64 +1202,13 @@
     </div>
   </section>
 
-  <!-- SPECIALIST 4 — AGENTER -->
-  <section class="tinted" id="agenter">
-    <div class="wrap">
-      <div class="specialist">
-        <div>
-          <span class="num">Specialist · AI-agenter</span>
-          <h3>När AI ska utföra arbetet</h3>
-          <p class="lede">Här finns ingen rangordning. Du börjar i den plattform du redan lever i, och väljer en uppgift du gör varje vecka att automatisera först.</p>
-          <p style="margin-top:0.9rem;font-size:0.86rem;color:var(--ink-soft);"><b style="color:var(--navy);">Ny på det här?</b> En "agent" är inte ett vanligt AI-samtal där du frågar och får ett svar direkt. Det är ett AI-program du beskriver en gång, som sedan kan utföra flera steg själv — söka information, fylla i formulär, skriva utkast, skicka vidare — utan att du styr varje del av vägen.</p>
-        </div>
-        <div class="options">
-          <div class="option">
-            <div class="opt-head"><span class="opt-name">Copilot Studio</span><span class="opt-tag">Microsoft 365</span></div>
-            <p>Agenten bor i Teams, där arbetet redan sker.</p>
-            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
-              <p>Du beskriver i vanligt språk vad agenten ska kunna svara på eller göra — t.ex. "svara på frågor om vår semesterpolicy utifrån det här dokumentet". Agenten dyker sedan upp som en liten chattbot i Teams som kollegor kan fråga.</p>
-              <p><b>Exempel:</b> en agent som svarar på vanliga interna HR-frågor, dygnet runt, utan att någon människa behöver göra det.</p>
-            </div></details>
-          </div>
-          <div class="option">
-            <div class="opt-head"><span class="opt-name">Workspace Studio</span><span class="opt-tag">Google Workspace</span></div>
-            <p>Du beskriver agenten i vanligt språk, och det ingår i planen.</p>
-            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
-              <p>Samma idé som Copilot Studio, fast för Google. Du skriver en instruktion i ett textfält — vad agenten ska göra och när — och den körs sedan automatiskt i era Google-verktyg.</p>
-              <p><b>Exempel:</b> en agent som varje måndagmorgon sammanfattar förra veckans kundmail i ett dokument.</p>
-            </div></details>
-          </div>
-          <div class="option">
-            <div class="opt-head"><span class="opt-name">ChatGPT Agent</span><span class="opt-tag">Kräver betalkonto</span></div>
-            <p>Agentläget ligger redan i verktyget du kan. Har ett tak per månad.</p>
-            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
-              <p>Skillnaden mot att bara chatta: ett vanligt svar ger dig text du själv agerar på. I agent-läget utför ChatGPT flera steg i följd åt dig — söker på webben, öppnar sidor, sammanställer resultat — och visar sedan vad den gjort.</p>
-              <p><b>Exempel:</b> be den jämföra priser hos tre leverantörer och sammanställa en tabell.</p>
-            </div></details>
-          </div>
-          <div class="option">
-            <div class="opt-head"><span class="opt-name">Claude Cowork</span></div>
-            <p>Arbetar som en kollega i dina riktiga filer och mappar.</p>
-            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
-              <p>Istället för att klistra in text i en chatt ger du Claude tillgång till en avgränsad mapp på din dator. Den kan sedan läsa, skriva och organisera filer där direkt — ungefär som att lämna en hög papper till en ny kollega och be dem sortera den.</p>
-              <p><b>Exempel:</b> be den gå igenom en mapp med kvitton och sortera dem per kategori i ett kalkylblad.</p>
-            </div></details>
-          </div>
-          <div class="option" style="background:transparent;box-shadow:none;padding:0.4rem 0;">
-            <p style="font-size:0.82rem;"><b style="color:var(--navy);">Vill du längre:</b> Lindy · Hermes · Grok Bot · Make · n8n · Claude Code · ChatGPT Codex.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- SPECIALIST 5 — SVENSKA -->
   <section id="svenska">
     <div class="wrap">
       <div class="specialist">
         <div>
           <span class="num">Specialist · Svenska favoriter</span>
-          <h3>Tre svenska verktyg som håller internationellt</h3>
+          <h3>Två svenska verktyg som håller internationellt</h3>
           <p class="lede">Svenska språket och GDPR gör valet enklare när du hanterar kunduppgifter.</p>
         </div>
         <div class="options">
@@ -1274,17 +1222,8 @@
             </div></details>
           </div>
           <div class="option">
-            <div class="opt-head"><span class="opt-name">Sana</span><span class="opt-tag">Internt kunskap</span></div>
-            <p>AI-assistent för allt ditt företag vet. Köptes upp av Workday 2025.</p>
-            <div class="howto"><ol><li data-n="→">Koppla era interna dokument till Sana, ställ frågor i vanligt språk.</li></ol></div>
-            <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
-              <div class="flow"><span class="chip"><span class="glyph">📁</span> Koppla era dokument</span><span class="arrow">→</span><span class="chip"><span class="glyph">❓</span> Ställ frågor</span></div>
-              <p>Fungerar som en sökmotor för det bara ni vet — kopplas till era interna rutiner och manualer, och svarar sedan på frågor om dem i vanligt språk.</p>
-            </div></details>
-          </div>
-          <div class="option">
             <div class="opt-head"><span class="opt-name">Lovable</span><span class="opt-tag">Mer tekniskt · valfritt</span></div>
-            <p>Beskriv appen i text och få den byggd. Stockholmsbolag — omkring en miljon projekt startas per vecka i juni 2026. Inget för dag ett, men bra att känna till när du vill bygga något själv utöver hemsidan (se <a href="#agenter">AI-agenter</a>).</p>
+            <p>Beskriv appen i text och få den byggd. Stockholmsbolag — omkring en miljon projekt startas per vecka i juni 2026. Inget för dag ett, men bra att känna till när du vill bygga något själv utöver hemsidan.</p>
             <div class="howto"><ol><li data-n="→">Gå till <code>lovable.dev</code>, beskriv vad du vill bygga i ett textfält.</li></ol></div>
             <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
               <div class="flow"><span class="chip"><span class="glyph">✍️</span> Beskriv appen</span><span class="arrow">→</span><span class="chip"><span class="glyph">💻</span> Får en fungerande version</span></div>
@@ -1314,7 +1253,8 @@
           <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
             <div class="flow"><span class="chip"><span class="glyph">🎙️</span> Prata</span><span class="arrow">→</span><span class="chip"><span class="glyph">⌨️</span> Blir text</span></div>
             <p>Precis som röstmemon i telefonen, fast texten skrivs ut automatiskt istället för att bara spelas upp som ljud.</p>
-            <p><b>Bäst på svenska:</b> ChatGPT tolkar talad svenska väldigt bra. Claudes röstfunktion är mindre träffsäker på svenska just nu. Ett bra knep: prata in i ChatGPT, kopiera texten och klistra in i Claude om det är där du vill fortsätta jobba.</p>
+            <p><b>Du behöver inte vara strukturerad:</b> babbla på, tänk högt, hoppa mellan ämnen — du behöver inte ha en genomtänkt plan innan du börjar prata. AI:n sorterar och förstår ändå.</p>
+            <p><b>Bäst på svenska:</b> ChatGPT tolkar talad svenska väldigt bra. Claudes röstfunktion är mindre träffsäker på svenska just nu. Ett bra knep: klicka mikrofonen i ChatGPT och prata på fritt, kopiera texten och klistra in i Claude om det är där du vill fortsätta jobba.</p>
           </div></details>
         </div>
 
@@ -1409,7 +1349,6 @@
             <p>Många AI-verktyg (bland annat Claude) kan kopplas direkt till Trello. När kopplingen är gjord kan du be AI:n hantera tavlan åt dig utan att öppna Trello själv:</p>
             <p>"Lägg till <b>'Ring fem potentiella kunder'</b> på min lista för nästa vecka." · "Markera uppgiften <b>'Skicka offert till Anna'</b> som klar." · "Visa vad jag fortfarande har kvar att göra den här veckan." · "Utifrån våra diskussioner — skapa ett förslag på att-göra-lista för nästa vecka."</p>
             <p>Skillnaden mot att bara prata i en chatt: planeringen hamnar på samma ställe där du faktiskt håller reda på arbetet, inte kvar i en chattlogg ingen tittar på igen.</p>
-            <p><b>Fler kopplingar:</b> Anthropic har ett eget paket, "Claude for Small Business", som utöver Trello-liknande kopplingar även kan anslutas till bland annat QuickBooks, HubSpot, Google Workspace, Microsoft 365, Canva, PayPal och DocuSign — så AI:n kan jobba direkt i fler av verktygen ni redan har. Värt att söka upp om ni växer ur en enkel Trello-koppling.</p>
           </div></details>
         </div>
         <div class="option">
