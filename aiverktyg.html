@@ -169,6 +169,21 @@
   /* ===== NYSTARTAD ===== */
   .use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
   .use-card{background:var(--white);border-radius:12px;padding:1.5rem;box-shadow:0 1px 2px rgba(18,50,82,0.05);display:flex;flex-direction:column;gap:0.8rem;}
+
+  .check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.6rem;}
+  .check-card{background:var(--white);border-radius:12px;padding:1.1rem 1.2rem;box-shadow:0 1px 2px rgba(18,50,82,0.05);display:flex;gap:0.8rem;align-items:flex-start;cursor:pointer;transition:box-shadow .15s;}
+  .check-card:hover{box-shadow:0 6px 16px rgba(18,50,82,0.1);}
+  .check-card input[type="checkbox"]{margin-top:0.2rem;width:1.15rem;height:1.15rem;accent-color:var(--terracotta);flex:none;cursor:pointer;}
+  .check-card .check-body{display:flex;flex-direction:column;gap:0.3rem;}
+  .check-card .check-title{font-family:var(--heading);font-weight:800;color:var(--navy);font-size:0.92rem;}
+  .check-card .check-title a{color:inherit;}
+  .check-card .check-q{font-size:0.85rem;color:var(--ink-soft);line-height:1.4;}
+  .check-card .check-note{font-size:0.76rem;color:var(--terracotta-deep);font-weight:600;}
+  .check-card.is-done{opacity:0.55;}
+  .check-card.is-done .check-title,.check-card.is-done .check-q{text-decoration:line-through;text-decoration-color:rgba(18,50,82,0.35);}
+  .check-progress{margin-top:1.3rem;font-size:0.85rem;color:var(--ink-soft);display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;}
+  .check-progress-bar{flex:1;max-width:220px;height:6px;border-radius:3px;background:var(--rule);overflow:hidden;}
+  .check-progress-fill{height:100%;background:var(--terracotta);border-radius:3px;transition:width .2s;}
   .use-card h4{font-family:var(--heading);font-weight:700;font-size:1.02rem;color:var(--navy);text-transform:none;}
   .use-card p{font-size:0.88rem;color:var(--ink-soft);}
   .try-box{
@@ -348,6 +363,7 @@
     .feat-grid{grid-template-columns:1fr 1fr;}
     .use-grid{grid-template-columns:1fr 1fr;}
     .hub-grid{grid-template-columns:repeat(3,1fr);}
+    .check-grid{grid-template-columns:1fr 1fr;}
     .steps{grid-template-columns:1fr 1fr;}
     .rule-banner{grid-template-columns:1fr;}
     footer .foot-meta{text-align:left;}
@@ -356,6 +372,7 @@
     .feat-grid{grid-template-columns:1fr;}
     .use-grid{grid-template-columns:1fr;}
     .hub-grid{grid-template-columns:1fr 1fr;}
+    .check-grid{grid-template-columns:1fr;}
     .steps{grid-template-columns:1fr;}
     nav#main-nav{padding:0.9rem 5vw;}
     .nav-logo{font-size:0.9rem;}
@@ -478,6 +495,77 @@
       </div>
       <p style="margin-top:1.4rem;font-size:0.9rem;color:var(--ink-soft);max-width:64ch;">Och den viktigaste lektionen av alla — <b style="color:var(--navy);">fortsätt prata:</b> "Kortare." · "Jag gillar inte rubriken, ge mig fem alternativ." · "Mer som jag själv pratar." · "Det där känns för säljigt." · "Behåll första stycket men skriv om resten." Det är nästan viktigare än den perfekta första prompten.</p>
       <p style="margin-top:0.8rem;font-size:0.9rem;color:var(--ink-soft);max-width:64ch;">Fungerar också för att <b style="color:var(--navy);">lära dig något nytt</b>, inte bara skriva: "Jag förstår inte det här: [begrepp]. Förklara enklare, och ställ frågor till mig efteråt för att kontrollera att jag hänger med."</p>
+    </div>
+  </section>
+
+  <!-- OMRÅDEN ATT TÄNKA IGENOM -->
+  <section id="omraden">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Områden att tänka igenom</span>
+        <h2>Från idé till att bolaget rullar</h2>
+        <p class="lede">Ingen har koll på allt samtidigt när man startar eller driver eget. Här är det som brukar behöva tänkas igenom, i vanligt språk. Bocka av i din egen takt — det sparas i den här webbläsaren, så det finns kvar nästa gång du är här.</p>
+      </div>
+
+      <div class="check-grid">
+        <label class="check-card" data-key="marknad">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Marknad</span><span class="check-q">Vem är dina kunder, och vilka andra löser samma problem?</span></span>
+        </label>
+        <label class="check-card" data-key="produkt">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Produkt/tjänst</span><span class="check-q">Vad säljer du, konkret?</span></span>
+        </label>
+        <label class="check-card" data-key="hemsida">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Hemsida & synlighet</span><span class="check-q">Var hittar folk dig?</span></span>
+        </label>
+        <label class="check-card" data-key="forsaljning">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Försäljning</span><span class="check-q">Hur går någon från intresserad till kund?</span></span>
+        </label>
+        <label class="check-card" data-key="ekonomi">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Ekonomi</span><span class="check-q">Har du koll på likviditet, budget och resultat? <a href="#ekonomi">Se avsnittet →</a></span></span>
+        </label>
+        <label class="check-card" data-key="affarsmodell">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Affärsmodell</span><span class="check-q">Hur tjänar du pengar på det du gör?</span></span>
+        </label>
+        <label class="check-card" data-key="finansiering">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Finansiering</span><span class="check-q">Behöver du låna pengar?</span><span class="check-note">ALMI</span></span>
+        </label>
+        <label class="check-card" data-key="hjalp">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Vem hjälper dig</span><span class="check-q">Vad kan du själv, vad behöver du hjälp med?</span></span>
+        </label>
+        <label class="check-card" data-key="samarbete">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Samarbetspartners</span><span class="check-q">Finns det någon du borde samarbeta med?</span></span>
+        </label>
+        <label class="check-card" data-key="rutiner">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Rutiner</span><span class="check-q">Har du enkla rutiner för det som återkommer?</span></span>
+        </label>
+        <label class="check-card" data-key="avtal">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Avtal & försäkring</span><span class="check-q">Har du koll på avtal, försäkringar och tillstånd som gäller dig?</span></span>
+        </label>
+        <label class="check-card" data-key="varumarke">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Varumärke</span><span class="check-q">Vill du registrera ditt varumärke? Inte nödvändigt.</span><span class="check-note">PRV</span></span>
+        </label>
+        <label class="check-card" data-key="mal">
+          <input type="checkbox" />
+          <span class="check-body"><span class="check-title">Mål</span><span class="check-q">Vad vill du att bolaget ska bli? Låt AI vara coachen som hjälper dig hålla kursen. <a href="#bollplank">Se avsnittet →</a></span></span>
+        </label>
+      </div>
+
+      <div class="check-progress">
+        <span id="check-progress-text">0 av 13 klara</span>
+        <span class="check-progress-bar"><span class="check-progress-fill" id="check-progress-fill" style="width:0%"></span></span>
+      </div>
     </div>
   </section>
 
@@ -1308,6 +1396,30 @@
         btn.disabled = false;
       }
     });
+
+    (function () {
+      const boxes = document.querySelectorAll('.check-card input[type="checkbox"]');
+      const fill = document.getElementById('check-progress-fill');
+      const text = document.getElementById('check-progress-text');
+      function update() {
+        let done = 0;
+        boxes.forEach((b) => { if (b.checked) done++; });
+        if (fill) fill.style.width = (done / boxes.length * 100) + '%';
+        if (text) text.textContent = done + ' av ' + boxes.length + ' klara';
+      }
+      boxes.forEach((b) => {
+        const card = b.closest('.check-card');
+        const key = 'aiverktyg-check-' + card.dataset.key;
+        try { b.checked = localStorage.getItem(key) === '1'; } catch (e) {}
+        card.classList.toggle('is-done', b.checked);
+        b.addEventListener('change', () => {
+          try { localStorage.setItem(key, b.checked ? '1' : '0'); } catch (e) {}
+          card.classList.toggle('is-done', b.checked);
+          update();
+        });
+      });
+      update();
+    })();
   </script>
 
 </body>
