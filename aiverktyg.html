@@ -151,7 +151,7 @@
     padding:1.3rem 6vw;
     display:flex;align-items:baseline;gap:0.9rem;
   }
-  .chapter .chapter-num{font-family:var(--heading);font-weight:800;font-size:1rem;color:var(--terracotta);flex:none;}
+  .chapter .chapter-num{font-family:var(--heading);font-weight:800;font-size:1rem;color:var(--gold);flex:none;}
   .chapter .chapter-title{
     font-family:var(--heading);font-weight:800;font-size:1.05rem;color:var(--white);
     text-transform:uppercase;letter-spacing:0.06em;
@@ -590,17 +590,18 @@
   </section>
   <section id="regeln">
     <div class="wrap">
-      <div class="rule-banner">
+      <div class="rule-banner" style="grid-template-columns:1fr;">
         <div>
-          <span class="eyebrow">Regeln</span>
-          <h2>Utgångspunkten är <strong>ChatGPT och Claude.</strong></h2>
-          <p style="color:rgba(255,255,255,0.7);font-size:0.92rem;margin-top:0.9rem;">De kompletterar varandra bra, och nästan alla har redan ChatGPT — det är sällan fel att börja där. Betalar du redan för Google Workspace eller Microsoft 365 finns AI inbyggt även där, och då kan det vara enklast att utgå från det du redan har.</p>
+          <span class="eyebrow">Min utgångspunkt</span>
+          <h2><strong>ChatGPT</strong> och <strong>Claude.</strong></h2>
+          <p style="color:rgba(255,255,255,0.7);font-size:0.92rem;margin-top:0.9rem;max-width:64ch;">Det finns många bra AI-verktyg, och de är lite olika. I den här guiden utgår jag framför allt från ChatGPT och Claude. ChatGPT är det verktyg jag märker att flest redan testat, även bland nya småföretagare — en bra utgångspunkt. Claude använder jag själv mycket och tycker det kompletterar bra, särskilt när jag vill strukturera, tänka igenom något ordentligt eller bygga saker som hemsidor och enklare digitala lösningar.</p>
+          <p style="color:rgba(255,255,255,0.55);font-size:0.82rem;margin-top:0.7rem;max-width:64ch;">Det finns förstås fler bra alternativ, som Microsoft Copilot och Google Gemini — jag går inte på djupet i dem här, eftersom jag själv arbetar i ChatGPT och Claude och vill tipsa utifrån det jag faktiskt använder. Du behöver inte ha båda: börja gratis, testa dig fram, och välj det som känns bäst.</p>
         </div>
-        <div class="rule-list">
-          <div class="rule-row"><b>Vill du ha det starkaste allmänna valet</b><span>→ ChatGPT / Claude</span></div>
-          <div class="rule-row"><b>Betalar du redan för Google Workspace</b><span>→ Gemini</span></div>
-          <div class="rule-row"><b>Betalar du redan för Microsoft 365</b><span>→ Copilot</span></div>
-        </div>
+      </div>
+
+      <div class="use-card" style="max-width:100%;margin-top:1.2rem;">
+        <p style="font-size:0.95rem;"><b style="color:var(--navy);">Lisas erfarenhet.</b> ChatGPT tycker jag är väldigt bra på att fånga min tonalitet och fungerar som en bred AI-kollega i många olika typer av arbete. Claude upplever jag ofta som mer strukturerat, och använder mycket när jag vill bygga, strukturera eller arbeta fram något mer omfattande.</p>
+        <p style="font-size:0.85rem;color:var(--ink-soft);margin-top:0.6rem;">Ingen är "rätt" för allt — och båda utvecklas hela tiden. Vill du känna skillnaden själv: prova samma sak i båda, t.ex. <i>"Här är min startsidetext. Vad är otydligt, och hur skulle du förbättra den?"</i></p>
       </div>
     </div>
   </section>
@@ -705,7 +706,8 @@
       <div class="section-head">
         <span class="eyebrow">Nästa nivå</span>
         <h2>Låt AI komma till dig</h2>
-        <p class="lede">Du behöver inte alltid komma ihåg att öppna AI och fråga. I både ChatGPT och Claude kan du schemalägga återkommande uppgifter och påminnelser — allt du ändå brukar behöva komma ihåg att göra regelbundet är värt att fundera på om AI kan hjälpa till med.</p>
+        <p class="lede">Du behöver inte alltid komma ihåg att öppna AI och fråga. I både ChatGPT och Claude kan du schemalägga sådant som ska hända vid en viss tid eller återkommande. AI kan antingen påminna dig om något du vill göra — eller själv utföra en återkommande uppgift åt dig.</p>
+        <p class="lede">Tänk på sådant du gör eller behöver komma ihåg varje vecka eller månad. Finns det något AI skulle kunna hjälpa dig med?</p>
       </div>
 
       <div class="rule-list" style="max-width:720px;">
@@ -713,7 +715,7 @@
         <div class="rule-row" style="display:block;border-bottom-color:var(--rule);"><b style="color:var(--navy);">Håll koll på omvärlden</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">"Varje fredag, ge mig en kort sammanfattning av viktiga nyheter och förändringar inom min bransch."</span></div>
         <div class="rule-row" style="display:block;border-bottom-color:var(--rule);"><b style="color:var(--navy);">Marknadsföring</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">"Varje måndag, hjälp mig komma fram till vad jag ska kommunicera om den här veckan."</span></div>
         <div class="rule-row" style="display:block;border-bottom-color:var(--rule);"><b style="color:var(--navy);">VD-tid</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">"En gång i månaden, påminn mig att lyfta blicken från det dagliga och gå igenom försäljning, ekonomi, mål och vad som behöver prioriteras."</span></div>
-        <div class="rule-row" style="display:block;border-bottom:none;"><b style="color:var(--navy);">Följ upp sådant du väntar på</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">Påminnelser kring offerter, ansökningar eller kunder som annars lätt faller mellan stolarna.</span></div>
+        <div class="rule-row" style="display:block;border-bottom:none;"><b style="color:var(--navy);">Följ upp sådant du väntar på</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">"Påminn mig om två veckor att följa upp offerten till [kund]."</span></div>
       </div>
 
       <div class="try-box" style="margin-top:1.3rem;max-width:720px;">
@@ -721,7 +723,7 @@
         <code>"Utifrån det du vet om mig och mitt företag — finns det något du tycker jag borde schemalägga eller låta dig hjälpa mig med återkommande?"</code>
       </div>
 
-      <p style="margin-top:1rem;font-size:0.85rem;color:var(--ink-soft);max-width:64ch;"><b style="color:var(--navy);">Lisas tips:</b> Börja inte med tio schemalagda uppgifter. Måndag + fredag med din <a href="#bollplank">affärscoach</a> är en väldigt bra start.</p>
+      <p style="margin-top:1rem;font-size:0.85rem;color:var(--ink-soft);max-width:64ch;"><b style="color:var(--navy);">Lisas tips:</b> Börja inte med tio schemalagda uppgifter. Måndag + fredag med din <a href="#bollplank">AI affärscoach</a> är en väldigt bra start. Lägg sedan till fler först när du märker att de faktiskt skulle avlasta dig.</p>
     </div>
   </section>
 
@@ -734,7 +736,12 @@
         <p class="lede">I både ChatGPT och Claude kan du arbeta i "projekt". Tänk ungefär som en mapp — men en smartare sådan: allt du lägger in i projektet (dokument, tidigare samtal, anteckningar) finns kvar som sammanhang varje gång du pratar med AI:n där. Du slipper börja varje samtal med "jag heter Lisa, jag driver…" — ju bättre AI:n förstår verksamheten, desto bättre bollplank blir den. Öppna en ny chatt för varje ämne du vill prata om — de delar samma kunskap om företaget, så AI:n har hela bilden oavsett vilken chatt du är i.</p>
       </div>
 
-      <div class="use-card" style="max-width:100%;">
+      <div class="video-sample" style="margin-top:0.9rem;">
+        <img src="assets/claude-sidofalt.png" alt="Claude.ai:s sidofält med Projects, Artifacts, Scheduled och Pinned utmärkta" style="width:100%;border-radius:8px;display:block;box-shadow:0 1px 2px rgba(18,50,82,0.05);" />
+        <p class="video-caption">Så hänger det ihop i Claude: ett projekt samlar företaget, Artifacts sparar det Claude bygger, Scheduled påminner dig, och du kan pinna en chatt du använder ofta.</p>
+      </div>
+
+      <div class="use-card" style="max-width:100%;margin-top:1.2rem;">
         <p style="font-size:0.95rem;">I projektet <b style="color:var(--navy);">"Mitt företag"</b> lägger du grunderna — affärsplan, målgrupp, erbjudande, mål och viktiga dokument. Öppna sen en egen chatt för varje ämne, t.ex.: <b style="color:var(--navy);">Marknadsföring</b> — hemsidetexter, sociala medier, annonser, tonalitet och bilder. &nbsp;·&nbsp; <b style="color:var(--navy);">Försäljning</b> — kundgrupper, mejl, offerter och idéer för hur du hittar kunder. &nbsp;·&nbsp; <b style="color:var(--navy);">Ekonomi</b> — budget, priser och olika kalkyler. Alla chattar ser samma grunddokument, oavsett ämne.</p>
         <p style="margin-top:0.9rem;font-size:0.85rem;color:var(--ink-soft);"><b style="color:var(--navy);">Skillnad mellan verktygen:</b> I ChatGPT kan olika chattar i samma projekt referera till varandra automatiskt. I Claude gör de inte det — varje chatt är separat, bara projektets filer och instruktioner delas. Blir en Claude-chatt lång och du öppnar en ny (t.ex. "Marknadsföring 2"): be AI:n sammanfatta det viktigaste först och klistra in det i den nya chatten, eller spara sammanfattningen som ett dokument i projektet.</p>
       </div>
@@ -1056,7 +1063,7 @@
         <p class="note">Claude fanns inte med i mätningen (Recon Analytics, 150 000+ anställda, februari 2026) — den saknas i statistiken, inte på marknaden. Siffrorna säger något om vad som är installerat, inte om vad som är bäst för uppgiften. De flesta använder flera verktyg parallellt, till olika saker.</p>
       </div>
 
-      <p style="margin-top:1.4rem;font-size:0.9rem;color:var(--ink-soft);max-width:64ch;"><b style="color:var(--navy);">Lisas erfarenhet:</b> Du behöver inte välja en gång för alla — testa gärna båda, de tänker lite olika. Jag upplever ChatGPT som bäst på att fånga min tonalitet, men lite av en ja-sägare. Claude är mer strukturerat och utmanar oftare. Prova samma sak i båda: <i>"Här är min startsidetext. Vad är otydligt, och hur skulle du förbättra den?"</i> — då märker du snabbt skillnaden.</p>
+      <p style="margin-top:1.4rem;font-size:0.9rem;color:var(--ink-soft);max-width:64ch;">Mer om varför jag själv utgår från ChatGPT och Claude, och hur de känns olika i praktiken, under <a href="#regeln">Min utgångspunkt</a>.</p>
     </div>
   </section>
 
