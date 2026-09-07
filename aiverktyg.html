@@ -42,7 +42,7 @@
 
   a{color:var(--terracotta-deep);}
 
-  .wrap{max-width:1140px;margin:0 auto;padding:0 6vw;}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 clamp(1.2rem, 6vw, 3rem);}
 
   h1,h2,h3{font-family:var(--heading);text-wrap:balance;color:var(--navy);margin:0;}
   p{margin:0;}
@@ -172,7 +172,7 @@
   .use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
   .use-card{background:var(--white);border-radius:12px;padding:1.5rem;box-shadow:0 1px 2px rgba(18,50,82,0.05);display:flex;flex-direction:column;gap:0.8rem;}
 
-  .check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.6rem;}
+  .check-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:1rem;margin-top:1.6rem;}
   .check-card{background:var(--white);border-radius:12px;padding:1.1rem 1.2rem;box-shadow:0 1px 2px rgba(18,50,82,0.05);display:flex;gap:0.8rem;align-items:flex-start;cursor:pointer;transition:box-shadow .15s;}
   .check-card:hover{box-shadow:0 6px 16px rgba(18,50,82,0.1);}
   .check-card input[type="checkbox"]{margin-top:0.2rem;width:1.15rem;height:1.15rem;accent-color:var(--terracotta);flex:none;cursor:pointer;}
@@ -212,7 +212,7 @@
   .use-grid .use-card:nth-child(6n+6) .try-label{color:var(--navy-soft);}
 
   /* ===== BIG FOUR ===== */
-  .big-four{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;}
+  .big-four{display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:1.3rem;}
   .tool-card{
     background:var(--white);
     border-radius:14px;
@@ -329,7 +329,7 @@
   .flow .arrow{color:var(--terracotta);font-size:1.05rem;font-weight:700;flex:none;}
 
   /* ===== FEATURES GRID ===== */
-  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+  .feat-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:1.2rem;}
   .feat{background:var(--white);border-radius:12px;padding:1.5rem;box-shadow:0 1px 2px rgba(18,50,82,0.05);}
   .feat .feat-icon{width:2.2rem;height:2.2rem;border-radius:8px;background:var(--cream-deep);display:flex;align-items:center;justify-content:center;margin-bottom:0.9rem;}
   .feat .feat-icon svg{width:1.15rem;height:1.15rem;}
@@ -1088,7 +1088,6 @@
           <div class="rule-row" style="display:block;border-bottom-color:var(--rule);"><b style="color:var(--navy);">Nano Banana (i Gemini)</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">Kostnadsfritt. Redigerar befintliga bilder — byter bakgrund, träffar exakt varumärkesfärg.</span></div>
           <div class="rule-row" style="display:block;border-bottom:none;"><b style="color:var(--navy);">Midjourney</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">Proffsklassen. Bäst estetik, kräver eget konto och lite tid att lära sig.</span></div>
         </div>
-        <p style="margin-top:0.9rem;font-size:0.82rem;color:var(--ink-soft);">Vill du ha steg-för-steg och mina bästa promptknep för just dessa? Det ingår i genomgången du får efter vårt möte.</p>
       </div>
     </div>
   </section>
@@ -1110,9 +1109,8 @@
         </div>
         <div class="video-sample" style="margin-top:1.1rem;">
           <video controls preload="none" poster="" style="width:100%;border-radius:8px;display:block;"><source src="assets/heygen-exempel.mp4" type="video/mp4" /></video>
-          <p class="video-caption">Ett riktigt exempel: en annons jag gjorde i HeyGen 2025 — tekniken har säkert blivit ännu bättre sedan dess.</p>
+          <p class="video-caption">Ett riktigt exempel: en annons jag gjorde i HeyGen 2025. Då kopplade jag på ElevenLabs röstjänst istället för HeyGens egen röst, som inte var tillräckligt bra då — det kan såklart ha ändrats sedan dess.</p>
         </div>
-        <p style="margin-top:0.9rem;font-size:0.82rem;color:var(--ink-soft);">Vill du ha steg-för-steg för just dessa? Det ingår i genomgången du får efter vårt möte.</p>
       </div>
     </div>
   </section>
@@ -1128,10 +1126,9 @@
         </div>
         <div class="rule-list">
           <div class="rule-row" style="display:block;border-bottom-color:var(--rule);"><b style="color:var(--navy);">Gamma</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">Snabbast. Klistra in ett dokument, få en presentation på några minuter.</span></div>
-          <div class="rule-row" style="display:block;border-bottom-color:var(--rule);"><b style="color:var(--navy);">Claude Design ★ Min favorit</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">Mer kontroll — du ser utkastet och styr det, i din egen grafiska profil. Den här guiden är byggd där.</span></div>
+          <div class="rule-row" style="display:block;border-bottom-color:var(--rule);"><b style="color:var(--navy);">Claude Design</b> <span style="color:var(--terracotta-deep);font-weight:800;">★ Min favorit</span><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">Mer kontroll — du ser utkastet och styr det, i din egen grafiska profil. Den här guiden är byggd med start i Claude Design och fortsättning i Claude Code.</span></div>
           <div class="rule-row" style="display:block;border-bottom:none;"><b style="color:var(--navy);">Canva</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">Om ni redan har mallar och brand kit där — AI:n ligger numera inuti verktyget.</span></div>
         </div>
-        <p style="margin-top:0.9rem;font-size:0.82rem;color:var(--ink-soft);">Vill du ha steg-för-steg för just dessa? Det ingår i genomgången du får efter vårt möte.</p>
       </div>
     </div>
   </section>
@@ -1140,7 +1137,7 @@
   <section id="bygg-hemsida">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Fördjupning · Claude Design</span>
+        <span class="eyebrow">Fördjupning ·</span>
         <h2>Bygg en egen hemsida: Design → Code → GitHub</h2>
         <p class="lede">Lite mer tekniskt än resten av guiden, men värt det: det här är exakt så den här sidan — och Lisas egen hemsida headofpassion.se — är byggda. Fyra steg, förklarade från grunden.</p>
       </div>
@@ -1234,6 +1231,7 @@
       </div>
 
       <p style="margin-top:1.6rem;font-size:0.9rem;color:var(--ink-soft);max-width:62ch;">Den här vägen kräver lite mer tålamod än att bara jobba i Claude Design. I gengäld äger du hela hemsidan själv, utan månadsavgift till ett webbyggarverktyg — bara en dator och ett gratis GitHub-konto.</p>
+      <p style="margin-top:0.6rem;font-size:0.9rem;color:var(--ink-soft);max-width:62ch;">Känns stegen krångliga att ta själv? Det här är precis den typen av sak jag hjälper till med i min rådgivning. <a href="timbanken.html">Boka en kostnadsfri rådgivningstimme via Timbanken →</a></p>
     </div>
   </section>
 
@@ -1250,7 +1248,6 @@
           <div class="rule-row" style="display:block;border-bottom-color:var(--rule);"><b style="color:var(--navy);">Klang</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">Möten. Mötestranskribering byggd för svenska, med GDPR nära till hands.</span></div>
           <div class="rule-row" style="display:block;border-bottom:none;"><b style="color:var(--navy);">Lovable</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">Mer tekniskt · valfritt. Beskriv en app i text, få den byggd.</span></div>
         </div>
-        <p style="margin-top:0.9rem;font-size:0.82rem;color:var(--ink-soft);">Vill du ha steg-för-steg för just dessa? Det ingår i genomgången du får efter vårt möte.</p>
       </div>
     </div>
   </section>
@@ -1326,38 +1323,6 @@
           </div></details>
         </div>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- KOM IGÅNG -->
-  <section id="kom-igang">
-    <div class="wrap">
-      <div class="start">
-        <span class="eyebrow">Kom igång</span>
-        <h2>Fyra steg, utan att testa allt själv</h2>
-        <div class="steps">
-          <div class="step">
-            <span class="step-n">1</span>
-            <b>Välj en uppgift som återkommer.</b>
-            <span>Mötesanteckningar, offertutkast, kundmail.</span>
-          </div>
-          <div class="step">
-            <span class="step-n">2</span>
-            <b>Ta verktyget som passar dig.</b>
-            <span>Börja gratis — du kommer långt. Uppgradera (200–350 kr/månad) först när AI känns som en daglig arbetskompis, inte något du testar då och då.</span>
-          </div>
-          <div class="step">
-            <span class="step-n">3</span>
-            <b>Lär dig det på djupet.</b>
-            <span>Projekt, egna assistenter, och var det brister. Kunskapen följer med till nästa verktyg.</span>
-          </div>
-          <div class="step">
-            <span class="step-n">4</span>
-            <b>Hanterar du kunduppgifter?</b>
-            <span>Ta företagsversionen framför det privata kontot — då tränar dina data inte modellen.</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
