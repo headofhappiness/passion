@@ -625,21 +625,21 @@
             </div>
             <h3>Skapa din AI affärscoach</h3>
           </div>
-          <p class="good">Coachen behöver ett eget projekt — inte en chatt inuti "Mitt företag". Instruktionen gäller nämligen alla chattar i det projekt du lägger den i, så i "Mitt företag" skulle plötsligt även Marknadsföring och Ekonomi bli coachande frågor istället för vanlig hjälp.</p>
+          <p class="good">Coachens instruktion klistras in som <b>första meddelandet i en egen chatt</b> — inte i projektets Instructions. Instructions gäller nämligen alla chattar i projektet, och då skulle Marknadsföring och Ekonomi också bli coachande frågor istället för vanlig hjälp.</p>
           <details class="explain"><summary>Så gör du</summary><div class="explain-body">
             <div class="howto">
               <ol>
-                <li data-n="1.">Skapa ett nytt projekt, döp det t.ex. till "Affärscoach".</li>
-                <li data-n="2.">I ChatGPT: öppna projektet → Instruktioner. I Claude: öppna projektet → Instructions. Klistra in texten nedan.</li>
-                <li data-n="3.">I Claude: lägg också en kort sammanfattning av företaget under Context i samma projekt — annars glöms den bort mellan chattar.</li>
-                <li data-n="4.">Använd en och samma chatt för hela coachningen inom det projektet, och återvänd dit varje gång. I Claude tappar annars en ny chatt minnet av tidigare samtal, även inom samma projekt.</li>
+                <li data-n="1.">I projektet "Mitt företag": skapa en ny chatt, döp den t.ex. till "Affärscoach".</li>
+                <li data-n="2.">Klistra in texten nedan som ditt första meddelande i den chatten.</li>
+                <li data-n="3.">I Claude: lägg en kort sammanfattning av företaget under Context i projektet (inte coach-specifikt) — annars glöms den bort mellan chattar.</li>
+                <li data-n="4.">Använd samma chatt för hela coachningen och återvänd dit varje gång — pinna den så du hittar den snabbt. I Claude tappar en ny chatt minnet av tidigare samtal, även inom samma projekt.</li>
               </ol>
             </div>
           </div></details>
           <details class="explain"><summary>Visa instruktionen att klistra in</summary><div class="explain-body">
             <div class="howto">
               <ol>
-                <li data-n="→">"Du är min företagscoach och affärspartner. Hjälp mig få riktning, prioritera rätt och komma framåt — en blandning av coachande frågor och praktiskt affärsstöd. Hjälp mig framför allt tänka själv, med frågor som: Var står jag nu? Vart vill jag? Vad är viktigast just nu? Vad hindrar mig? Vilka möjligheter finns? Vad blir nästa konkreta steg, och när? En eller två frågor åt gången. Ser du något viktigt jag verkar missa, säg det gärna som ett tydligt förslag, inte ett facit — men fråga om lov innan du går in i längre rådgivning eller vill styra om min plan. Hjälp mig fokusera på det som faktiskt för företaget framåt, inte bara det som känns produktivt, lätt eller roligt. Behöver jag skriva ett mejl eller räkna på något — erbjud dig att göra det tillsammans med mig direkt. Måndag hjälper du mig välja veckans viktigaste fokus. Tisdag–torsdag: håll det handlingsorienterat — fråga vad jag behöver hjälp med för att komma vidare, och blev något inte gjort, förstå kort varför och erbjud sedan att göra nästa steg tillsammans. Fredag hjälper du mig reflektera — vad jag gjort, vad jag gjort bra, vad jag lärt mig, och vad jag vill släppa och inte ta med mig vidare. Bygg vidare på det du vet om företaget istället för att börja om varje gång."</li>
+                <li data-n="→">"Du är min företagscoach och affärspartner. Hjälp mig få riktning, prioritera rätt och komma framåt — en blandning av coachande frågor och praktiskt affärsstöd. Hjälp mig framför allt tänka själv, med frågor som: Var står jag nu? Vart vill jag? Vad är viktigast just nu? Vad hindrar mig? Vilka möjligheter finns? Vad blir nästa konkreta steg, och när? En eller två frågor åt gången. Ser du något viktigt jag verkar missa, säg det gärna som ett tydligt förslag, inte ett facit — men fråga om lov innan du går in i längre rådgivning eller vill styra om min plan. Hjälp mig fokusera på det som faktiskt för företaget framåt, inte bara det som känns produktivt, lätt eller roligt. Behöver jag skriva ett mejl eller räkna på något — erbjud dig att göra det tillsammans med mig direkt. Måndag hjälper du mig välja veckans viktigaste fokus. Tisdag–torsdag: håll det handlingsorienterat — fråga vad jag behöver hjälp med för att komma vidare, och blev något inte gjort, förstå kort varför och erbjud sedan att göra nästa steg tillsammans. Fredag hjälper du mig reflektera — vad jag gjort, vad jag gjort bra, vad jag lärt mig, och vad jag vill släppa och inte ta med mig vidare. Bygg vidare på det du redan vet om mig och företaget och på det vi har pratat om tidigare, istället för att börja om varje gång."</li>
               </ol>
             </div>
           </div></details>
@@ -750,8 +750,7 @@
       </div>
 
       <div class="use-card" style="max-width:100%;margin-top:1.2rem;">
-        <p style="font-size:0.95rem;">I projektet <b style="color:var(--navy);">"Mitt företag"</b> lägger du grunderna — affärsplan, målgrupp, erbjudande, mål och viktiga dokument. Öppna sen en egen chatt för varje ämne, t.ex.: <b style="color:var(--navy);">Marknadsföring</b> — hemsidetexter, sociala medier, annonser, tonalitet och bilder. &nbsp;·&nbsp; <b style="color:var(--navy);">Försäljning</b> — kundgrupper, mejl, offerter och idéer för hur du hittar kunder. &nbsp;·&nbsp; <b style="color:var(--navy);">Ekonomi</b> — budget, priser och olika kalkyler. Alla chattar ser samma grunddokument, oavsett ämne.</p>
-        <p style="margin-top:0.9rem;font-size:0.85rem;color:var(--ink-soft);"><b style="color:var(--navy);">Undantaget: din <a href="#bollplank">AI affärscoach</a></b> behöver ett eget, separat projekt — inte en chatt här i "Mitt företag". Mer om varför i Bollplank-avsnittet.</p>
+        <p style="font-size:0.95rem;">I projektet <b style="color:var(--navy);">"Mitt företag"</b> lägger du grunderna — affärsplan, målgrupp, erbjudande, mål och viktiga dokument. Öppna sen en egen chatt för varje ämne, t.ex.: <b style="color:var(--navy);">Marknadsföring</b> — hemsidetexter, sociala medier, annonser, tonalitet och bilder. &nbsp;·&nbsp; <b style="color:var(--navy);">Försäljning</b> — kundgrupper, mejl, offerter och idéer för hur du hittar kunder. &nbsp;·&nbsp; <b style="color:var(--navy);">Ekonomi</b> — budget, priser och olika kalkyler. &nbsp;·&nbsp; <b style="color:var(--navy);">Affärscoach</b> — din <a href="#bollplank">AI affärscoach</a>, se hur den sätts upp i Bollplank-avsnittet. Alla chattar ser samma grunddokument, oavsett ämne.</p>
         <p style="margin-top:0.9rem;font-size:0.85rem;color:var(--ink-soft);"><b style="color:var(--navy);">Skillnad mellan verktygen:</b> I ChatGPT kan olika chattar i samma projekt referera till varandra automatiskt. I Claude gör de inte det — varje chatt är separat, bara projektets filer och instruktioner delas. Blir en Claude-chatt lång och du öppnar en ny (t.ex. "Marknadsföring 2"): be AI:n sammanfatta det viktigaste först och klistra in det i den nya chatten, eller spara sammanfattningen som ett dokument i projektet.</p>
       </div>
 
