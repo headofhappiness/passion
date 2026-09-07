@@ -201,9 +201,10 @@
 
   .feedback-mini{margin-top:1.4rem;padding-top:1rem;border-top:1px solid var(--rule);}
   .feedback-mini .fb-row{display:flex;align-items:center;gap:0.7rem;flex-wrap:wrap;font-size:0.82rem;color:var(--ink-soft);}
-  .feedback-mini .fb-btn{font-family:var(--body);font-size:0.8rem;background:var(--white);border:1px solid var(--rule);border-radius:20px;padding:0.3rem 0.85rem;cursor:pointer;color:var(--ink-soft);transition:background .15s;}
+  .feedback-mini .fb-btn{font-family:var(--body);font-size:0.8rem;background:var(--white);border:1px solid var(--rule);border-radius:20px;padding:0.3rem 0.85rem;cursor:pointer;color:var(--ink-soft);transition:background .15s, color .15s, border-color .15s;}
   .feedback-mini .fb-btn:hover:not(:disabled){background:var(--cream-deep);}
   .feedback-mini .fb-btn:disabled{opacity:0.5;cursor:default;}
+  .feedback-mini .fb-btn.active{background:var(--navy);color:var(--white);border-color:var(--navy);}
   .feedback-mini .fb-thanks{color:var(--terracotta-deep);font-weight:600;}
   .feedback-mini .fb-follow{margin-top:0.6rem;display:flex;gap:0.5rem;flex-wrap:wrap;}
   .feedback-mini .fb-follow textarea{flex:1 1 220px;min-width:200px;padding:0.5rem 0.7rem;border-radius:6px;border:1px solid var(--rule);font-family:var(--body);font-size:0.82rem;resize:vertical;min-height:2.2rem;background:var(--white);}
@@ -1490,8 +1491,8 @@
       const sendBtn = widget.querySelector('.fb-send');
 
       function vote(value) {
-        yesBtn.disabled = true;
-        noBtn.disabled = true;
+        yesBtn.classList.toggle('active', value === 'ja');
+        noBtn.classList.toggle('active', value === 'nej');
         thanks.hidden = false;
         textarea.placeholder = value === 'ja' ? 'Något du särskilt gillade? (valfritt)' : 'Vad hade gjort det mer hjälpsamt?';
         follow.hidden = false;
@@ -1509,12 +1510,18 @@
         const comment = textarea.value.trim();
         if (!comment) return;
         sendBtn.disabled = true;
+        const originalLabel = sendBtn.textContent;
         sendBtn.textContent = 'Skickat!';
         fetch('https://formspree.io/f/xkjwqyed', {
           method: 'POST',
           body: new URLSearchParams({ section, comment, _subject: `Feedback-kommentar: ${section} (aiverktyg.html)` }),
           headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' }
         }).catch(() => {});
+        textarea.value = '';
+        setTimeout(() => {
+          sendBtn.disabled = false;
+          sendBtn.textContent = originalLabel;
+        }, 1500);
       });
     });
 
