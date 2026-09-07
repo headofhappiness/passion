@@ -198,6 +198,17 @@
   .try-box code{
     display:block;font-family:var(--mono);font-size:0.8rem;line-height:1.6;color:var(--navy);
   }
+
+  .feedback-mini{margin-top:1.4rem;padding-top:1rem;border-top:1px solid var(--rule);}
+  .feedback-mini .fb-row{display:flex;align-items:center;gap:0.7rem;flex-wrap:wrap;font-size:0.82rem;color:var(--ink-soft);}
+  .feedback-mini .fb-btn{font-family:var(--body);font-size:0.8rem;background:var(--white);border:1px solid var(--rule);border-radius:20px;padding:0.3rem 0.85rem;cursor:pointer;color:var(--ink-soft);transition:background .15s;}
+  .feedback-mini .fb-btn:hover:not(:disabled){background:var(--cream-deep);}
+  .feedback-mini .fb-btn:disabled{opacity:0.5;cursor:default;}
+  .feedback-mini .fb-thanks{color:var(--terracotta-deep);font-weight:600;}
+  .feedback-mini .fb-follow{margin-top:0.6rem;display:flex;gap:0.5rem;flex-wrap:wrap;}
+  .feedback-mini .fb-follow textarea{flex:1 1 220px;min-width:200px;padding:0.5rem 0.7rem;border-radius:6px;border:1px solid var(--rule);font-family:var(--body);font-size:0.82rem;resize:vertical;min-height:2.2rem;background:var(--white);}
+  .feedback-mini .fb-follow button{font-family:var(--body);font-size:0.78rem;background:var(--navy);color:var(--white);border:none;border-radius:6px;padding:0.5rem 0.9rem;cursor:pointer;flex:none;}
+  .feedback-mini .fb-follow button:disabled{opacity:0.6;cursor:default;}
   .use-grid .use-card:nth-child(6n+1) .try-box{background:rgba(191,106,91,0.10);}
   .use-grid .use-card:nth-child(6n+1) .try-label{color:var(--terracotta-deep);}
   .use-grid .use-card:nth-child(6n+2) .try-box{background:rgba(249,224,169,0.4);}
@@ -279,6 +290,7 @@
   }
   .specialist h3{font-size:1.5rem;font-weight:800;text-transform:uppercase;line-height:1.12;}
   .specialist .lede{color:var(--ink-soft);margin-top:0.6rem;font-size:0.96rem;}
+  .specialist > .rule-list, .specialist > .options{margin-top:1.3rem;}
   .options{display:flex;flex-direction:column;gap:1.1rem;}
   .option{
     background:var(--white);border-radius:12px;padding:1.15rem 1.3rem;
@@ -412,7 +424,7 @@
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Om du är helt ny</span>
-        <h2>Tre saker att förstå — sen kan du börja</h2>
+        <h2>Tre som är bra att veta — sen kan du börja</h2>
       </div>
       <div class="big-four">
         <div class="tool-card">
@@ -439,14 +451,14 @@
       </div>
 
       <div class="use-card" style="max-width:100%;margin-top:1.2rem;">
-        <p style="font-size:0.95rem;"><b style="color:var(--navy);">Prata istället för att skriva.</b> Du behöver inte formulera en perfekt prompt — prata precis som du tänker, även om det blir långt, ostrukturerat eller lite babbligt. AI hjälper dig sortera och fånga det viktiga. Jag använder gärna ChatGPT för att prata in på svenska — vill jag sedan jobba vidare i Claude kopierar jag bara texten dit.</p>
+        <p style="font-size:0.95rem;"><b style="color:var(--navy);">Prata istället för att skriva.</b> Du behöver inte formulera en perfekt prompt — prata precis som du tänker, även om det blir långt, ostrukturerat eller lite babbligt. AI hjälper dig sortera och fånga det viktiga. Jag använder gärna ChatGPT för att prata in på svenska (klickar på dikteramikrofonen) — vill jag sedan jobba vidare i Claude kopierar jag bara texten dit (Claude är dålig på att förstå svenska i tal – men går utmärkt i text).</p>
         <p style="font-size:0.85rem;color:var(--ink-soft);margin-top:0.6rem;"><b style="color:var(--navy);">Tips:</b> Tänk högt. Det är ofta mycket snabbare än att försöka formulera allt perfekt från början.</p>
       </div>
     </div>
   </section>
 
   <!-- TÄNK PÅ DETTA -->
-  <section id="tank-pa">
+  <section class="tinted" id="tank-pa">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Innan du kör igång</span>
@@ -467,7 +479,7 @@
   </section>
 
   <!-- PROMPT-SKOLAN -->
-  <section class="tinted" id="prompt-skola">
+  <section id="prompt-skola">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Kom igång enkelt</span>
@@ -585,7 +597,7 @@
   <div class="chapter"><span class="chapter-num">Kapitel 2</span><span class="chapter-title">Jobba med AI som din kollega</span></div>
 
   <!-- REGELN -->
-  <section id="startpaket">
+  <section class="tinted" id="startpaket">
     <div class="wrap">
       <div class="section-head" style="margin-bottom:0;">
         <span class="eyebrow">Mitt AI-startpaket</span>
@@ -705,11 +717,21 @@
 
       </div>
       <p style="margin-top:1.6rem;font-size:0.9rem;color:var(--ink-soft);max-width:64ch;">AI blir bättre som bollplank ju mer kontinuerligt du använder det. Den stora vinsten kommer sällan från det perfekta enskilda promptet, utan från att AI:n över tid får förstå ditt företag, dina mål, dina utmaningar och hur du jobbar — istället för att börja om från noll i varje samtal. Håll det i samma <a href="#projekt">projekt</a> (mer om det nedan) så byggs det sammanhanget upp av sig självt.</p>
+
+      <div class="feedback-mini" data-section="AI-affärscoach">
+        <div class="fb-row">
+          <span>Var det här hjälpsamt?</span>
+          <button type="button" class="fb-btn fb-yes">👍 Ja</button>
+          <button type="button" class="fb-btn fb-no">👎 Inte riktigt</button>
+          <span class="fb-thanks" hidden>Tack!</span>
+        </div>
+        <div class="fb-follow" hidden><textarea class="fb-comment" rows="1"></textarea><button type="button" class="fb-send">Skicka</button></div>
+      </div>
     </div>
   </section>
 
   <!-- LÅT AI KOMMA TILL DIG -->
-  <section class="tinted" id="schemalagg">
+  <section id="schemalagg">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Nästa nivå</span>
@@ -732,11 +754,21 @@
       </div>
 
       <p style="margin-top:1rem;font-size:0.85rem;color:var(--ink-soft);max-width:64ch;"><b style="color:var(--navy);">Lisas tips:</b> Börja inte med tio schemalagda uppgifter. Måndag + fredag med din <a href="#bollplank">AI affärscoach</a> är en väldigt bra start. Lägg sedan till fler först när du märker att de faktiskt skulle avlasta dig.</p>
+
+      <div class="feedback-mini" data-section="Scheduled">
+        <div class="fb-row">
+          <span>Var det här hjälpsamt?</span>
+          <button type="button" class="fb-btn fb-yes">👍 Ja</button>
+          <button type="button" class="fb-btn fb-no">👎 Inte riktigt</button>
+          <span class="fb-thanks" hidden>Tack!</span>
+        </div>
+        <div class="fb-follow" hidden><textarea class="fb-comment" rows="1"></textarea><button type="button" class="fb-send">Skicka</button></div>
+      </div>
     </div>
   </section>
 
   <!-- PROJEKT -->
-  <section id="projekt">
+  <section class="tinted" id="projekt">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Samla företagets AI-arbete</span>
@@ -775,6 +807,16 @@
         <p style="font-size:0.85rem;color:var(--ink-soft);margin-top:0.6rem;">Den delar jag som en egen kopia efter ett samtal, så den blir rätt anpassad direkt. <a href="timbanken.html">Boka en kostnadsfri rådgivningstimme →</a></p>
       </div>
 
+      <div class="feedback-mini" data-section="Budget">
+        <div class="fb-row">
+          <span>Var det här hjälpsamt?</span>
+          <button type="button" class="fb-btn fb-yes">👍 Ja</button>
+          <button type="button" class="fb-btn fb-no">👎 Inte riktigt</button>
+          <span class="fb-thanks" hidden>Tack!</span>
+        </div>
+        <div class="fb-follow" hidden><textarea class="fb-comment" rows="1"></textarea><button type="button" class="fb-send">Skicka</button></div>
+      </div>
+
       <div class="rule-banner" style="margin-top:1.6rem;grid-template-columns:1fr;">
         <div>
           <span class="eyebrow">Börja enkelt</span>
@@ -783,11 +825,21 @@
           <p style="color:rgba(255,255,255,0.55);font-size:0.82rem;margin-top:0.7rem;max-width:60ch;">Vill du ändå ha helt separata projekt per område — t.ex. i Claude, där chattar inte pratar med varandra ändå — går det bra. Kom bara ihåg att lägga in samma grunddokument i varje nytt projekt, annars tappar det den där helhetsbilden.</p>
         </div>
       </div>
+
+      <div class="feedback-mini" data-section="Projekt">
+        <div class="fb-row">
+          <span>Var det här hjälpsamt?</span>
+          <button type="button" class="fb-btn fb-yes">👍 Ja</button>
+          <button type="button" class="fb-btn fb-no">👎 Inte riktigt</button>
+          <span class="fb-thanks" hidden>Tack!</span>
+        </div>
+        <div class="fb-follow" hidden><textarea class="fb-comment" rows="1"></textarea><button type="button" class="fb-send">Skicka</button></div>
+      </div>
     </div>
   </section>
 
   <!-- TONALITET -->
-  <section class="tinted" id="tonalitet">
+  <section id="tonalitet">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Innan du skriver något annat</span>
@@ -913,6 +965,16 @@
             <li data-n="→">"Klistra in mejlet du fått → ta bort känsliga uppgifter → be AI skriva ett utkast → redigera själv → skicka."</li>
           </ol></div>
         </div>
+      </div>
+
+      <div class="feedback-mini" data-section="Kundmejl">
+        <div class="fb-row">
+          <span>Var det här hjälpsamt?</span>
+          <button type="button" class="fb-btn fb-yes">👍 Ja</button>
+          <button type="button" class="fb-btn fb-no">👎 Inte riktigt</button>
+          <span class="fb-thanks" hidden>Tack!</span>
+        </div>
+        <div class="fb-follow" hidden><textarea class="fb-comment" rows="1"></textarea><button type="button" class="fb-send">Skicka</button></div>
       </div>
     </div>
   </section>
@@ -1151,7 +1213,7 @@
   </section>
 
   <!-- BYGG HEMSIDA -->
-  <section id="bygg-hemsida">
+  <section class="tinted" id="bygg-hemsida">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Fördjupning ·</span>
@@ -1195,12 +1257,12 @@
           <p class="good">En skiss i Claude Design kan bara du se. För att den ska bli en riktig hemsida som lever på internet behövs verkliga kodfiler — det som varje webbsida faktiskt består av. Claude Code skriver och sparar den riktiga koden åt dig.</p>
           <details class="explain"><summary>Så gör du</summary><div class="explain-body">
             <div class="howto"><ol>
-              <li data-n="1.">Öppna Claude Code och be den bygga vidare på skissen från Claude Design.</li>
+              <li data-n="1.">Öppna Claude Code i din projektmapp och skriv <code>/design-sync</code> — den hämtar skissen från Claude Design och bygger den som riktig kod. Inget att ladda ner eller ladda upp för hand.</li>
               <li data-n="2.">Fortsätt beskriva ändringar i vanligt språk — samma sätt som i steg ett.</li>
             </ol></div>
           </div></details>
           <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
-            <div class="flow"><span class="chip"><span class="glyph">🎨</span> Skissen</span><span class="arrow">→</span><span class="chip"><span class="glyph">💻</span> Blir riktig kod</span></div>
+            <div class="flow"><span class="chip"><span class="glyph">🎨</span> Skissen</span><span class="arrow">→</span><span class="chip"><span class="glyph">🔄</span> /design-sync</span><span class="arrow">→</span><span class="chip"><span class="glyph">💻</span> Blir riktig kod</span></div>
             <p>Du behöver inte kunna programmera. Du fortsätter bara beskriva vad du vill ha — skillnaden är att det som byggs nu är riktiga filer, inte bara en skiss bara du kan se.</p>
           </div></details>
         </div>
@@ -1210,33 +1272,14 @@
             <div class="tool-icon" style="background:#e9f2ea;">
               <svg viewBox="0 0 24 24" fill="none" stroke="#4a7c52" stroke-width="1.8"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 9h6M9 13h6M9 17h3" stroke-linecap="round"/></svg>
             </div>
-            <h3>3. GitHub</h3>
+            <h3>3. GitHub & GitHub Pages</h3>
           </div>
-          <p class="good">GitHub är ett gratis, säkert "skåp" för kod — varje ändring sparas med tidsstämpel, så man alltid kan gå tillbaka om något går fel. Claude Code kan spara dina filer dit automatiskt.</p>
+          <p class="good">GitHub är ett gratis, säkert "skåp" för kod — varje ändring sparas med tidsstämpel, så man alltid kan gå tillbaka om något går fel. GitHub Pages är en inbyggd, gratis funktion som gör samma filer till en riktig, publik hemsida. Båda ingår i samma konto — inget separat webbhotell behövs.</p>
           <details class="explain"><summary>Så gör du</summary><div class="explain-body">
             <div class="howto"><ol>
               <li data-n="1.">Skapa ett gratis konto på <code>github.com</code>.</li>
               <li data-n="2.">Be Claude Code spara ("pusha") dina hemsidefiler dit — den sköter det tekniska.</li>
-            </ol></div>
-          </div></details>
-          <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
-            <div class="flow"><span class="chip"><span class="glyph">💻</span> Dina filer</span><span class="arrow">→</span><span class="chip"><span class="glyph">🗄️</span> Sparas på GitHub</span></div>
-            <p>Tänk på det som en molnbackup, fast byggd specifikt för kod, med full historik över varje ändring du någonsin gjort.</p>
-          </div></details>
-        </div>
-
-        <div class="tool-card">
-          <div class="tool-head">
-            <div class="tool-icon" style="background:#eef0fb;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#5b5fc7" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.2 2.3 3.4 5.3 3.4 8.5s-1.2 6.2-3.4 8.5c-2.2-2.3-3.4-5.3-3.4-8.5s1.2-6.2 3.4-8.5z" stroke-linecap="round"/></svg>
-            </div>
-            <h3>4. GitHub Pages</h3>
-          </div>
-          <p class="good">GitHub har en inbyggd, gratis funktion — GitHub Pages — som gör filerna i ditt projekt till en riktig, publik hemsida med egen webbadress. Inget separat webbhotell behövs.</p>
-          <details class="explain"><summary>Så gör du</summary><div class="explain-body">
-            <div class="howto"><ol>
-              <li data-n="1.">Slå på GitHub Pages i projektets inställningar (Settings → Pages).</li>
-              <li data-n="2.">Vänta någon minut — sidan är live. Ett eget domännamn går att koppla på senare.</li>
+              <li data-n="3.">Slå på GitHub Pages i projektets inställningar (Settings → Pages). Vänta någon minut — sidan är live. Ett eget domännamn går att koppla på senare.</li>
             </ol></div>
           </div></details>
           <details class="explain"><summary>Förklara mer</summary><div class="explain-body">
@@ -1250,6 +1293,16 @@
       <p style="margin-top:1.6rem;font-size:0.9rem;color:var(--ink-soft);max-width:62ch;">Den här vägen kräver lite mer tålamod än att bara jobba i Claude Design. I gengäld äger du hela hemsidan själv, utan månadsavgift till ett webbyggarverktyg — bara en dator och ett gratis GitHub-konto.</p>
       <p style="margin-top:0.6rem;font-size:0.9rem;color:var(--ink-soft);max-width:62ch;">Känns stegen krångliga att ta själv? Det här är precis den typen av sak jag hjälper till med i min rådgivning. <a href="timbanken.html">Boka en kostnadsfri rådgivningstimme via Timbanken →</a></p>
       <p style="margin-top:1rem;font-size:0.9rem;color:var(--ink-soft);max-width:62ch;"><b style="color:var(--navy);">Vill du ha det ännu enklare?</b> Webbhotell som Loopia och One.com har egna inbyggda AI-verktyg för att bygga hemsida (Loopias "Sitebuilder med AI" respektive One.coms "Aida") — allt på ett och samma ställe: domän, hosting och hemsida. Ett snäpp enklare än vägen ovan. Jag har själv fått bättre resultat med Claude, men testa gärna själv och se vad som passar dig.</p>
+
+      <div class="feedback-mini" data-section="Hemsida">
+        <div class="fb-row">
+          <span>Var det här hjälpsamt?</span>
+          <button type="button" class="fb-btn fb-yes">👍 Ja</button>
+          <button type="button" class="fb-btn fb-no">👎 Inte riktigt</button>
+          <span class="fb-thanks" hidden>Tack!</span>
+        </div>
+        <div class="fb-follow" hidden><textarea class="fb-comment" rows="1"></textarea><button type="button" class="fb-send">Skicka</button></div>
+      </div>
     </div>
   </section>
 
@@ -1271,11 +1324,30 @@
   </section>
 
 
-  <!-- UTÖVER AI -->
-  <section class="tinted" id="extra-verktyg">
+  <!-- BOKFÖRING -->
+  <section class="tinted" id="bokforing">
+    <div class="wrap">
+      <div class="rule-banner" style="grid-template-columns:1fr;">
+        <div>
+          <span class="eyebrow">Bokföring</span>
+          <h2 style="text-transform:none;">Vill du ha mitt tips på bokföringsprogram?</h2>
+          <p style="color:rgba(255,255,255,0.75);font-size:0.92rem;margin-top:0.9rem;max-width:52ch;">Jag har testat flera och rekommenderar ett särskilt — bland annat för att det har riktig telefon- och chattsupport när du kör fast, till skillnad från flera andra. Lämna din mejladress så hör jag av mig med tipset.</p>
+          <p style="color:rgba(255,255,255,0.5);font-size:0.78rem;margin-top:0.8rem;max-width:52ch;">Transparent: väljer du att bli kund via min länk kan jag få en ersättning från leverantören. Det påverkar inte vad jag rekommenderar dig.</p>
+          <form id="bookkeeping-form" style="margin-top:1.4rem;display:flex;gap:0.7rem;flex-wrap:wrap;">
+            <input type="email" id="bk-email" name="email" required placeholder="din@mejladress.se" style="flex:1 1 240px;padding:0.75rem 1rem;border-radius:6px;border:none;font-family:var(--body);font-size:0.9rem;" />
+            <button type="submit" class="nav-cta" style="border:none;cursor:pointer;">Skicka mig tipset</button>
+          </form>
+          <p id="bk-note" style="margin-top:0.8rem;font-size:0.82rem;color:rgba(255,255,255,0.65);"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UTÖVER AI (BONUS) -->
+  <section id="extra-verktyg">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Utöver AI</span>
+        <span class="eyebrow">Bonus — inte AI</span>
         <h2>Två verktyg till värda att ha koll på</h2>
         <p class="lede">Inte AI, men de löser vardagsproblem de flesta nya företagare stöter på.</p>
       </div>
@@ -1307,21 +1379,20 @@
     </div>
   </section>
 
-  <!-- BOKFÖRING -->
-  <section id="bokforing">
+  <!-- FEEDBACK -->
+  <section class="tinted" id="feedback-big">
     <div class="wrap">
-      <div class="rule-banner" style="grid-template-columns:1fr;">
-        <div>
-          <span class="eyebrow">Bokföring</span>
-          <h2 style="text-transform:none;">Vill du ha mitt tips på bokföringsprogram?</h2>
-          <p style="color:rgba(255,255,255,0.75);font-size:0.92rem;margin-top:0.9rem;max-width:52ch;">Jag har testat flera och rekommenderar ett särskilt — bland annat för att det har riktig telefon- och chattsupport när du kör fast, till skillnad från flera andra. Lämna din mejladress så hör jag av mig med tipset.</p>
-          <p style="color:rgba(255,255,255,0.5);font-size:0.78rem;margin-top:0.8rem;max-width:52ch;">Transparent: väljer du att bli kund via min länk kan jag få en ersättning från leverantören. Det påverkar inte vad jag rekommenderar dig.</p>
-          <form id="bookkeeping-form" style="margin-top:1.4rem;display:flex;gap:0.7rem;flex-wrap:wrap;">
-            <input type="email" id="bk-email" name="email" required placeholder="din@mejladress.se" style="flex:1 1 240px;padding:0.75rem 1rem;border-radius:6px;border:none;font-family:var(--body);font-size:0.9rem;" />
-            <button type="submit" class="nav-cta" style="border:none;cursor:pointer;">Skicka mig tipset</button>
-          </form>
-          <p id="bk-note" style="margin-top:0.8rem;font-size:0.82rem;color:rgba(255,255,255,0.65);"></p>
-        </div>
+      <div class="section-head">
+        <span class="eyebrow">Hjälp mig göra guiden bättre</span>
+        <h2>Var det något du saknade eller inte förstod?</h2>
+        <p class="lede">Jag kommer fortsätta utveckla och uppdatera den här sidan. Skriv gärna om något kändes otydligt, saknades, eller om du önskar en guide till något jag inte tagit upp.</p>
+      </div>
+      <div class="use-card" style="max-width:100%;">
+        <form id="feedback-big-form" style="display:flex;gap:0.7rem;flex-wrap:wrap;">
+          <textarea id="fb-big-text" name="comment" required placeholder="Skriv här…" rows="3" style="flex:1 1 100%;padding:0.75rem 1rem;border-radius:6px;border:1px solid var(--rule);font-family:var(--body);font-size:0.9rem;resize:vertical;"></textarea>
+          <button type="submit" class="nav-cta" style="border:none;cursor:pointer;">Skicka</button>
+        </form>
+        <p id="fb-big-note" style="margin-top:0.6rem;font-size:0.82rem;color:var(--ink-soft);"></p>
       </div>
     </div>
   </section>
@@ -1386,6 +1457,68 @@
       });
       update();
     })();
+
+    document.querySelectorAll('.feedback-mini').forEach((widget) => {
+      const section = widget.dataset.section;
+      const yesBtn = widget.querySelector('.fb-yes');
+      const noBtn = widget.querySelector('.fb-no');
+      const thanks = widget.querySelector('.fb-thanks');
+      const follow = widget.querySelector('.fb-follow');
+      const textarea = widget.querySelector('.fb-comment');
+      const sendBtn = widget.querySelector('.fb-send');
+
+      function vote(value) {
+        yesBtn.disabled = true;
+        noBtn.disabled = true;
+        thanks.hidden = false;
+        textarea.placeholder = value === 'ja' ? 'Något du särskilt gillade? (valfritt)' : 'Vad hade gjort det mer hjälpsamt?';
+        follow.hidden = false;
+        fetch('https://formspree.io/f/xkjwqyed', {
+          method: 'POST',
+          body: new URLSearchParams({ section, helpful: value, _subject: `Feedback: ${section} (aiverktyg.html)` }),
+          headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).catch(() => {});
+      }
+
+      yesBtn.addEventListener('click', () => vote('ja'));
+      noBtn.addEventListener('click', () => vote('nej'));
+
+      sendBtn.addEventListener('click', () => {
+        const comment = textarea.value.trim();
+        if (!comment) return;
+        sendBtn.disabled = true;
+        sendBtn.textContent = 'Skickat!';
+        fetch('https://formspree.io/f/xkjwqyed', {
+          method: 'POST',
+          body: new URLSearchParams({ section, comment, _subject: `Feedback-kommentar: ${section} (aiverktyg.html)` }),
+          headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).catch(() => {});
+      });
+    });
+
+    const fbBigForm = document.getElementById('feedback-big-form');
+    const fbBigNote = document.getElementById('fb-big-note');
+    fbBigForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = fbBigForm.querySelector('button');
+      btn.disabled = true;
+      fbBigNote.textContent = 'Skickar...';
+      try {
+        const fd = new FormData(fbBigForm);
+        fd.append('_subject', 'Feedback på guiden (aiverktyg.html)');
+        const res = await fetch('https://formspree.io/f/xkjwqyed', { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
+        if (res.ok) {
+          fbBigForm.reset();
+          fbBigNote.textContent = 'Tack för din feedback!';
+        } else {
+          throw new Error('Formspree responded with an error');
+        }
+      } catch (err) {
+        fbBigNote.textContent = 'Något gick fel. Mejla mig gärna direkt istället: lisa@headofpassion.se';
+      } finally {
+        btn.disabled = false;
+      }
+    });
   </script>
 
 </body>
