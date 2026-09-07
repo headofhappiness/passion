@@ -401,6 +401,10 @@
     </div>
   </div>
 
+  <div class="wrap" style="padding-top:1.8rem;padding-bottom:0.4rem;">
+    <p style="font-size:0.92rem;color:var(--ink-soft);max-width:56ch;"><b style="color:var(--navy);">Du behöver inte läsa allt.</b> Börja med det du behöver just nu — klicka dig direkt till exempelvis hemsida, budget, kundmejl eller din AI-affärscoach, och kom tillbaka till resten när du behöver det.</p>
+  </div>
+
   <div class="chapter"><span class="chapter-num">Kapitel 1</span><span class="chapter-title">Kom igång</span></div>
 
   <!-- BÖRJA HÄR -->
@@ -845,18 +849,22 @@
         <div class="option">
           <div class="opt-head"><span class="opt-name">Hitta ämnen</span><span class="opt-tag">Research</span></div>
           <p>Låt AI:n leta upp vad som faktiskt är aktuellt för din målgrupp, istället för att du sitter och funderar själv.</p>
-          <div class="howto"><ol>
-            <li data-n="→">"Sök efter aktuella frågor, nyheter, statistik och diskussioner som är relevanta för min målgrupp och mitt företag. Ge mig tio ämnen jag skulle kunna göra LinkedIn-inlägg om. För varje ämne: förklara varför det kan vara relevant för mina kunder och ge ett förslag på min egen vinkel."</li>
-          </ol></div>
-          <p style="font-size:0.82rem;color:var(--ink-soft);margin-top:0.7rem;"><b style="color:var(--navy);">Viktigast av allt:</b> "Jag vill inte bara återberätta nyheten. Hjälp mig hitta vad jag själv kan tillföra utifrån min erfarenhet och mitt företag." Annars blir det bara "en ny rapport visar att…" — samma sammanfattning alla andra också kan skriva. Formeln: nyheten → kopplingen till kunden → din erfarenhet → din reflektion → ett användbart inlägg.</p>
+          <details class="explain"><summary>Visa prompt</summary><div class="explain-body">
+            <div class="howto"><ol>
+              <li data-n="→">"Sök efter aktuella frågor, nyheter, statistik och diskussioner som är relevanta för min målgrupp och mitt företag. Ge mig tio ämnen jag skulle kunna göra LinkedIn-inlägg om. För varje ämne: förklara varför det kan vara relevant för mina kunder och ge ett förslag på min egen vinkel."</li>
+            </ol></div>
+            <p style="margin-top:0.7rem;"><b>Viktigast av allt:</b> "Jag vill inte bara återberätta nyheten. Hjälp mig hitta vad jag själv kan tillföra utifrån min erfarenhet och mitt företag." Annars blir det bara "en ny rapport visar att…" — samma sammanfattning alla andra också kan skriva. Formeln: nyheten → kopplingen till kunden → din erfarenhet → din reflektion → ett användbart inlägg.</p>
+          </div></details>
         </div>
         <div class="option">
           <div class="opt-head"><span class="opt-name">Gör en innehållsplan</span><span class="opt-tag">Struktur</span></div>
           <p>Be om flera förslag på en gång istället för att fråga inlägg för inlägg.</p>
-          <div class="howto"><ol>
-            <li data-n="1.">LinkedIn: "Jag vill publicera ett inlägg i veckan under nästa månad. Utifrån mitt företag, min målgrupp och det vi har arbetat med — föreslå fyra inlägg. Jag vill ha variation mellan kunskap, personliga erfarenheter, kundproblem och vad jag erbjuder."</li>
-            <li data-n="2.">Instagram: "Ge mig åtta idéer till Instagraminlägg. Föreslå vilka som passar som en enda bild, karusell, kort video eller story."</li>
-          </ol></div>
+          <details class="explain"><summary>Visa exempel</summary><div class="explain-body">
+            <div class="howto"><ol>
+              <li data-n="1.">LinkedIn: "Jag vill publicera ett inlägg i veckan under nästa månad. Utifrån mitt företag, min målgrupp och det vi har arbetat med — föreslå fyra inlägg. Jag vill ha variation mellan kunskap, personliga erfarenheter, kundproblem och vad jag erbjuder."</li>
+              <li data-n="2.">Instagram: "Ge mig åtta idéer till Instagraminlägg. Föreslå vilka som passar som en enda bild, karusell, kort video eller story."</li>
+            </ol></div>
+          </div></details>
         </div>
       </div>
 
@@ -888,11 +896,14 @@
       <div class="options" style="max-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;">
         <div class="option">
           <div class="opt-head"><span class="opt-name">Första kontakt-mejl</span><span class="opt-tag">Skaffa kunder</span></div>
-          <div class="howto"><ol>
-            <li data-n="✕"><span style="color:var(--terracotta-deep);">Dålig: "Skriv ett säljmejl."</span></li>
-            <li data-n="✓">Bra: "Jag driver [företag] och hjälper [målgrupp] med [problem]. Jag vill kontakta en person som [roll]. Skriv ett kort personligt första mejl. Målet är inte att sälja direkt utan att få ett 20-minuters samtal. Undvik överdrivet säljspråk."</li>
-          </ol></div>
-          <p style="font-size:0.82rem;color:var(--ink-soft);margin-top:0.7rem;">Ännu bättre: ge AI:n mottagarens webbadress också ("hemsidan är [länk]") — då kan den läsa igenom sidan och koppla mejlet till något specifikt de faktiskt gör, istället för att gissa.</p>
+          <p>Skillnaden mellan en dålig och en bra instruktion är oftast bara detaljerna.</p>
+          <details class="explain"><summary>Visa exempel</summary><div class="explain-body">
+            <div class="howto"><ol>
+              <li data-n="✕"><span style="color:var(--terracotta-deep);">Dålig: "Skriv ett säljmejl."</span></li>
+              <li data-n="✓">Bra: "Jag driver [företag] och hjälper [målgrupp] med [problem]. Jag vill kontakta en person som [roll]. Skriv ett kort personligt första mejl. Målet är inte att sälja direkt utan att få ett 20-minuters samtal. Undvik överdrivet säljspråk."</li>
+            </ol></div>
+            <p style="margin-top:0.7rem;">Ännu bättre: ge AI:n mottagarens webbadress också ("hemsidan är [länk]") — då kan den läsa igenom sidan och koppla mejlet till något specifikt de faktiskt gör, istället för att gissa.</p>
+          </div></details>
         </div>
         <div class="option">
           <div class="opt-head"><span class="opt-name">Mejlen som tar tid</span><span class="opt-tag">Snabba vinster</span></div>
@@ -1340,7 +1351,7 @@
         <h2>Två verktyg till värda att ha koll på</h2>
         <p class="lede">Inte AI, men de löser vardagsproblem de flesta nya företagare stöter på.</p>
       </div>
-      <div class="options" style="max-width:640px;">
+      <div class="options" style="max-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;">
         <div class="option">
           <div class="opt-head"><span class="opt-name">Trello</span><span class="opt-tag">Struktur & översikt</span></div>
           <p>I praktiken en digital anslagstavla med kort du flyttar mellan kolumner. Behöver inte vara mer avancerat än tre kolumner: <b style="color:var(--navy);">Att göra → Pågår → Klart.</b></p>
