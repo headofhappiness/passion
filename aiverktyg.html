@@ -84,7 +84,10 @@
                       radial-gradient(circle at -10% 110%, rgba(191,106,91,0.22), transparent 50%);
     padding:6.6rem 0 3.6rem;
   }
-  .hero .wrap{display:flex;flex-direction:column;gap:1.6rem;}
+  .hero .wrap{display:grid;grid-template-columns:1fr 300px;gap:2.4rem;align-items:center;}
+  .hero-content{display:flex;flex-direction:column;gap:1.6rem;}
+  .hero-art{display:flex;justify-content:center;}
+  .hero-art img{width:100%;max-width:300px;filter:drop-shadow(0 12px 28px rgba(0,0,0,0.25));}
   .hero .eyebrow{color:var(--gold);}
   .hero h1{
     color:var(--white);
@@ -373,6 +376,9 @@
   footer .foot-meta a{color:var(--terracotta-deep);text-decoration:none;font-weight:600;}
 
   @media (max-width:760px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-art{order:-1;}
+    .hero-art img{max-width:180px;}
     .big-four{grid-template-columns:1fr;}
     .specialist{grid-template-columns:1fr;gap:1.2rem;}
     .feat-grid{grid-template-columns:1fr 1fr;}
@@ -407,10 +413,15 @@
   <!-- HERO -->
   <div class="hero">
     <div class="wrap">
-      <span class="eyebrow">Med AI kan jobbet bli</span>
-      <h1>Bättre, snabbare <em>– och roligare</em>.</h1>
-      <p class="lede">En enkel guide för dig som driver eller startar företag. AI handlar inte bara om att hinna mer — det blir bättre resultat, och roligare att göra jobbet.</p>
-      <div class="signature"><span class="dot"></span> Sammanställd av Lisa Jonsson, Head of Passion.</div>
+      <div class="hero-content">
+        <span class="eyebrow">Med AI kan jobbet bli</span>
+        <h1>Bättre, snabbare <em>– och roligare</em>.</h1>
+        <p class="lede">En enkel guide för dig som driver eller startar företag. AI handlar inte bara om att hinna mer — det blir bättre resultat, och roligare att göra jobbet.</p>
+        <div class="signature"><span class="dot"></span> Sammanställd av Lisa Jonsson, Head of Passion.</div>
+      </div>
+      <div class="hero-art">
+        <img src="assets/ai-bot-multitasking.svg" alt="Illustration av en vänlig AI-robot som sköter flera uppgifter samtidigt" />
+      </div>
     </div>
   </div>
 
