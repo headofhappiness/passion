@@ -484,6 +484,22 @@
       max-width: 640px;
     }
 
+    /* AREAS */
+    .areas { padding: 7rem 8vw; background: var(--white); }
+    .areas-header { max-width: 640px; margin-bottom: 3rem; }
+    .areas-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.2rem; }
+    .area-card {
+      background: var(--off); border-radius: 6px; padding: 1.6rem 1rem; text-align: center;
+      text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .area-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(21,32,53,0.1); background: var(--white); }
+    .area-card img { width: 2.4rem; height: 2.4rem; }
+    .area-card span {
+      font-family: var(--heading); font-weight: 700; font-size: 0.8rem; color: var(--navy);
+    }
+    .areas-cta { margin-top: 2.5rem; text-align: center; }
+
     /* TIMBANKEN STRIP */
     .strip {
       padding: 3rem 8vw;
@@ -667,10 +683,11 @@
       .hero { grid-template-columns: 1fr; }
       .hero-left { padding: 3.5rem 6vw; }
       .intro, .proof-grid, .services-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .areas-grid { grid-template-columns: repeat(3, 1fr); }
       .intro-badge { right: 0; bottom: -1rem; }
       .form-row-split { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
-      .intro, .services, .proof, .contact { padding: 4.5rem 6vw; }
+      .intro, .services, .proof, .contact, .areas { padding: 4.5rem 6vw; }
       .strip { padding: 2rem 6vw; flex-direction: column; align-items: flex-start; }
     }
 
@@ -687,6 +704,7 @@
       .intro-badge { position: static; margin-top: 1.6rem; text-align: center; }
       .contact-form { padding: 1.6rem; }
       .service-card, .proof-card { padding: 1.8rem 1.4rem; }
+      .areas-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -786,6 +804,30 @@
     <div class="services-highlight reveal">
       <h3>Kort startsträcka. Hög egen drivkraft.</h3>
       <p>Jag är van att komma in i nya sammanhang, snabbt förstå verksamheten och börja bidra utan att behöva en lång introduktion.</p>
+    </div>
+  </section>
+
+  <!-- AREAS -->
+  <section class="areas" id="omraden">
+    <div class="areas-header">
+      <span class="section-label reveal">Konkret exempel</span>
+      <h2 class="section-h2 reveal">Exempel på <span>områden</span><br>vi kan arbeta med</h2>
+      <p class="section-intro-p reveal">Ett utdrag ur min egen guide till AI-verktyg för företagare — klicka på ett område för att se hur jag jobbar med det.</p>
+    </div>
+    <div class="areas-grid">
+      <a class="area-card reveal" href="aiverktyg.html#bollplank"><img src="assets/icon-utveckla-min-ide.svg" alt="" /><span>Utveckla min idé</span></a>
+      <a class="area-card reveal" href="aiverktyg.html#jobba-smartare"><img src="assets/icon-jobba-smartare.svg" alt="" /><span>Jobba smartare</span></a>
+      <a class="area-card reveal" href="aiverktyg.html#tonalitet"><img src="assets/icon-skriva-texter.svg" alt="" /><span>Skriva texter</span></a>
+      <a class="area-card reveal" href="aiverktyg.html#kundmejl"><img src="assets/icon-skriva-kundmejl.svg" alt="" /><span>Skriva kundmejl</span></a>
+      <a class="area-card reveal" href="aiverktyg.html#innehall"><img src="assets/icon-marknadsfora.svg" alt="" /><span>Marknadsföra</span></a>
+      <a class="area-card reveal" href="aiverktyg.html#bilder"><img src="assets/icon-skapa-bilder.svg" alt="" /><span>Skapa bilder</span></a>
+      <a class="area-card reveal" href="aiverktyg.html#video"><img src="assets/icon-gora-video.svg" alt="" /><span>Göra video</span></a>
+      <a class="area-card reveal" href="aiverktyg.html#ekonomi"><img src="assets/icon-budget-ekonomi.svg" alt="" /><span>Budget &amp; ekonomi</span></a>
+      <a class="area-card reveal" href="aiverktyg.html#fyra-stora"><img src="assets/icon-research.svg" alt="" /><span>Research</span></a>
+      <a class="area-card reveal" href="aiverktyg.html#bygg-hemsida"><img src="assets/icon-gora-hemsida.svg" alt="" /><span>Göra hemsida</span></a>
+    </div>
+    <div class="areas-cta reveal">
+      <a href="aiverktyg.html" class="btn-primary">Se hela guiden →</a>
     </div>
   </section>
 
