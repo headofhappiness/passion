@@ -84,6 +84,7 @@
     padding:0.65rem 1.3rem;border-radius:100px;transition:background .2s;
   }
   .nav-cta:hover{background:var(--terracotta-deep);}
+  .nav-cta-short{display:none;}
 
   /* ===== HERO ===== */
   .hero{
@@ -408,6 +409,9 @@
     .nav-actions{gap:0.7rem;}
     .nav-menu-link{font-size:0.6rem;padding:0.55rem 1rem;}
     .nav-cta{font-size:0.6rem;padding:0.55rem 1rem;}
+    .nav-cta-full{display:none;}
+    .nav-cta-short{display:inline;}
+    .options.two-col{grid-template-columns:1fr !important;}
   }
 
   :target{scroll-margin-top:92px;}
@@ -419,7 +423,7 @@
     <a href="index.html" class="nav-logo">Head of <span>Passion</span></a>
     <div class="nav-actions">
       <a href="#hub" class="nav-menu-link">Meny ↑</a>
-      <a href="https://calendly.com/headofhappiness/kostnadsfri-radgivning-via-timbanken?month=2026-09" class="nav-cta" target="_blank" rel="noopener">Boka kostnadsfritt möte med Lisa</a>
+      <a href="https://calendly.com/headofhappiness/kostnadsfri-radgivning-via-timbanken?month=2026-09" class="nav-cta" target="_blank" rel="noopener"><span class="nav-cta-full">Boka kostnadsfritt möte med Lisa</span><span class="nav-cta-short">Boka möte</span></a>
     </div>
   </nav>
 
@@ -486,11 +490,11 @@
       <div class="rule-banner" style="grid-template-columns:1fr;background:var(--cream-deep);">
         <div>
           <div class="rule-list">
-            <div class="rule-row" style="border-bottom-color:var(--rule);"><b style="color:var(--navy);">Känslig information</b><span style="color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;">Klistra inte in lösenord, sekretessavtal eller annat privat.</span></div>
-            <div class="rule-row" style="border-bottom-color:var(--rule);"><b style="color:var(--navy);">Personuppgifter</b><span style="color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;">Var försiktig med info om kunder, anställda, andra personer.</span></div>
-            <div class="rule-row" style="border-bottom-color:var(--rule);"><b style="color:var(--navy);">Fakta</b><span style="color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;">AI kan ha fel — kontrollera viktiga uppgifter och siffror.</span></div>
-            <div class="rule-row" style="border-bottom-color:var(--rule);"><b style="color:var(--navy);">Upphovsrätt</b><span style="color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;">Kopiera inte någon annans material rakt av.</span></div>
-            <div class="rule-row" style="border-bottom:none;"><b style="color:var(--navy);">Du ansvarar</b><span style="color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;">AI föreslår. Du bestämmer vad som används eller skickas.</span></div>
+            <div class="rule-row" style="display:block;border-bottom-color:var(--rule);"><b style="color:var(--navy);">Känslig information</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">Klistra inte in lösenord, sekretessavtal eller annat privat.</span></div>
+            <div class="rule-row" style="display:block;border-bottom-color:var(--rule);"><b style="color:var(--navy);">Personuppgifter</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">Var försiktig med info om kunder, anställda, andra personer.</span></div>
+            <div class="rule-row" style="display:block;border-bottom-color:var(--rule);"><b style="color:var(--navy);">Fakta</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">AI kan ha fel — kontrollera viktiga uppgifter och siffror.</span></div>
+            <div class="rule-row" style="display:block;border-bottom-color:var(--rule);"><b style="color:var(--navy);">Upphovsrätt</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">Kopiera inte någon annans material rakt av.</span></div>
+            <div class="rule-row" style="display:block;border-bottom:none;"><b style="color:var(--navy);">Du ansvarar</b><span style="display:block;color:var(--ink-soft);text-transform:none;font-weight:400;letter-spacing:0;white-space:normal;margin-top:0.25rem;">AI föreslår. Du bestämmer vad som används eller skickas.</span></div>
           </div>
         </div>
       </div>
@@ -508,10 +512,10 @@
       <div class="rule-banner" style="grid-template-columns:1fr;">
         <div>
           <div class="rule-list">
-            <div class="rule-row"><b>Bakgrund</b><span>"Jag driver ett nystartat hunddagis…"</span></div>
-            <div class="rule-row"><b>Vad du vill göra</b><span>"Jag behöver skriva startsidan…"</span></div>
-            <div class="rule-row"><b>Vem det är till</b><span>"Mina kunder är hundägare i Kungsbacka…"</span></div>
-            <div class="rule-row"><b>Hur du vill ha svaret</b><span>"Skriv varmt, enkelt, max 150 ord."</span></div>
+            <div class="rule-row"><b>Bakgrund</b><span style="white-space:normal;text-align:right;">"Jag driver ett nystartat hunddagis…"</span></div>
+            <div class="rule-row"><b>Vad du vill göra</b><span style="white-space:normal;text-align:right;">"Jag behöver skriva startsidan…"</span></div>
+            <div class="rule-row"><b>Vem det är till</b><span style="white-space:normal;text-align:right;">"Mina kunder är hundägare i Kungsbacka…"</span></div>
+            <div class="rule-row"><b>Hur du vill ha svaret</b><span style="white-space:normal;text-align:right;">"Skriv varmt, enkelt, max 150 ord."</span></div>
           </div>
         </div>
       </div>
@@ -736,7 +740,7 @@
         <p class="lede">Det här är precis den sortens sak du kan använda dagen efter ett rådgivningsmöte.</p>
       </div>
 
-      <div class="options" style="max-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;">
+      <div class="options two-col" style="max-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;">
         <div class="option">
           <div class="opt-head"><span class="opt-name">Första kontakt-mejl</span><span class="opt-tag">Skaffa kunder</span></div>
           <p>Skillnaden mellan en dålig och en bra instruktion är oftast bara detaljerna.</p>
@@ -778,7 +782,7 @@
         <p class="lede">Problemet är sällan att skriva själva inlägget. Problemet är att veta vad man ska skriva om.</p>
       </div>
 
-      <div class="options" style="max-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;">
+      <div class="options two-col" style="max-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;">
         <div class="option">
           <div class="opt-head"><span class="opt-name">Hitta ämnen</span><span class="opt-tag">Research</span></div>
           <p>Låt AI:n leta upp vad som faktiskt är aktuellt för din målgrupp, istället för att du sitter och funderar själv.</p>
@@ -1068,7 +1072,7 @@
         <div class="try-box"><span class="try-label">Prova att skriva</span><code>"Här är mina anteckningar från dagens möte: [klistra in]. Sammanfatta besluten och gör en att-göra-lista med ansvarig person för varje punkt."</code></div>
       </div>
 
-      <div class="options" style="max-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;margin-top:1.3rem;">
+      <div class="options two-col" style="max-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;margin-top:1.3rem;">
         <div class="option">
           <div class="opt-head"><span class="opt-name">Avtal du fått</span><span class="opt-tag">Innan du skriver under</span></div>
           <p>Fått ett avtal från en leverantör, hyresvärd eller kund? Låt AI:n gå igenom det innan du skriver under.</p>
@@ -1248,7 +1252,7 @@
         <h2>för struktur och bokningar</h2>
         <p class="lede">Inte AI, men de löser vardagsproblem de flesta nya företagare stöter på.</p>
       </div>
-      <div class="options" style="max-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;">
+      <div class="options two-col" style="max-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;">
         <div class="option">
           <div class="opt-head"><span class="opt-name">Trello</span><span class="opt-tag">Struktur & översikt</span></div>
           <p>I praktiken en digital anslagstavla med kort du flyttar mellan kolumner. Behöver inte vara mer avancerat än tre kolumner: <b style="color:var(--navy);">Att göra → Pågår → Klart.</b></p>
