@@ -76,6 +76,7 @@
       transition: background 0.25s, transform 0.2s;
     }
     .nav-cta:hover { background: var(--amber); transform: translateY(-1px); }
+    .cta-short { display: none; }
 
     /* HERO */
     .hero {
@@ -598,6 +599,11 @@
 
     @media (max-width: 480px) {
       .areas-grid { grid-template-columns: 1fr 1fr; }
+      nav { padding: 1rem 5vw; }
+      .nav-logo { font-size: 0.95rem; }
+      .nav-cta { font-size: 0.62rem; padding: 0.6rem 1rem; }
+      .cta-full { display: none; }
+      .cta-short { display: inline; }
     }
   </style>
 </head>
@@ -605,7 +611,7 @@
 
   <nav id="main-nav">
     <a href="index.html" class="nav-logo">Head of <span>Passion</span></a>
-    <a href="https://calendly.com/headofhappiness/kostnadsfri-radgivning-via-timbanken?month=2026-09" class="nav-cta" target="_blank" rel="noopener">Boka kostnadsfritt möte med Lisa</a>
+    <a href="https://calendly.com/headofhappiness/kostnadsfri-radgivning-via-timbanken?month=2026-09" class="nav-cta" target="_blank" rel="noopener"><span class="cta-full">Boka kostnadsfritt möte med Lisa</span><span class="cta-short">Boka möte</span></a>
   </nav>
 
   <!-- HERO -->
@@ -615,7 +621,7 @@
       <h1 class="hero-h1">Ge liv<br>åt din<br><span>passion</span></h1>
       <p class="hero-sub">Jag hjälper dig att omvandla din idé och dröm om eget företag till en konkret, hållbar verksamhet – steg för steg. Genom Timbanken i Halland och Kronoberg blir det kostnadsfritt.</p>
       <div class="hero-actions">
-        <a href="https://calendly.com/headofhappiness/kostnadsfri-radgivning-via-timbanken?month=2026-09" class="btn-primary" target="_blank" rel="noopener">Boka kostnadsfritt möte med Lisa</a>
+        <a href="https://calendly.com/headofhappiness/kostnadsfri-radgivning-via-timbanken?month=2026-09" class="btn-primary" target="_blank" rel="noopener"><span class="cta-full">Boka kostnadsfritt möte med Lisa</span><span class="cta-short">Boka möte</span></a>
         <a href="#tjanster" class="btn-outline">Se tjänster</a>
       </div>
 
@@ -730,7 +736,7 @@
       <div class="reveal" style="display:flex;flex-direction:column;gap:1rem;margin-top:1rem;">
         <a href="https://www.timbanken.se/Halland/KompassOchAnmalan" target="_blank" style="font-size:0.85rem;color:#eab189;text-decoration:underline;text-underline-offset:3px;">Anmäl dig till Timbanken, Halland →</a>
         <a href="https://www.timbanken.se" target="_blank" style="font-size:0.85rem;color:#eab189;text-decoration:underline;text-underline-offset:3px;">Driver du företag i Kronoberg? Anmäl dig via timbanken.se från januari 2027 →</a>
-        <a href="https://calendly.com/headofhappiness/kostnadsfri-radgivning-via-timbanken?month=2026-09" target="_blank" rel="noopener" class="btn-amber">Boka kostnadsfritt möte med Lisa</a>
+        <a href="https://calendly.com/headofhappiness/kostnadsfri-radgivning-via-timbanken?month=2026-09" target="_blank" rel="noopener" class="btn-amber"><span class="cta-full">Boka kostnadsfritt möte med Lisa</span><span class="cta-short">Boka möte</span></a>
       </div>
     </div>
     <div class="timbanken-box reveal">
