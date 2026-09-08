@@ -70,6 +70,13 @@
     letter-spacing:0.03em;text-transform:uppercase;color:var(--navy);text-decoration:none;
   }
   .nav-logo span{color:var(--terracotta);}
+  .nav-actions{display:flex;align-items:center;gap:1.3rem;}
+  .nav-menu-link{
+    font-family:var(--heading);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;
+    text-transform:uppercase;text-decoration:none;color:var(--navy);transition:color .2s;
+    white-space:nowrap;
+  }
+  .nav-menu-link:hover{color:var(--terracotta-deep);}
   .nav-cta{
     font-family:var(--heading);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;
     text-transform:uppercase;text-decoration:none;color:var(--white);background:var(--navy);
@@ -397,6 +404,8 @@
     .steps{grid-template-columns:1fr;}
     nav#main-nav{padding:0.9rem 5vw;}
     .nav-logo{font-size:0.9rem;}
+    .nav-actions{gap:0.7rem;}
+    .nav-menu-link{font-size:0.6rem;}
     .nav-cta{font-size:0.6rem;padding:0.55rem 1rem;}
   }
 
@@ -407,7 +416,10 @@
 
   <nav id="main-nav">
     <a href="index.html" class="nav-logo">Head of <span>Passion</span></a>
-    <a href="https://calendly.com/headofhappiness/kostnadsfri-radgivning-via-timbanken?month=2026-09" class="nav-cta" target="_blank" rel="noopener">Boka kostnadsfritt möte med Lisa</a>
+    <div class="nav-actions">
+      <a href="#hub" class="nav-menu-link">Meny ↑</a>
+      <a href="https://calendly.com/headofhappiness/kostnadsfri-radgivning-via-timbanken?month=2026-09" class="nav-cta" target="_blank" rel="noopener">Boka kostnadsfritt möte med Lisa</a>
+    </div>
   </nav>
 
   <!-- HERO -->
