@@ -131,6 +131,16 @@
     }
     .nav-cta:hover { background: var(--amber); transform: translateY(-1px); }
     .cta-short { display: none; }
+    .nav-actions { display: flex; align-items: center; gap: 1.2rem; }
+    .nav-mail {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-mail:hover { color: var(--amber); }
+    .mail-short { display: none; }
 
     /* HERO */
     .hero {
@@ -648,6 +658,9 @@
 
     /* MOBILE */
     @media (max-width: 860px) {
+      .mail-full { display: none; }
+      .mail-short { display: inline; font-size: 1.1rem; }
+      .nav-actions { gap: 0.8rem; }
       .hero { grid-template-columns: 1fr; }
       .hero-right { height: 90vw; order: -1; }
       .hero-left { padding: 3.5rem 6vw; }
@@ -666,6 +679,9 @@
       .nav-cta { font-size: 0.62rem; padding: 0.6rem 1rem; }
       .cta-full { display: none; }
       .cta-short { display: inline; }
+      .nav-actions { gap: 0.7rem; }
+      .mail-full { display: none; }
+      .mail-short { display: inline; font-size: 1.1rem; }
       .hero-h1 { font-size: 2.1rem; }
       .section-h2 { font-size: 1.4rem; }
     }
@@ -675,7 +691,10 @@
 
   <nav id="main-nav">
     <a href="index.html" class="nav-logo">Head of <span>Passion</span></a>
-    <a href="https://calendly.com/lisa-headofhappiness/timbanken-halland" class="nav-cta" target="_blank" rel="noopener"><span class="cta-full">Boka kostnadsfritt möte med Lisa</span><span class="cta-short">Boka möte</span></a>
+    <div class="nav-actions">
+      <a href="mailto:lisa@headofpassion.se" class="nav-mail"><span class="mail-full">Eller mejla mig direkt: lisa@headofpassion.se</span><span class="mail-short">✉</span></a>
+      <a href="https://calendly.com/lisa-headofhappiness/timbanken-halland" class="nav-cta" target="_blank" rel="noopener"><span class="cta-full">Boka kostnadsfritt möte med Lisa</span><span class="cta-short">Boka möte</span></a>
+    </div>
   </nav>
 
   <!-- HERO -->
