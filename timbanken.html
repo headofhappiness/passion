@@ -398,11 +398,16 @@
       background: var(--white);
       padding: 2.4rem 2rem;
       border-radius: 4px;
-      border-top: 3px solid transparent;
-      transition: border-color 0.3s, box-shadow 0.3s, transform 0.25s;
+      border-top: 3px solid var(--rust);
+      transition: box-shadow 0.3s, transform 0.25s;
     }
+    .service-card:nth-child(2) { border-top-color: var(--peach); }
+    .service-card:nth-child(3) { border-top-color: var(--gold); }
+    .service-card:nth-child(4) { border-top-color: var(--navy); }
+    .service-card:nth-child(5) { border-top-color: var(--salmon); }
+    .service-card:nth-child(6) { border-top-color: var(--rust); }
+    .service-card:nth-child(7) { border-top-color: var(--peach); }
     .service-card:hover {
-      border-color: var(--salmon);
       box-shadow: 0 8px 32px rgba(21,32,53,0.1);
       transform: translateY(-4px);
     }
