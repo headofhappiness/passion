@@ -589,16 +589,19 @@
     }
     .btn-white:hover { background: var(--navy); color: var(--white); transform: translateY(-2px); }
     .contact-email {
-      display: block;
-      margin-top: 2rem;
-      font-size: 0.82rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.65);
-      text-decoration: none;
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-family: var(--heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: var(--peach);
       transition: color 0.2s;
     }
-    .contact-email:hover { color: var(--white); }
+    .contact-email:hover { color: var(--peach); }
 
     /* FOOTER */
     footer {
@@ -872,6 +875,7 @@
     <h2 class="reveal">Boka möte.<br>Kostnadsfritt.</h2>
     <p class="reveal">Boka en kostnadsfri rådgivning och låt oss se vad vi kan bygga upp tillsammans.</p>
     <a href="https://calendly.com/headofhappiness/kostnadsfri-radgivning-via-timbanken" target="_blank" rel="noopener" class="btn-white reveal">Boka möte</a>
+    <p class="reveal" style="margin-top:1.6rem;font-size:0.85rem;color:rgba(255,255,255,0.6);">Eller mejla mig direkt:</p>
     <a href="mailto:lisa@headofpassion.se" class="contact-email">lisa@headofpassion.se</a>
   </section>
 
