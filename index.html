@@ -717,9 +717,15 @@
 
     /* MOBILE */
     @media (max-width: 860px) {
-      .hero-right { display: none; }
+      .hero-right {
+        height: auto; order: 2; padding: 2rem 1.5rem 1.5rem;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+      }
+      .hero-right img {
+        position: static; width: 100%; max-width: 320px; height: auto; object-fit: initial;
+      }
       .hero { grid-template-columns: 1fr; }
-      .hero-left { padding: 3.5rem 6vw; }
+      .hero-left { padding: 3.5rem 6vw; order: 1; }
       .intro, .proof-grid, .services-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .intro-content { order: 1; }
       .intro-img { order: 2; }
