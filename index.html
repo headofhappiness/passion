@@ -131,6 +131,7 @@
       transition: background 0.25s, transform 0.2s;
     }
     .nav-cta-outline:hover { background: var(--peach); transform: translateY(-1px); }
+    .tb-short { display: none; }
 
     /* HERO */
     .hero {
@@ -732,7 +733,10 @@
       nav { padding: 1rem 5vw; }
       .nav-logo { font-size: 0.95rem; }
       .nav-cta { font-size: 0.62rem; padding: 0.6rem 1rem; }
-      .nav-cta-outline { display: none; }
+      .nav-cta-outline { font-size: 0.62rem; padding: 0.6rem 1rem; }
+      .tb-full { display: none; }
+      .tb-short { display: inline; }
+      .nav-actions { gap: 0.5rem; }
       .hero-left { padding-top: 2.5rem; }
       .hero-actions { flex-direction: column; align-items: stretch; }
       .hero-actions a { text-align: center; }
@@ -752,7 +756,7 @@
   <nav id="main-nav">
     <a href="index.html" class="nav-logo">Head of <span>Passion</span></a>
     <div class="nav-actions">
-      <a href="timbanken.html" class="nav-cta-outline">Timbanken – kostnadsfritt</a>
+      <a href="timbanken.html" class="nav-cta-outline"><span class="tb-full">Timbanken – kostnadsfritt</span><span class="tb-short">Timbanken</span></a>
       <a href="#kontakt" class="nav-cta">Hör av dig</a>
     </div>
   </nav>
