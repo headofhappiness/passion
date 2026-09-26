@@ -238,21 +238,23 @@
       position: relative;
       overflow: hidden;
       padding: 3rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
     }
     .hero-right img {
-      width: 100%; max-width: 420px; height: auto;
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
       display: block;
       opacity: 0;
       animation: fadeIn 1s 0.4s ease forwards;
     }
     .hero-caption {
-      position: static;
-      margin-top: 1.2rem;
+      position: absolute;
+      left: 1.5rem;
+      bottom: 1.5rem;
+      right: 1.5rem;
       max-width: 260px;
+      margin-left: auto;
       background: rgba(255,255,255,0.94);
       backdrop-filter: blur(4px);
       border-radius: 6px;
@@ -665,8 +667,16 @@
       .nav-mail { padding: 0.4rem; margin: -0.4rem; }
       .nav-actions { gap: 0.8rem; }
       .hero { grid-template-columns: 1fr; }
-      .hero-right { height: auto; order: -1; padding: 2rem 1.5rem 1.5rem; }
-      .hero-right img { max-width: 200px; }
+      .hero-right {
+        height: auto; order: -1; padding: 2rem 1.5rem 1.5rem;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+      }
+      .hero-right img {
+        position: static; width: 100%; max-width: 200px; height: auto; object-fit: initial;
+      }
+      .hero-caption {
+        position: static; margin-top: 1.2rem; left: auto; right: auto; bottom: auto; margin-left: 0;
+      }
       .hero-left { padding: 3.5rem 6vw; }
       .intro, .timbanken, .ai-section { grid-template-columns: 1fr; gap: 2.5rem; }
       .services-grid { grid-template-columns: 1fr; }
