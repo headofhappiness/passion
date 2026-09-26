@@ -238,20 +238,21 @@
       position: relative;
       overflow: hidden;
       padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     .hero-right img {
-      width: 100%; height: 100%;
-      object-fit: contain;
-      object-position: center bottom;
+      width: 100%; max-width: 280px; height: auto;
       display: block;
       opacity: 0;
       animation: fadeIn 1s 0.4s ease forwards;
     }
     .hero-caption {
-      position: absolute;
-      left: 1.5rem;
-      bottom: 1.5rem;
-      right: 1.5rem;
+      position: static;
+      margin-top: 1.2rem;
+      max-width: 260px;
       background: rgba(255,255,255,0.94);
       backdrop-filter: blur(4px);
       border-radius: 6px;
@@ -664,7 +665,8 @@
       .nav-mail { padding: 0.4rem; margin: -0.4rem; }
       .nav-actions { gap: 0.8rem; }
       .hero { grid-template-columns: 1fr; }
-      .hero-right { height: 90vw; order: -1; padding: 1.5rem; }
+      .hero-right { height: auto; order: -1; padding: 2rem 1.5rem 1.5rem; }
+      .hero-right img { max-width: 200px; }
       .hero-left { padding: 3.5rem 6vw; }
       .intro, .timbanken, .ai-section { grid-template-columns: 1fr; gap: 2.5rem; }
       .services-grid { grid-template-columns: 1fr; }
@@ -710,11 +712,11 @@
 
     </div>
     <div class="hero-right">
+      <img src="assets/hero-lisa.jpg" alt="Lisa – Head of Passion" loading="eager" decoding="async" />
       <div class="hero-caption">
         <strong>Lisa Jonsson, ekonom och coach</strong>
         <span>"Det är viktigt för mig att det går bra för dig!"</span>
       </div>
-      <img src="assets/hero-lisa.jpg" alt="Lisa – Head of Passion" loading="eager" decoding="async" />
     </div>
   </section>
 
