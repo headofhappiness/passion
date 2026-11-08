@@ -514,6 +514,65 @@
       border-radius: 20px;
       padding: 0.15rem 0.6rem;
     }
+    .case-study {
+      padding: 7rem 8vw;
+      background: var(--cream-deep, #f2e9d8);
+    }
+    .case-study-header { max-width: 680px; margin-bottom: 2.4rem; }
+    .case-study-header .section-intro-p { margin-top: 0.9rem; }
+    .case-study-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-family: var(--heading);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--salmon);
+      text-decoration: none;
+    }
+    .case-study-link:hover { color: var(--navy); }
+    .case-study-compare {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+    }
+    .case-study-col {
+      flex: 1;
+      position: relative;
+      background: var(--white);
+      border-radius: 8px;
+      padding: 0.9rem;
+      box-shadow: 0 16px 40px rgba(34,52,78,0.15);
+    }
+    .case-study-col img {
+      width: 100%;
+      display: block;
+      border-radius: 4px;
+    }
+    .case-study-badge {
+      display: inline-block;
+      margin-bottom: 0.7rem;
+      font-family: var(--heading);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+    }
+    .case-study-badge-before { background: var(--light); color: var(--muted); }
+    .case-study-badge-after { background: var(--navy); color: var(--gold); }
+    .case-study-arrow {
+      flex: none;
+      font-size: 1.6rem;
+      color: var(--salmon);
+      font-weight: 700;
+    }
+    @media (max-width: 640px) {
+      .case-study-compare { flex-direction: column; gap: 1.2rem; }
+      .case-study-arrow { transform: rotate(90deg); }
+    }
     .proof-note {
       margin-top: 2.4rem;
       font-size: 0.85rem;
@@ -911,6 +970,27 @@
       </div>
     </div>
     <p class="proof-note reveal">"AI är ett stöd som gör mig snabbare – aldrig en ersättning för mitt eget omdöme och ansvar."</p>
+  </section>
+
+  <!-- CASE STUDY: RÖSTLABBET -->
+  <section class="case-study">
+    <div class="case-study-header">
+      <span class="section-label reveal">Exempel på kunduppdrag</span>
+      <h2 class="section-h2 reveal">Från otydlig kurssida<br>till <span>säljande medlemssajt</span></h2>
+      <p class="section-intro-p reveal">Monica, sångpedagog och CVT Authorised Teacher, hade trafik till sin sida men ingen köpte medlemskapet. Erbjudandet var otydligt. På några timmar gjorde vi om det till "Ditt röstgym med Monica": ett tydligt erbjudande, ett pris och en köpknapp som leder rakt till betalningen. Livepassen uppdateras från ett kalkylark, nyhetsbrevet samlar in e-post och Monica kan själv ändra sin sida med hjälp av AI.</p>
+      <a href="https://rostlabbet.se" target="_blank" rel="noopener" class="case-study-link reveal">rostlabbet.se ↗</a>
+    </div>
+    <div class="case-study-compare reveal">
+      <div class="case-study-col">
+        <span class="case-study-badge case-study-badge-before">Före</span>
+        <img src="assets/rostlabbet-fore-dator.png" alt="Röstlabbet.se innan ombyggnaden" loading="lazy" decoding="async" />
+      </div>
+      <span class="case-study-arrow">→</span>
+      <div class="case-study-col">
+        <span class="case-study-badge case-study-badge-after">Efter</span>
+        <img src="assets/rostlabbet-efter-dator.png" alt="Röstlabbet.se efter ombyggnaden" loading="lazy" decoding="async" />
+      </div>
+    </div>
   </section>
 
   <!-- TIMBANKEN STRIP -->
