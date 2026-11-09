@@ -446,9 +446,7 @@ function seed(){
     S.plan = PLAN_SEED.map(b=>({id:b.id, wk:b.wk, title:b.title,
       tasks:b.tasks.map(([id,text,gate])=>({id, text, done:!!S.checks[id], gate:!!gate}))}));
   }
-  if(!Array.isArray(S.challenge) || !S.challenge.length){
-    S.challenge = CHALLENGE_SEED.map(([id,text,wk])=>({id, text, wk, done:!!S.checks[id]}));
-  }
+  if(!Array.isArray(S.challenge)) S.challenge=[];
   if(!Array.isArray(S.ideas)) S.ideas=[];
   if(!Array.isArray(S.hidden)) S.hidden=[];
   if(!Array.isArray(S.mig)) S.mig=[];
@@ -461,6 +459,17 @@ function seed(){
         tasks:b.tasks.map(([id,text,gate])=>({id, text, done:false, gate:!!gate}))}));
     }
     S.mig.push("spar");
+  }
+  // de forsta 30 dagarna blir forsta blocket i planen, sa att allt ar en lista
+  if(!S.mig.includes("merge30")){
+    const src = (S.challenge&&S.challenge.length) ? S.challenge
+      : CHALLENGE_SEED.map(([id,text])=>({id,text,done:false}));
+    if(src.length && !S.plan.some(b=>b.id==="t0")){
+      S.plan.unshift({id:"t0", wk:"Start", title:"Första 30 dagarna",
+        tasks:src.map(c=>({id:c.id, text:c.text, done:!!c.done, gate:false}))});
+    }
+    S.challenge=[];
+    S.mig.push("merge30");
   }
   S.prospects.forEach(p=>{ if(!p.state) p.state="Aktiv"; if(p.last==null) p.last=""; if(p.offer==null) p.offer=""; });
 }
@@ -583,33 +592,21 @@ function renderWeek(){
     </div>
 
     <div class="card">
-      <div class="hd"><h2>Din utgångspunkt</h2><span class="eyebrow">det du redan presterar</span></div>
+      <div class="hd"><h2>Hur det går</h2><span class="eyebrow">från din lista</span></div>
       <div class="tiles">
-        <div class="tile hi c6"><div class="k">Din konvertering</div><div class="v">${esc(S.base.rate)} %</div><div class="s">av kalla mejl blir kund</div></div>
-        <div class="tile c1"><div class="k">Typiskt kallt mejl</div><div class="v">1–2 %</div><div class="s">branschsnitt</div></div>
-        <div class="tile c2"><div class="k">Mejl skickade</div><div class="v">${nf(S.base.mails)}</div><div class="s">hittills</div></div>
-        <div class="tile c5"><div class="k">Det blir</div><div class="v">${nf(Number(S.base.mails)*Number(S.base.rate)/100)}</div><div class="s">kunder, om nivån håller</div></div>
-      </div>
-      <div class="note good" style="margin-top:14px">Att ligga runt fem procent från kallt mejl till betalande kund är flera gånger över vad en normal utskickskampanj ger. Slutsatsen är inte att du ska lära dig sälja. Den är att du ska ta reda på exakt vad i din metod som gör det — och skydda det när volymen ökar.</div>
-      <p class="small" style="margin-top:10px">Siffrorna här är dina egna uppgifter. Ändra dem i Resultat &amp; lönsamhet när du har säkrare tal.</p>
-    </div>
-
-    <div class="card">
-      <div class="hd"><h2>Hur det går nu</h2><span class="eyebrow">mätt i verktyget</span></div>
-      <div class="tiles">
-        <div class="tile c6 ${rate!==null?'hi':''}"><div class="k">Mejl → kund</div><div class="v">${rate!==null?rate.toFixed(1)+" %":"—"}</div>
-          <div class="s">${rate!==null?"räknat på listan":"för få mejlade än"}</div></div>
+        <div class="tile hi c6"><div class="k">Din utgångspunkt</div><div class="v">${esc(S.base.rate)} %</div><div class="s">av kalla mejl blir kund</div></div>
+        <div class="tile c2"><div class="k">Mejl → kund nu</div><div class="v">${rate!==null?rate.toFixed(1)+" %":"—"}</div>
+          <div class="s">${rate!==null?"mätt i listan":"för få mejlade än"}</div></div>
         <div class="tile c3"><div class="k">Aktiva prospekt</div><div class="v">${active().filter(p=>p.stage<5).length}</div><div class="s">i rörelse</div></div>
         <div class="tile c4"><div class="k">Kunder i listan</div><div class="v">${custs}</div><div class="s">av ${mailed} mejlade</div></div>
       </div>
-      <p class="small" style="margin-top:10px">Räknas från prospektlistan och visar en procentsats först vid tio mejlade. Det är den här siffran som ska möta de ${esc(S.base.rate)} procenten ovan.</p>
+      <p class="small" style="margin-top:10px">Första rutan är din egen uppgift, de andra räknas från listan. Jämförelsen mot branschsnittet ligger under Resultat &amp; lönsamhet.</p>
     </div>
   </div>`;
 }
 
 /* ============== view: plan ============== */
 function renderPlan(){
-  const chDone=S.challenge.filter(c=>c.done).length;
   const pw=planWeek();
   return `
   <div class="stack">
@@ -628,28 +625,9 @@ function renderPlan(){
     </div>
 
     <div class="card">
-      <div class="hd"><h2>Första 30 dagarna</h2><span class="eyebrow">${chDone} av ${S.challenge.length}</span></div>
-      <p class="prose">Ingen av de här handlar om att bli bättre på att sälja — alla handlar om att få syn på vad som redan fungerar. Skriv om dem som du vill, de är dina.</p>
-      <div style="margin-top:12px">
-        ${S.challenge.map((c,i)=>`
-          <div class="ck ${c.done?'done':''}">
-            <input type="checkbox" data-chtoggle="${c.id}" ${c.done?"checked":""} aria-label="Klar">
-            <input class="tedit" id="te-${c.id}" data-chtext="${c.id}" value="${esc(c.text)}" aria-label="Uppgift">
-            <input class="tedit" style="width:88px;flex:none;font-family:var(--font-d);font-size:11.5px" data-chwk="${c.id}" value="${esc(c.wk)}" aria-label="När">
-            <span class="tools">
-              <button class="mv" data-chmove="${c.id}|-1" title="Upp" aria-label="Upp"${i===0?" disabled":""}>&uarr;</button>
-              <button class="mv" data-chmove="${c.id}|1" title="Ner" aria-label="Ner"${i===S.challenge.length-1?" disabled":""}>&darr;</button>
-              <button class="mv del" data-chdel="${c.id}" title="Ta bort" aria-label="Ta bort">&times;</button>
-            </span>
-          </div>`).join("")}
-      </div>
-      <div class="addrow"><button class="btn btn-sm" id="addch" type="button">+ Lägg till uppgift</button></div>
-    </div>
-
-    <div class="card">
-      <div class="hd"><h2>Tre spår som går parallellt</h2>
+      <div class="hd"><h2>Din plan</h2>
         <span class="eyebrow">${pw?("vecka "+pw+" av 12"):"sätt startdatum nedan"}</span></div>
-      <p class="prose">Inte en vecka-för-vecka-plan, utan tre saker som rullar samtidigt fram till februari. Allt här är ditt att ändra: skriv om en uppgift, lägg till egna, ta bort det som inte passar.</p>
+      <p class="prose">En lista, inte tre. Första blocket är de första trettio dagarna, sedan rullar tre spår parallellt fram till februari. Det är härifrån <strong>Nästa i planen</strong> på startsidan hämtar sina uppgifter, så det du bockar av här försvinner därifrån. Allt är ditt att ändra: skriv om, lägg till, ta bort.</p>
       <div class="grid g2" style="margin-top:14px">
         <div class="f"><label for="set-started">När startar planen?</label>
           <input type="date" id="set-started" data-set="started" value="${esc(S.started)}"></div>
@@ -731,12 +709,13 @@ function renderProspects(){
         </div>`).join("")}
       </div>
       <p class="small" style="margin-top:10px">Pausade och inte aktuella räknas inte med. Varje rad räknas i alla steg den passerat, så tratten visar hur långt de kommit.</p>`
-      : `<div class="empty"><b>Tratten är tom</b>Lägg in ett företag nedan, eller importera en CSV från ditt eget prospekteringsverktyg.</div>`}
+      : `<div class="empty"><b>Tratten är tom</b>Importera en CSV från ditt prospekteringssystem, eller lägg in de kontakter du vill följa upp själv.</div>`}
     </div>
 
     <div class="card">
-      <div class="hd"><h2>Lägg till företag</h2></div>
-      <div class="grid g3">
+      <div class="hd"><h2>Lägg till företag</h2><span class="eyebrow">bara det som kräver dig</span></div>
+      <p class="prose">Det här ska inte bli en andra kopia av ditt prospekteringssystem. Låt systemet göra det det är bra på — hitta företag och skicka mejl — och lägg in här bara de kontakter som kräver att <strong>du</strong> följer upp personligen. Vill du mäta på hela volymen importerar du en CSV när det passar, istället för att skriva in rader för hand.</p>
+      <div class="grid g3" style="margin-top:14px">
         <div class="f"><label for="np-co">Företag</label><input id="np-co" placeholder="Företagsnamn"></div>
         <div class="f"><label for="np-ct">Kontakt<span class="hint"> förnamn räcker</span></label><input id="np-ct" placeholder="Förnamn"></div>
         <div class="f"><label for="np-in">Segment<span class="hint"> viktigast av allt</span></label><input id="np-in" placeholder="t.ex. e-handel" list="industries"></div>
@@ -748,7 +727,7 @@ function renderProspects(){
       <datalist id="offers">${offers.map(i=>`<option value="${esc(i)}">`).join("")}</datalist>
       <div class="row" style="margin-top:14px">
         <button class="btn btn-pri" id="addprospect" type="button">Lägg till</button>
-        <button class="btn" id="imp" type="button">Importera CSV</button>
+        <button class="btn btn-pri" id="imp" type="button">Importera CSV från ditt system</button>
         <button class="btn" id="expcsv" type="button">Exportera CSV</button>
         <input type="file" id="impfile" accept=".csv,text/csv" hidden>
       </div>
@@ -853,8 +832,13 @@ function renderResults(){
       <div class="grid g3" style="margin-top:14px">
         <div class="f"><label for="b-mails">Mejl skickade totalt</label><input type="number" min="0" id="b-mails" data-base="mails" value="${esc(S.base.mails)}"></div>
         <div class="f"><label for="b-rate">Andel som blivit kund (%)</label><input type="number" min="0" max="100" step="0.1" id="b-rate" data-base="rate" value="${esc(S.base.rate)}"></div>
-        <div class="tile"><div class="k">Det skulle ge</div><div class="v">${nf(Number(S.base.mails)*Number(S.base.rate)/100)}</div><div class="s">kunder, om nivån hållit</div></div>
       </div>
+      <div class="tiles" style="margin-top:14px">
+        <div class="tile hi c6"><div class="k">Din nivå</div><div class="v">${esc(S.base.rate)} %</div><div class="s">av kalla mejl blir kund</div></div>
+        <div class="tile c1"><div class="k">Typiskt kallt mejl</div><div class="v">1–2 %</div><div class="s">branschsnitt</div></div>
+        <div class="tile c5"><div class="k">Det skulle ge</div><div class="v">${nf(Number(S.base.mails)*Number(S.base.rate)/100)}</div><div class="s">kunder, om nivån hållit</div></div>
+      </div>
+      <div class="note good" style="margin-top:14px">Att ligga runt fem procent från kallt mejl till betalande kund är flera gånger över vad en normal utskickskampanj ger. Slutsatsen är inte att du ska lära dig sälja. Den är att du ska ta reda på exakt vad i din metod som gör det — och skydda det när volymen ökar.</div>
     </div>
 
     <div class="card">
