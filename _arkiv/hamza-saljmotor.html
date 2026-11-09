@@ -13,6 +13,12 @@
   --warn:#9d6a12; --warn-wash:#fbf1e0;
   --crit:#9d3a32; --crit-wash:#f8e9e7;
   --focus:#1a7f8c;
+  --s1:#27707c; --s1w:#e2f0f1;
+  --s2:#3a6ea8; --s2w:#e4ecf6;
+  --s3:#7a54a3; --s3w:#efe8f7;
+  --s4:#b1573a; --s4w:#fbe9e3;
+  --s5:#a8780f; --s5w:#fbf1dc;
+  --s6:#2c7f52; --s6w:#e3f2e9;
   --font-d:"Chivo",ui-sans-serif,system-ui,sans-serif;
   --font-b:"Source Serif 4",Georgia,"Times New Roman",serif;
   --r:10px; --r-lg:16px;
@@ -27,6 +33,12 @@
   --warn:#d8a24a; --warn-wash:#2a2115;
   --crit:#e08a80; --crit-wash:#2b1a18;
   --focus:#4fc3cf;
+  --s1:#5bb8c4; --s1w:#142c30;
+  --s2:#7aa6dd; --s2w:#17222f;
+  --s3:#b795e0; --s3w:#241c33;
+  --s4:#e0917a; --s4w:#2e1d18;
+  --s5:#dcae4e; --s5w:#2b2314;
+  --s6:#6cc08d; --s6w:#14281d;
   color-scheme:dark;
 }}
 :root[data-theme="dark"]{
@@ -39,6 +51,12 @@
   --warn:#d8a24a; --warn-wash:#2a2115;
   --crit:#e08a80; --crit-wash:#2b1a18;
   --focus:#4fc3cf;
+  --s1:#5bb8c4; --s1w:#142c30;
+  --s2:#7aa6dd; --s2w:#17222f;
+  --s3:#b795e0; --s3w:#241c33;
+  --s4:#e0917a; --s4w:#2e1d18;
+  --s5:#dcae4e; --s5w:#2b2314;
+  --s6:#6cc08d; --s6w:#14281d;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -106,6 +124,8 @@ main{padding-block:26px 64px}
 
 /* ---------- hero quote ---------- */
 .creed{background:var(--brand);color:var(--brand-fg);border-radius:var(--r-lg);padding:22px}
+.creed::before{content:"";display:block;height:5px;border-radius:3px;margin-bottom:16px;max-width:260px;
+  background:linear-gradient(90deg,var(--s1),var(--s2),var(--s3),var(--s4),var(--s5),var(--s6))}
 .creed p{font-family:var(--font-b);font-size:18px;line-height:1.45;max-width:46ch}
 .creed .by{font-size:11.5px;color:#ffffff8c;margin-top:10px;font-family:var(--font-d);letter-spacing:.04em;text-transform:uppercase}
 
@@ -113,10 +133,9 @@ main{padding-block:26px 64px}
 .tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(132px,1fr))}
 .tile{background:var(--surface-3);border:1px solid var(--line);border-radius:var(--r);padding:12px}
 .tile .k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-faint)}
-.tile .v{font-size:25px;font-weight:900;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums}
+.tile .v{font-size:25px;font-weight:900;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums;color:var(--sc,var(--fg))}
 .tile .s{font-size:12px;color:var(--fg-soft)}
-.tile.hi{background:var(--accent-wash);border-color:transparent}
-.tile.hi .v{color:var(--accent)}
+.tile.hi{--sc:var(--accent);--scw:var(--accent-wash);background:var(--scw);border-color:transparent}
 
 /* ---------- checklist ---------- */
 .ck{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;padding:10px 0;border-top:1px solid var(--line)}
@@ -143,7 +162,8 @@ main{padding-block:26px 64px}
 .bhead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:11px 13px;background:var(--surface-3);border-bottom:1px solid var(--line)}
 .bhead .pr{font-size:12px;color:var(--fg-faint);font-weight:600;font-variant-numeric:tabular-nums;flex:none}
 .confirm{display:inline-flex;gap:6px;align-items:center;background:var(--crit-wash);border-radius:7px;padding:3px 7px;font-size:12px;color:var(--crit);font-weight:600}
-.block{border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.block{border:1px solid var(--line);border-left:4px solid var(--sc,var(--line));border-radius:var(--r);overflow:hidden}
+.bhead{background:var(--scw,var(--surface-3))}
 .block+.block{margin-top:12px}
 .block .body{padding:4px 15px 14px}
 .gate18{display:inline-block;background:var(--warn-wash);color:var(--warn);border-radius:5px;padding:2px 7px;font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;flex:none}
@@ -151,19 +171,26 @@ main{padding-block:26px 64px}
 /* ---------- method steps ---------- */
 .steps{display:grid;gap:10px;counter-reset:s}
 @media(min-width:860px){.steps{grid-template-columns:repeat(6,1fr)}}
-.step{background:var(--surface-3);border:1px solid var(--line);border-radius:var(--r);padding:12px;position:relative}
-.step::before{counter-increment:s;content:counter(s);font-size:11px;font-weight:900;color:var(--accent);display:block;margin-bottom:5px}
+.step{background:var(--surface-3);border:1px solid var(--line);border-top:3px solid var(--sc,var(--accent));border-radius:var(--r);padding:12px;position:relative}
+.step::before{counter-increment:s;content:counter(s);font-size:13px;font-weight:900;color:var(--sc,var(--accent));display:block;margin-bottom:5px}
 .step b{display:block;font-size:13.5px;margin-bottom:3px}
 .step small{color:var(--fg-soft);font-size:12.5px;line-height:1.4;display:block;font-family:var(--font-b)}
-.step.key{background:var(--accent-wash);border-color:var(--accent)}
+.step.key{background:var(--scw,var(--accent-wash))}
+.c1{--sc:var(--s1);--scw:var(--s1w)}
+.c2{--sc:var(--s2);--scw:var(--s2w)}
+.c3{--sc:var(--s3);--scw:var(--s3w)}
+.c4{--sc:var(--s4);--scw:var(--s4w)}
+.c5{--sc:var(--s5);--scw:var(--s5w)}
+.c6{--sc:var(--s6);--scw:var(--s6w)}
 
 /* ---------- funnel ---------- */
 .fun{display:grid;gap:7px}
 .fun-row{display:grid;grid-template-columns:118px 1fr 46px;align-items:center;gap:10px;font-size:13px}
 .fun-row .lbl{color:var(--fg-soft);font-weight:600}
 .fun-bar{background:var(--surface-2);border-radius:5px;height:24px;overflow:hidden}
-.fun-bar i{display:block;height:100%;background:var(--brand-2);border-radius:5px}
-.fun-row:last-child .fun-bar i{background:var(--good)}
+.fun-bar i{display:block;height:100%;background:var(--sc,var(--brand-2));border-radius:5px}
+.fun-row .lbl{color:var(--sc,var(--fg-soft))}
+.fun-row .n{color:var(--sc,var(--fg))}
 .fun-row .n{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
 
 /* ---------- table ---------- */
@@ -558,10 +585,10 @@ function renderWeek(){
     <div class="card">
       <div class="hd"><h2>Din utgångspunkt</h2><span class="eyebrow">det du redan presterar</span></div>
       <div class="tiles">
-        <div class="tile hi"><div class="k">Din konvertering</div><div class="v">${esc(S.base.rate)} %</div><div class="s">av kalla mejl blir kund</div></div>
-        <div class="tile"><div class="k">Typiskt kallt mejl</div><div class="v">1–2 %</div><div class="s">branschsnitt</div></div>
-        <div class="tile"><div class="k">Mejl skickade</div><div class="v">${nf(S.base.mails)}</div><div class="s">hittills</div></div>
-        <div class="tile"><div class="k">Det blir</div><div class="v">${nf(Number(S.base.mails)*Number(S.base.rate)/100)}</div><div class="s">kunder, om nivån håller</div></div>
+        <div class="tile hi c6"><div class="k">Din konvertering</div><div class="v">${esc(S.base.rate)} %</div><div class="s">av kalla mejl blir kund</div></div>
+        <div class="tile c1"><div class="k">Typiskt kallt mejl</div><div class="v">1–2 %</div><div class="s">branschsnitt</div></div>
+        <div class="tile c2"><div class="k">Mejl skickade</div><div class="v">${nf(S.base.mails)}</div><div class="s">hittills</div></div>
+        <div class="tile c5"><div class="k">Det blir</div><div class="v">${nf(Number(S.base.mails)*Number(S.base.rate)/100)}</div><div class="s">kunder, om nivån håller</div></div>
       </div>
       <div class="note good" style="margin-top:14px">Att ligga runt fem procent från kallt mejl till betalande kund är flera gånger över vad en normal utskickskampanj ger. Slutsatsen är inte att du ska lära dig sälja. Den är att du ska ta reda på exakt vad i din metod som gör det — och skydda det när volymen ökar.</div>
       <p class="small" style="margin-top:10px">Siffrorna här är dina egna uppgifter. Ändra dem i Resultat &amp; lönsamhet när du har säkrare tal.</p>
@@ -570,10 +597,10 @@ function renderWeek(){
     <div class="card">
       <div class="hd"><h2>Hur det går nu</h2><span class="eyebrow">mätt i verktyget</span></div>
       <div class="tiles">
-        <div class="tile ${rate!==null?'hi':''}"><div class="k">Mejl → kund</div><div class="v">${rate!==null?rate.toFixed(1)+" %":"—"}</div>
+        <div class="tile c6 ${rate!==null?'hi':''}"><div class="k">Mejl → kund</div><div class="v">${rate!==null?rate.toFixed(1)+" %":"—"}</div>
           <div class="s">${rate!==null?"räknat på listan":"för få mejlade än"}</div></div>
-        <div class="tile"><div class="k">Aktiva prospekt</div><div class="v">${active().filter(p=>p.stage<5).length}</div><div class="s">i rörelse</div></div>
-        <div class="tile"><div class="k">Kunder i listan</div><div class="v">${custs}</div><div class="s">av ${mailed} mejlade</div></div>
+        <div class="tile c3"><div class="k">Aktiva prospekt</div><div class="v">${active().filter(p=>p.stage<5).length}</div><div class="s">i rörelse</div></div>
+        <div class="tile c4"><div class="k">Kunder i listan</div><div class="v">${custs}</div><div class="s">av ${mailed} mejlade</div></div>
       </div>
       <p class="small" style="margin-top:10px">Räknas från prospektlistan och visar en procentsats först vid tio mejlade. Det är den här siffran som ska möta de ${esc(S.base.rate)} procenten ovan.</p>
     </div>
@@ -590,12 +617,12 @@ function renderPlan(){
       <div class="hd"><h2>Din metod</h2><span class="eyebrow">det här gör du redan</span></div>
       <p class="prose">Det du gör har ett namn: behovsorienterad försäljning. Du säljer inte i första kontakten, du ber om ett samtal. Modellen finns här för att du ska känna igen den och kunna försvara den när någon tycker att du borde pitcha hårdare.</p>
       <div class="steps" style="margin-top:16px">
-        <div class="step"><b>Systemet söker</b><small>Schemalagd sökning hittar företag som liknar dem du redan vunnit.</small></div>
-        <div class="step"><b>Personligt mejl</b><small>Anpassat per mottagare. Inte ett massutskick.</small></div>
-        <div class="step key"><b>Kvartsfrågan</b><small>"Vill ni prata om ett problem i en kvart, eller ta en fika?" Ingen pitch. Bara en inbjudan.</small></div>
-        <div class="step"><b>Du lyssnar</b><small>Kunden beskriver verksamheten och vad som skaver. Du frågar vidare.</small></div>
-        <div class="step"><b>Du speglar</b><small>Nu visar du lösningen — på just det problem kunden själv beskrev.</small></div>
-        <div class="step"><b>Överens om nästa steg</b><small>Offert, installation, igång.</small></div>
+        <div class="step c1"><b>Systemet söker</b><small>Schemalagd sökning hittar företag som liknar dem du redan vunnit.</small></div>
+        <div class="step c2"><b>Personligt mejl</b><small>Anpassat per mottagare. Inte ett massutskick.</small></div>
+        <div class="step key c3"><b>Kvartsfrågan</b><small>"Vill ni prata om ett problem i en kvart, eller ta en fika?" Ingen pitch. Bara en inbjudan.</small></div>
+        <div class="step c4"><b>Du lyssnar</b><small>Kunden beskriver verksamheten och vad som skaver. Du frågar vidare.</small></div>
+        <div class="step c5"><b>Du speglar</b><small>Nu visar du lösningen — på just det problem kunden själv beskrev.</small></div>
+        <div class="step c6"><b>Överens om nästa steg</b><small>Offert, installation, igång.</small></div>
       </div>
       <div class="note warn" style="margin-top:14px">Steg 3 är det som gör dig ovanlig. Frestelsen när du vill växa är att skruva upp volymen och göra inbjudan effektivare. Det är precis det du inte ska göra. Öka antalet rätt mottagare, behåll frågan.</div>
     </div>
@@ -632,9 +659,9 @@ function renderPlan(){
       <div style="margin-top:16px">
         ${S.plan.map((b,i)=>{
           const d=b.tasks.filter(t=>t.done).length;
-          return `<div class="block">
+          return `<div class="block c${(i%6)+1}">
             <div class="bhead">
-              <input class="tedit" style="width:72px;flex:none;font-family:var(--font-d);font-weight:800;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)" data-pwk="${b.id}" value="${esc(b.wk)}" aria-label="Spår">
+              <input class="tedit" style="width:72px;flex:none;font-family:var(--font-d);font-weight:800;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--sc)" data-pwk="${b.id}" value="${esc(b.wk)}" aria-label="Spår">
               <input class="tedit ttl" data-ptitle="${b.id}" value="${esc(b.title)}" aria-label="Rubrik">
               <span class="pr">${d}/${b.tasks.length}</span>
               <span class="tools">
@@ -697,7 +724,7 @@ function renderProspects(){
     <div class="card">
       <div class="hd"><h2>Din tratt</h2><span class="eyebrow">${act.length} aktiva av ${S.prospects.length}</span></div>
       ${act.length? `<div class="fun">
-        ${STAGES.map((s,i)=>`<div class="fun-row">
+        ${STAGES.map((s,i)=>`<div class="fun-row c${i+1}">
           <span class="lbl">${esc(s)}</span>
           <span class="fun-bar"><i style="width:${Math.max(2,counts[i]/max*100)}%"></i></span>
           <span class="n">${counts[i]}</span>
@@ -739,7 +766,7 @@ function renderProspects(){
           <td><input class="cell" style="min-width:80px" data-pf="${p.id}|contact" value="${esc(p.contact||"")}" aria-label="Kontakt"></td>
           <td><input class="cell" style="min-width:90px" data-pf="${p.id}|industry" value="${esc(p.industry||"")}" list="industries" aria-label="Segment"></td>
           <td><input class="cell" style="min-width:90px" data-pf="${p.id}|offer" value="${esc(p.offer||"")}" list="offers" placeholder="—" aria-label="Erbjudande"></td>
-          <td><select data-pstage="${p.id}" style="min-width:140px">${STAGES.map((s,i)=>`<option value="${i}"${i===p.stage?" selected":""}>${esc(s)}</option>`).join("")}</select></td>
+          <td><select data-pstage="${p.id}" class="c${p.stage+1}" style="min-width:140px;color:var(--sc);font-weight:700">${STAGES.map((s,i)=>`<option value="${i}"${i===p.stage?" selected":""}>${esc(s)}</option>`).join("")}</select></td>
           <td><select data-pstate="${p.id}" style="min-width:110px">${STATES.map(s=>`<option${s===p.state?" selected":""}>${esc(s)}</option>`).join("")}</select></td>
           <td><input type="date" class="cell" style="min-width:130px" data-pf="${p.id}|last" value="${esc(p.last||"")}" aria-label="Senaste kontakt"></td>
           <td><input class="cell" style="min-width:120px" data-pf="${p.id}|nextAction" value="${esc(p.nextAction||"")}" aria-label="Nästa steg"></td>
