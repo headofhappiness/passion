@@ -1,0 +1,1193 @@
+<title>Hamzas säljmotor</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;600;700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: sticky brand bar + tab rail, single column of cards on a soft paper ground, max 1120px */
+:root{
+  --bg:#f3f5f3; --surface:#ffffff; --surface-2:#eaeeec; --surface-3:#f7f9f8;
+  --fg:#16252a; --fg-soft:#5a6c73; --fg-faint:#8798a0;
+  --line:#dbe2e0; --line-strong:#c3cecb;
+  --brand:#0d3f45; --brand-2:#14565e; --brand-fg:#eaf4f3;
+  --accent:#a96310; --accent-fg:#ffffff; --accent-wash:#fbf0e1;
+  --good:#2b7349; --good-wash:#e6f2ea;
+  --warn:#9d6a12; --warn-wash:#fbf1e0;
+  --crit:#9d3a32; --crit-wash:#f8e9e7;
+  --focus:#1a7f8c;
+  --font-d:"Chivo",ui-sans-serif,system-ui,sans-serif;
+  --font-b:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --r:10px; --r-lg:16px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1517; --surface:#161f21; --surface-2:#1d282a; --surface-3:#131c1e;
+  --fg:#e7edeb; --fg-soft:#9dadb1; --fg-faint:#798a8e;
+  --line:#283537; --line-strong:#364649;
+  --brand:#0a2b2f; --brand-2:#103c42; --brand-fg:#d8e9e7;
+  --accent:#e0a04a; --accent-fg:#1a1205; --accent-wash:#2a2015;
+  --good:#6cc08d; --good-wash:#16271d;
+  --warn:#d8a24a; --warn-wash:#2a2115;
+  --crit:#e08a80; --crit-wash:#2b1a18;
+  --focus:#4fc3cf;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0e1517; --surface:#161f21; --surface-2:#1d282a; --surface-3:#131c1e;
+  --fg:#e7edeb; --fg-soft:#9dadb1; --fg-faint:#798a8e;
+  --line:#283537; --line-strong:#364649;
+  --brand:#0a2b2f; --brand-2:#103c42; --brand-fg:#d8e9e7;
+  --accent:#e0a04a; --accent-fg:#1a1205; --accent-wash:#2a2015;
+  --good:#6cc08d; --good-wash:#16271d;
+  --warn:#d8a24a; --warn-wash:#2a2115;
+  --crit:#e08a80; --crit-wash:#2b1a18;
+  --focus:#4fc3cf;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-d);font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--brand)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--font-d);text-wrap:balance;margin:0}
+p{margin:0}
+.prose{font-family:var(--font-b);font-size:15.5px;line-height:1.6;color:var(--fg-soft);max-width:68ch}
+.prose strong{color:var(--fg);font-weight:600}
+button{font:inherit;color:inherit}
+input,textarea,select{font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line-strong);border-radius:8px;padding:8px 10px;width:100%}
+input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+textarea{resize:vertical;font-family:var(--font-b)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- gate ---------- */
+#gate{min-height:100svh;display:grid;place-items:center;padding-block:40px;background:
+  radial-gradient(1200px 500px at 50% -10%,var(--brand-2),transparent 70%),var(--bg)}
+.gate-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;max-width:420px;width:100%;box-shadow:0 18px 50px -24px rgba(0,0,0,.35)}
+.gate-card h1{font-size:23px;font-weight:900;letter-spacing:-.01em}
+.lock{width:38px;height:38px;border-radius:50%;background:var(--accent-wash);color:var(--accent);display:grid;place-items:center;font-size:18px;margin-bottom:14px}
+.gate-row{display:flex;gap:8px;margin-top:16px}
+.gate-row input{flex:1;min-width:0}
+#gate-err{color:var(--crit);font-size:13px;margin-top:10px}
+
+/* ---------- chrome ---------- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--brand);color:var(--brand-fg)}
+.topbar .wrap{display:flex;align-items:center;gap:14px;padding-block:12px;flex-wrap:nowrap}
+.mark{font-weight:900;font-size:17px;letter-spacing:-.01em;display:flex;align-items:center;gap:9px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mark span.dot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none}
+.topbar .meta{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:12px;color:#ffffffb0;flex:none}
+.chip-live{display:inline-flex;align-items:center;gap:6px;border:1px solid #ffffff33;border-radius:999px;padding:3px 9px}
+.chip-live i{width:7px;height:7px;border-radius:50%;background:var(--good);display:block}
+.chip-live.local i{background:var(--warn)}
+.tabs{background:var(--brand-2);position:sticky;top:calc(env(safe-area-inset-top,0px) + 50px);z-index:19}
+.tabs .wrap{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{background:none;border:0;border-bottom:3px solid transparent;color:#ffffffa8;padding:11px 13px;font-size:13.5px;font-weight:600;white-space:nowrap;cursor:pointer}
+.tab[aria-current="page"]{color:#fff;border-bottom-color:var(--accent)}
+main{padding-block:26px 64px}
+
+/* ---------- cards ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px}
+.stack>*+*{margin-top:16px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-faint)}
+.card h2{font-size:19px;font-weight:700;letter-spacing:-.01em}
+.card h3{font-size:15px;font-weight:700}
+.hd{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.hd .eyebrow{margin-left:auto}
+.grid{display:grid;gap:16px}
+@media(min-width:760px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+.grid>*{min-width:0}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line-strong);background:var(--surface);border-radius:8px;padding:8px 13px;font-size:13.5px;font-weight:600;cursor:pointer}
+.btn:hover{border-color:var(--fg-faint)}
+.btn-pri{background:var(--accent);color:var(--accent-fg);border-color:transparent}
+.btn-pri:hover{filter:brightness(1.07)}
+.btn-ghost{border-color:transparent;background:var(--surface-2)}
+.btn-sm{padding:5px 9px;font-size:12.5px}
+.btn-link{border:0;background:none;color:var(--accent);padding:0;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- hero quote ---------- */
+.creed{background:var(--brand);color:var(--brand-fg);border-radius:var(--r-lg);padding:22px}
+.creed p{font-family:var(--font-b);font-size:18px;line-height:1.45;max-width:46ch}
+.creed .by{font-size:11.5px;color:#ffffff8c;margin-top:10px;font-family:var(--font-d);letter-spacing:.04em;text-transform:uppercase}
+
+/* ---------- stats ---------- */
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(132px,1fr))}
+.tile{background:var(--surface-3);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.tile .k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-faint)}
+.tile .v{font-size:25px;font-weight:900;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums}
+.tile .s{font-size:12px;color:var(--fg-soft)}
+.tile.hi{background:var(--accent-wash);border-color:transparent}
+.tile.hi .v{color:var(--accent)}
+
+/* ---------- checklist ---------- */
+.ck{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;padding:10px 0;border-top:1px solid var(--line)}
+.ck:first-child{border-top:0}
+.ck input[type=checkbox]{width:19px;height:19px;flex:none;margin-top:1px;accent-color:var(--good)}
+.ck .t{flex:1;min-width:0;font-family:var(--font-b);font-size:15px;line-height:1.45}
+.ck.done .t{color:var(--fg-faint);text-decoration:line-through}
+.ck .when{font-size:11.5px;color:var(--fg-faint);font-family:var(--font-d);white-space:nowrap}
+.x{border:0;background:none;color:var(--fg-faint);cursor:pointer;padding:2px 5px;font-size:16px;line-height:1;border-radius:5px}
+.x:hover{color:var(--crit);background:var(--surface-2)}
+
+/* ---------- editable rows ---------- */
+.tedit{background:transparent;border:1px solid transparent;border-radius:6px;padding:4px 6px;width:auto;flex:1;min-width:0;font-family:var(--font-b);font-size:15px;line-height:1.45}
+.tedit:hover{background:var(--surface-3);border-color:var(--line)}
+.tedit:focus{background:var(--surface);border-color:var(--focus)}
+.tedit.ttl{font-family:var(--font-d);font-weight:700;font-size:14.5px}
+.idea>.tedit{flex:none;width:100%}
+.ck.done .tedit{color:var(--fg-faint);text-decoration:line-through}
+.tools{display:flex;gap:1px;align-items:center;flex:none}
+.mv{border:0;background:none;color:var(--fg-faint);cursor:pointer;padding:2px 4px;font-size:13px;line-height:1;border-radius:5px}
+.mv:hover{color:var(--fg);background:var(--surface-2)}
+.mv.del:hover{color:var(--crit)}
+.addrow{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.bhead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:11px 13px;background:var(--surface-3);border-bottom:1px solid var(--line)}
+.bhead .pr{font-size:12px;color:var(--fg-faint);font-weight:600;font-variant-numeric:tabular-nums;flex:none}
+.confirm{display:inline-flex;gap:6px;align-items:center;background:var(--crit-wash);border-radius:7px;padding:3px 7px;font-size:12px;color:var(--crit);font-weight:600}
+.block{border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.block+.block{margin-top:12px}
+.block .body{padding:4px 15px 14px}
+.gate18{display:inline-block;background:var(--warn-wash);color:var(--warn);border-radius:5px;padding:2px 7px;font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;flex:none}
+
+/* ---------- method steps ---------- */
+.steps{display:grid;gap:10px;counter-reset:s}
+@media(min-width:860px){.steps{grid-template-columns:repeat(6,1fr)}}
+.step{background:var(--surface-3);border:1px solid var(--line);border-radius:var(--r);padding:12px;position:relative}
+.step::before{counter-increment:s;content:counter(s);font-size:11px;font-weight:900;color:var(--accent);display:block;margin-bottom:5px}
+.step b{display:block;font-size:13.5px;margin-bottom:3px}
+.step small{color:var(--fg-soft);font-size:12.5px;line-height:1.4;display:block;font-family:var(--font-b)}
+.step.key{background:var(--accent-wash);border-color:var(--accent)}
+
+/* ---------- funnel ---------- */
+.fun{display:grid;gap:7px}
+.fun-row{display:grid;grid-template-columns:118px 1fr 46px;align-items:center;gap:10px;font-size:13px}
+.fun-row .lbl{color:var(--fg-soft);font-weight:600}
+.fun-bar{background:var(--surface-2);border-radius:5px;height:24px;overflow:hidden}
+.fun-bar i{display:block;height:100%;background:var(--brand-2);border-radius:5px}
+.fun-row:last-child .fun-bar i{background:var(--good)}
+.fun-row .n{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+
+/* ---------- table ---------- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:860px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--surface-2);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-soft);font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.paused td{opacity:.55}
+.cell{background:transparent;border:1px solid transparent;border-radius:6px;padding:4px 6px;width:100%;font-size:13px}
+.cell:hover{background:var(--surface-3);border-color:var(--line)}
+.cell:focus{background:var(--surface);border-color:var(--focus)}
+.due{color:var(--crit);font-weight:700}
+.thin{font-size:11.5px;color:var(--fg-faint)}
+
+/* ---------- idea cards ---------- */
+.ideas{display:grid;gap:14px}
+@media(min-width:720px){.ideas{grid-template-columns:1fr 1fr}}
+.idea{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:9px}
+.idea .top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.idea h4{font-size:15px;font-weight:700}
+.idea .why{font-family:var(--font-b);font-size:14px;color:var(--fg-soft);line-height:1.5}
+.idea .first{background:var(--surface-3);border-left:3px solid var(--accent);border-radius:0 7px 7px 0;padding:9px 11px;font-size:13.5px;font-family:var(--font-b)}
+.idea .foot{display:flex;align-items:center;gap:10px;margin-top:auto;flex-wrap:wrap}
+.idea .time{font-size:12px;color:var(--fg-faint);font-weight:600}
+.prio{display:inline-block;border-radius:5px;padding:2px 7px;font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.prio.nu{background:var(--good-wash);color:var(--good)}
+.prio.sen{background:var(--surface-2);color:var(--fg-soft)}
+.prio.pr{background:var(--accent-wash);color:var(--accent)}
+
+/* ---------- age grid ---------- */
+.agegrid{display:grid;gap:14px;margin-top:16px}
+@media(min-width:880px){.agegrid{grid-template-columns:repeat(3,1fr)}}
+.agecol{border:1px solid var(--line);border-top-width:3px;border-radius:var(--r);padding:15px;background:var(--surface-3);min-width:0}
+.agecol.now{border-top-color:var(--good)}
+.agecol.cond{border-top-color:var(--warn)}
+.agecol.later{border-top-color:var(--fg-faint)}
+.agecol h4{font-size:14.5px;font-weight:700;margin-bottom:10px;display:flex;align-items:baseline;gap:8px}
+.agecol h4 .pr{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--fg-faint);font-variant-numeric:tabular-nums}
+.agechk{display:flex;gap:9px;align-items:flex-start;padding:8px 0;cursor:pointer;font-family:var(--font-b);font-size:14px;line-height:1.5;color:var(--fg-soft)}
+.agechk+.agechk{border-top:1px solid var(--line)}
+.agechk input{width:17px;height:17px;flex:none;margin-top:2px;accent-color:var(--good)}
+.agechk span{min-width:0}
+.agechk b{color:var(--fg);font-weight:600}
+.agechk.done span{color:var(--fg-faint);text-decoration:line-through}
+.agechk.done b{color:var(--fg-faint)}
+
+/* ---------- misc ---------- */
+.note{background:var(--surface-3);border:1px solid var(--line);border-left:3px solid var(--fg-faint);border-radius:0 var(--r) var(--r) 0;padding:12px 14px;font-family:var(--font-b);font-size:14px;color:var(--fg-soft);line-height:1.55}
+.note.warn{border-left-color:var(--warn);background:var(--warn-wash)}
+.note.good{border-left-color:var(--good);background:var(--good-wash)}
+.empty{text-align:center;padding:28px 16px;color:var(--fg-soft);font-family:var(--font-b)}
+.empty b{display:block;font-family:var(--font-d);color:var(--fg);font-size:15px;margin-bottom:5px}
+.fieldset{display:grid;gap:11px}
+.f{display:grid;gap:4px}
+.f label{font-size:12px;font-weight:700;color:var(--fg-soft)}
+.f .hint{font-size:11.5px;color:var(--fg-faint);font-weight:400}
+.ab{background:var(--brand);color:var(--brand-fg);border-radius:var(--r-lg);padding:20px}
+.ab h2{font-size:18px;font-weight:800;color:var(--brand-fg)}
+.ab .prose{color:#ffffffbe}
+.ab .prose strong{color:#fff}
+svg.chart{width:100%;height:auto;display:block}
+.srcs{font-size:12.5px;color:var(--fg-faint);margin-top:12px;line-height:1.6}
+.srcs a{color:var(--accent)}
+.small{font-size:12.5px;color:var(--fg-faint)}
+details.block>summary{padding:13px 15px;background:var(--surface-3);cursor:pointer;display:flex;gap:11px;align-items:center;font-weight:700;font-size:14.5px;list-style:none}
+details.block>summary::-webkit-details-marker{display:none}
+details.block[open]>summary{border-bottom:1px solid var(--line)}
+@media(max-width:760px){
+  input,select,textarea{font-size:16px}
+  .tedit,.cell{font-size:16px}
+  .mv{padding:7px 9px;font-size:15px}
+  .x{padding:6px 9px;font-size:18px}
+  .btn-sm{padding:7px 11px}
+  .ck input[type=checkbox],.agechk input{width:22px;height:22px}
+  .tiles{grid-template-columns:repeat(auto-fit,minmax(118px,1fr))}
+  .fun-row{grid-template-columns:96px 1fr 40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<section id="gate">
+  <div class="gate-card">
+    <div class="lock" aria-hidden="true">&#9679;</div>
+    <h1>Hamzas säljmotor</h1>
+    <p class="prose" style="margin-top:8px">Ditt eget arbetsverktyg. Skriv lösenordet för att öppna.</p>
+    <div class="gate-row">
+      <input id="gate-pw" type="password" placeholder="Lösenord" autocomplete="current-password" aria-label="Lösenord">
+      <button class="btn btn-pri" id="gate-go" type="button">Öppna</button>
+    </div>
+    <p id="gate-err" hidden>Fel lösenord. Försök igen.</p>
+    <p class="small" style="margin-top:18px;line-height:1.5">Lösenordet håller nyfikna ögon borta om du lämnar en flik öppen. Det är inte ett riktigt skydd — det som styr vem som kommer åt sidan är vem länken har delats med.</p>
+  </div>
+</section>
+
+<div id="app" hidden>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="mark"><span class="dot"></span>Hamzas säljmotor</div>
+      <div class="meta">
+        <span class="chip-live" id="storemode" title="Var dina uppgifter sparas"><i></i><span id="storemode-t">sparar…</span></span>
+      </div>
+    </div>
+  </header>
+  <nav class="tabs" aria-label="Delar"><div class="wrap" id="tabs"></div></nav>
+  <main class="wrap"><div id="view"></div></main>
+</div>
+
+<script>
+"use strict";
+const PASSWORD = "kvarten";
+
+const STAGES = ["Prospekt","Personligt mejl","Samtal bokat","Behov kartlagt","Offert","Kund"];
+const STATES = ["Aktiv","Pausad","Inte aktuell"];
+const KPI = [
+  {k:"prospects", t:"Nya prospekt"},
+  {k:"mails",     t:"Personliga mejl"},
+  {k:"replies",   t:"Positiva svar"},
+  {k:"calls",     t:"Bokade samtal"},
+  {k:"offers",    t:"Offerter"},
+  {k:"customers", t:"Nya kunder"}
+];
+
+const PLAN_SEED = [
+  {id:"t1", wk:"Spår 1", title:"Försäljning", tasks:[
+    ["t1a","Gå igenom dina senaste affärer: vilken bransch var de i, och vilket problem beskrev kunden?"],
+    ["t1b","Skriv ner din metod i egna ord, steg för steg, så den inte tappas bort när volymen ökar."],
+    ["t1c","Välj den bransch där du redan har betalande kunder och låt systemet hitta 20 företag där."],
+    ["t1d","Behåll inbjudan ordagrant. Ändra inget i kvartsfrågan den här omgången."],
+    ["t1e","Logga varje utskick i prospektlistan så att siffrorna per segment blir användbara."],
+    ["t1f","Be 2–3 befintliga kunder om en introduktion till någon de känner."],
+    ["t1g","Skriv två korta kundcase: problemet, vad du byggde, vad det gav. Hämta godkännande."],
+    ["t1h","Fråga kunderna vad som fick dem att boka samtalet. Skriv ner svaren ordagrant."],
+    ["t1i","Testa en ny väg in — introduktion eller samarbetspartner — och jämför med kalla mejl."]
+  ]},
+  {id:"t2", wk:"Spår 2", title:"Leverans och lönsamhet", tasks:[
+    ["t2a","Mät hur lång tid en installation faktiskt tar, från ja till igång."],
+    ["t2b","Mät hur mycket support en kund drar per månad."],
+    ["t2c","Räkna ut vad en kund ger dig efter Intercom och faktureringsavgift."],
+    ["t2d","Kapacitetskoll: hur många kunder hinner du leverera till parallellt med skolan?"],
+    ["t2e","Bestäm var gränsen går: vilka ärenden lämnar AI:n över till en människa, och hur snabbt."],
+    ["t2f","Se över priset när du vet din verkliga timkostnad."],
+    ["t2g","Gör en mall av det som tar längst tid i installationen."],
+    ["t2h","Bestäm vad som ingår i abonnemanget och vad som är tillägg."]
+  ]},
+  {id:"t3", wk:"Spår 3", title:"Inför bolaget", tasks:[
+    ["t3a","Ta fram en enkel kundavtalsmall: vad ingår, svarstider, uppsägning, ansvar."],
+    ["t3b","Kartlägg vilka personuppgifter som går genom lösningen och vilka leverantörer som får åtkomst."],
+    ["t3c","Ta fram ett PUB-avtal och kontrollera vem som är juridisk avtalspart i ditt upplägg."],
+    ["t3d","Låt någon kunnig granska avtalen innan de går till kund."],
+    ["t3e","Bestäm bolagsnamn och kontrollera att det går att registrera."],
+    ["t3f","Få ihop 25 000 kr i aktiekapital."],
+    ["t3g","Jämför banker för företagskonto och bankintyg. Fråga om handläggningstid."],
+    ["t3h","Bilda aktiebolaget hos Bolagsverket.",1],
+    ["t3i","Öppna företagskonto och ordna bankintyg i eget namn.",1],
+    ["t3j","Teckna leverantörsavtalen i bolagets namn, till exempel Intercom.",1],
+    ["t3k","Flytta eller teckna om kundavtalen till bolaget.",1],
+    ["t3l","Avsluta faktureringstjänsten när bolaget är igång.",1]
+  ]}
+];
+
+const CHALLENGE_SEED = [
+  ["c1","Gå igenom dina senaste affärer och skriv ner bransch och problem för varje","Vecka 1"],
+  ["c2","Räkna ut vad du tjänar per kund efter Intercom och faktureringsavgift","Vecka 1"],
+  ["c3","Välj den bransch som konverterar bäst och låt systemet hitta 20 företag","Vecka 2"],
+  ["c4","Be två befintliga kunder om en introduktion","Vecka 3"],
+  ["c5","Sammanställ konverteringen per segment och bestäm nästa test","Vecka 4"]
+];
+
+const IDEAS = [
+  {id:"i1",t:"Introduktioner från dina kunder",p:"nu",time:"20 min",
+   why:"Dina befintliga kunder har redan sagt ja till dig. Deras rekommendation tar bort hela åldersfrågan innan den ställs.",
+   first:"Mejla en kund du levererat bra till: \"Känner du någon som har samma problem som du hade?\"",
+   add:"Be en befintlig kund om en introduktion"},
+  {id:"i2",t:"Segmentet du redan vunnit i",p:"nu",time:"45 min",
+   why:"Du kan redan deras problem, deras ord och deras invändningar. Nästa affär i samma segment är alltid billigare än den första i ett nytt.",
+   first:"Lista de kunder du har, se vilket segment som återkommer, och låt systemet söka 20 företag där.",
+   add:"Låt systemet hitta 20 företag i mitt bästa segment"},
+  {id:"i3",t:"Mät konverteringen per segment",p:"nu",time:"15 min",
+   why:"En total siffra är ett snitt. Under snittet finns segment som konverterar dubbelt och segment som inte konverterar alls. Det är där tillväxten ligger.",
+   first:"Fyll i segment på varje rad i prospektlistan. Siffrorna räknas ut automatiskt.",
+   add:"Fyll i segment på alla prospekt"},
+  {id:"i4",t:"Kapacitetskoll innan du växer",p:"nu",time:"20 min",
+   why:"Fler kunder är bara bra om du hinner leverera. En missad support hos en befintlig kund kostar mer än en ny affär ger.",
+   first:"Räkna timmarna: sälj, installation och support per kund, och vad du har kvar efter skolan.",
+   add:"Gör en kapacitetskoll"},
+  {id:"i5",t:"Samarbete med webbyråer",p:"sen",time:"1 h",
+   why:"De sitter redan hos dina kunder och får frågan om kundtjänst. Du blir deras lösning istället för deras konkurrent.",
+   first:"Hitta tre byråer som bygger e-handel lokalt. Föreslå att de tar en andel per kund de skickar.",
+   add:"Kontakta tre webbyråer om samarbete"},
+  {id:"i6",t:"Affärsnätverk som gäst",p:"sen",time:"2–3 h",
+   why:"BNI, KAN och Företagarna är fulla av företag som har kundtjänstproblem. Du går dit som leverantör, inte som ung förmåga.",
+   first:"Hör av dig till ett nätverk och fråga om gästplats. Förbered 30 sekunder om vad du gör.",
+   add:"Boka gästplats på ett affärsnätverk"},
+  {id:"i7",t:"NyföretagarCentrum",p:"sen",time:"1 h",
+   why:"Kostnadsfri rådgivning, och de lyfter fram intressanta bolag. Du är ett sådant.",
+   first:"Boka ett rådgivningsmöte. Ta med din marginalkalkyl och frågan om företagsform.",
+   add:"Boka rådgivning hos NyföretagarCentrum"},
+  {id:"i8",t:"Din ålder som nyhet",p:"pr",time:"2 h",
+   why:"Kombinationen är det som är intressant: riktiga företagskunder, fungerande teknik, och 17 år. Skriv artikeln själv så blir det enkelt för redaktionen att säga ja.",
+   first:"Skriv 400 ord med vinkeln \"har betalande företagskunder men stoppas av att han inte är myndig\". Börja i Halland.",
+   add:"Skriv mediaartikeln om mig själv"},
+  {id:"i9",t:"Kort demo i stället för webbinarium",p:"sen",time:"3 h",
+   why:"Ett webbinarium kräver publik. En inspelad demo på tio minuter kan du skicka till varje prospekt som vill se innan de bokar.",
+   first:"Spela in en genomgång av en lösning du redan byggt, med kundens godkännande.",
+   add:"Spela in en kort demo"},
+  {id:"i10",t:"Almi och High Five",p:"sen",time:"1 h",
+   why:"Rådgivning och eventuella verifieringsmedel. Beloppen varierar och avgörs i samtal, så fråga istället för att räkna med en siffra.",
+   first:"Ring en rådgivare på Almi och fråga vad som gäller för dig. Ta upp kontakten med High Five igen.",
+   add:"Ring Almi och fråga vad som gäller"}
+];
+
+const AGE_NOW=[
+  ["ag-n1","Sälja, boka möten, leverera och supporta lösningarna"],
+  ["ag-n2","Samla kundcase och be om referenser och introduktioner"],
+  ["ag-n3","Besöka affärsnätverk som gäst"],
+  ["ag-n4","Kontakta media och bli omskriven"],
+  ["ag-n5","Kostnadsfri rådgivning hos NyföretagarCentrum, Almi och High Five"],
+  ["ag-n6","Förbereda allt till bolaget: namn, priser, budget, processer och dokument"]
+];
+const AGE_COND=[
+  ["ag-k1","<b>Kundavtal:</b> kontrollera vem som juridiskt är avtalspart och vem som får skriva under. Utgå inte från att du själv kan binda dig i alla avtal"],
+  ["ag-k2","<b>Fakturering:</b> egenanställning med målsmans underskrift — kolla att upplägget håller för löpande avtal och inte bara enstaka fakturor"],
+  ["ag-k3","<b>PUB-avtal:</b> behövs redan nu, och måste tecknas av rätt juridisk part"],
+  ["ag-k4","<b>Enskild firma:</b> från 16 år, med förmyndares samtycke och överförmyndarens tillstånd"],
+  ["ag-k5","<b>Domän och bank:</b> leverantörens egna ålderskrav avgör. Ofta behöver en vuxen stå som innehavare"]
+];
+const AGE_LATER=[
+  ["ag-s1","Stå själv som stiftare och bilda aktiebolag"],
+  ["ag-s2","Vara styrelseledamot eller vd"],
+  ["ag-s3","Aktiekapital, bankintyg och skatteanmälningar i eget namn"],
+  ["ag-s4","Teckna leverantörsavtal själv, till exempel Intercom i bolagets namn"],
+  ["ag-s5","Bli arbetsgivare och anställa"],
+  ["ag-s6","Flytta eller teckna om kundavtalen till bolaget"],
+  ["ag-s7","Sluta betala avdraget till faktureringstjänsten"]
+];
+
+/* ============== state ============== */
+const DEF = {
+  goal:"", hours:"", learning:"", started:"", worked:"", change:"",
+  base:{mails:400, rate:5},
+  biz:{install:36000, mrr:3000, intercom:0, hSales:0, hInstall:0, hSupport:0, feecut:50},
+  prios:[], acts:[], prospects:[], weeks:{}, checks:{},
+  plan:[], challenge:[], ideas:[], hidden:[], mig:[]
+};
+let S = JSON.parse(JSON.stringify(DEF));
+let db=null, mode="local", pendingDel=null;
+const LS="hamza-saljmotor-v1";
+
+function seed(){
+  if(!Array.isArray(S.plan) || !S.plan.length){
+    S.plan = PLAN_SEED.map(b=>({id:b.id, wk:b.wk, title:b.title,
+      tasks:b.tasks.map(([id,text,gate])=>({id, text, done:!!S.checks[id], gate:!!gate}))}));
+  }
+  if(!Array.isArray(S.challenge) || !S.challenge.length){
+    S.challenge = CHALLENGE_SEED.map(([id,text,wk])=>({id, text, wk, done:!!S.checks[id]}));
+  }
+  if(!Array.isArray(S.ideas)) S.ideas=[];
+  if(!Array.isArray(S.hidden)) S.hidden=[];
+  if(!Array.isArray(S.mig)) S.mig=[];
+  // gamla tidsindelade planen byts mot de tre spåren, men bara om den aldrig använts
+  if(!S.mig.includes("spar")){
+    const old=S.plan.some(b=>/^b\d$/.test(b.id));
+    const touched=S.plan.some(b=>b.tasks.some(t=>t.done||!/^b\dt\d$/.test(t.id)));
+    if(old && !touched){
+      S.plan = PLAN_SEED.map(b=>({id:b.id, wk:b.wk, title:b.title,
+        tasks:b.tasks.map(([id,text,gate])=>({id, text, done:false, gate:!!gate}))}));
+    }
+    S.mig.push("spar");
+  }
+  S.prospects.forEach(p=>{ if(!p.state) p.state="Aktiv"; if(p.last==null) p.last=""; if(p.offer==null) p.offer=""; });
+}
+function planWeek(){
+  if(!S.started) return null;
+  const s=new Date(S.started+"T00:00:00"); if(isNaN(s)) return null;
+  const n=Math.floor((new Date(todayISO()+"T00:00:00")-s)/(7*86400000))+1;
+  return Math.max(1,Math.min(12,n));
+}
+
+function lsRead(){ try{ const r=localStorage.getItem(LS); if(r) return JSON.parse(r);}catch(e){} return null; }
+function lsWrite(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
+async function save(){ lsWrite(); if(db){ try{ await db.doc("state/all").set(JSON.parse(JSON.stringify(S))); }catch(e){} } }
+function setMode(m){
+  mode=m; const el=document.getElementById("storemode"), t=document.getElementById("storemode-t");
+  if(!el) return;
+  el.classList.toggle("local", m!=="db");
+  t.textContent = m==="db" ? "sparat i molnet" : "sparat i denna webbläsare";
+  el.title = m==="db"
+    ? "Dina uppgifter sparas i artefaktens databas och följer med mellan dina enheter."
+    : "Dina uppgifter sparas bara i den här webbläsaren. De följer inte med till en annan dator — exportera en säkerhetskopia regelbundet.";
+}
+
+/* ============== helpers ============== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9);
+const todayISO=()=>new Date().toISOString().slice(0,10);
+function nf(n){ return (Math.round(n)||0).toLocaleString("sv-SE"); }
+function isoWeek(d){
+  const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
+  const dn=t.getUTCDay()||7; t.setUTCDate(t.getUTCDate()+4-dn);
+  const y0=new Date(Date.UTC(t.getUTCFullYear(),0,1));
+  return t.getUTCFullYear()+"-v"+String(Math.ceil(((t-y0)/86400000+1)/7)).padStart(2,"0");
+}
+const thisWeek=()=>isoWeek(new Date());
+function weekList(){ const out=[]; const d=new Date();
+  for(let i=7;i>=0;i--){ const x=new Date(d); x.setDate(x.getDate()-i*7); out.push(isoWeek(x)); } return out; }
+function daysTo(iso){ if(!iso) return null; const d=new Date(iso+"T00:00:00"); if(isNaN(d)) return null;
+  return Math.round((d-new Date(todayISO()+"T00:00:00"))/86400000); }
+const active=()=>S.prospects.filter(p=>p.state==="Aktiv");
+function nextPlanTasks(n){
+  const out=[];
+  for(const b of S.plan){ for(const t of b.tasks){ if(!t.done && t.text.trim()){ out.push({b,t}); if(out.length>=n) return out; } } }
+  return out;
+}
+
+/* ============== tabs ============== */
+const VIEWS=[
+  ["vecka","Min vecka",renderWeek],
+  ["plan","Min plan",renderPlan],
+  ["prospekt","Mina prospekt",renderProspects],
+  ["resultat","Resultat & lönsamhet",renderResults],
+  ["ideer","Idébank & resurser",renderIdeas]
+];
+function currentView(){ const h=(location.hash||"").replace(/^#/,"");
+  return VIEWS.some(v=>v[0]===h) ? h : "vecka"; }
+function renderTabs(){ const cur=currentView();
+  $("#tabs").innerHTML = VIEWS.map(([id,label])=>
+    `<button class="tab" data-go="${id}"${id===cur?' aria-current="page"':''}>${esc(label)}</button>`).join(""); }
+function render(){ renderTabs(); $("#view").innerHTML = VIEWS.find(x=>x[0]===currentView())[2](); }
+
+/* ============== view: min vecka ============== */
+function renderWeek(){
+  const open=S.prios.filter(p=>!p.done).length;
+  const follow=active().filter(p=>p.stage<5&&p.nextDate).map(p=>({p,d:daysTo(p.nextDate)}))
+    .filter(x=>x.d!==null&&x.d<=7).sort((a,b)=>a.d-b.d);
+  const nxt=nextPlanTasks(3);
+  const custs=active().filter(p=>p.stage===5).length;
+  const mailed=active().filter(p=>p.stage>=1).length;
+  const rate = mailed>=10 ? (custs/mailed*100) : null;
+  const pw=planWeek();
+
+  return `
+  <div class="stack">
+    <div class="creed">
+      <p>Din styrka är inte att AI säljer åt dig. Din styrka är att du använder AI för att hitta rätt människor — och sedan bygger du relationen själv.</p>
+      <div class="by">Det här verktyget finns för att du ska behålla det när volymen ökar</div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Veckans viktigaste</h2><span class="eyebrow">${open} av ${S.prios.length} kvar</span></div>
+      <textarea id="goal" data-set="goal" rows="2" placeholder="En mening: vad är viktigast den här veckan? Ett aktivitetsmål, inte ett omsättningsmål.">${esc(S.goal)}</textarea>
+      <div style="margin-top:12px">
+        ${S.prios.length? S.prios.map(p=>`
+          <div class="ck ${p.done?'done':''}">
+            <input type="checkbox" data-prio="${p.id}" ${p.done?"checked":""} aria-label="Klar">
+            <span class="t">${esc(p.text)}</span>
+            <button class="x" data-delprio="${p.id}" title="Ta bort" aria-label="Ta bort">&times;</button>
+          </div>`).join("")
+        : `<p class="small" style="padding:8px 0">Högst tre saker. Fler blir ingen prioritering.</p>`}
+      </div>
+      <div class="row" style="margin-top:12px">
+        <input id="newprio" placeholder="Lägg till en prioritering" style="flex:1;min-width:140px">
+        <button class="btn" id="addprio" type="button">Lägg till</button>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <div class="hd"><h2>Att följa upp</h2><span class="eyebrow">nästa 7 dagar</span></div>
+        ${follow.length? follow.map(({p,d})=>`
+          <div class="ck">
+            <span class="t"><b>${esc(p.company)}</b>${p.contact?` · ${esc(p.contact)}`:""}<br>
+              <span class="small">${esc(p.nextAction||"Inget nästa steg angivet")}</span></span>
+            <span class="when ${d<0?'due':''}">${esc(p.nextDate)}${d<0?" försenat":d===0?" idag":""}</span>
+          </div>`).join("")
+        : `<div class="empty"><b>Inget som brinner</b>Sätt datum för nästa steg på dina prospekt, så dyker de upp här av sig själva.</div>`}
+      </div>
+      <div class="card">
+        <div class="hd"><h2>Nästa i planen</h2><span class="eyebrow">${pw?("vecka "+pw+" av 12"):"sätt startdatum"}</span></div>
+        ${nxt.length? nxt.map(({b,t})=>`
+          <div class="ck">
+            <input type="checkbox" data-ptoggle="${b.id}|${t.id}" aria-label="Klar">
+            <span class="t">${esc(t.text)}<br><span class="small">${esc(b.title)}</span></span>
+            ${t.gate?`<span class="gate18">efter 18 år</span>`:""}
+          </div>`).join("")
+        : `<div class="empty"><b>Allt avbockat</b>Öppna Min plan och lägg till nästa steg.</div>`}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Din utgångspunkt</h2><span class="eyebrow">det du redan presterar</span></div>
+      <div class="tiles">
+        <div class="tile hi"><div class="k">Din konvertering</div><div class="v">${esc(S.base.rate)} %</div><div class="s">av kalla mejl blir kund</div></div>
+        <div class="tile"><div class="k">Typiskt kallt mejl</div><div class="v">1–2 %</div><div class="s">branschsnitt</div></div>
+        <div class="tile"><div class="k">Mejl skickade</div><div class="v">${nf(S.base.mails)}</div><div class="s">hittills</div></div>
+        <div class="tile"><div class="k">Det blir</div><div class="v">${nf(Number(S.base.mails)*Number(S.base.rate)/100)}</div><div class="s">kunder, om nivån håller</div></div>
+      </div>
+      <div class="note good" style="margin-top:14px">Att ligga runt fem procent från kallt mejl till betalande kund är flera gånger över vad en normal utskickskampanj ger. Slutsatsen är inte att du ska lära dig sälja. Den är att du ska ta reda på exakt vad i din metod som gör det — och skydda det när volymen ökar.</div>
+      <p class="small" style="margin-top:10px">Siffrorna här är dina egna uppgifter. Ändra dem i Resultat &amp; lönsamhet när du har säkrare tal.</p>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Hur det går nu</h2><span class="eyebrow">mätt i verktyget</span></div>
+      <div class="tiles">
+        <div class="tile ${rate!==null?'hi':''}"><div class="k">Mejl → kund</div><div class="v">${rate!==null?rate.toFixed(1)+" %":"—"}</div>
+          <div class="s">${rate!==null?"räknat på listan":"för få mejlade än"}</div></div>
+        <div class="tile"><div class="k">Aktiva prospekt</div><div class="v">${active().filter(p=>p.stage<5).length}</div><div class="s">i rörelse</div></div>
+        <div class="tile"><div class="k">Kunder i listan</div><div class="v">${custs}</div><div class="s">av ${mailed} mejlade</div></div>
+      </div>
+      <p class="small" style="margin-top:10px">Räknas från prospektlistan och visar en procentsats först vid tio mejlade. Det är den här siffran som ska möta de ${esc(S.base.rate)} procenten ovan.</p>
+    </div>
+  </div>`;
+}
+
+/* ============== view: plan ============== */
+function renderPlan(){
+  const chDone=S.challenge.filter(c=>c.done).length;
+  const pw=planWeek();
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Din metod</h2><span class="eyebrow">det här gör du redan</span></div>
+      <p class="prose">Det du gör har ett namn: behovsorienterad försäljning. Du säljer inte i första kontakten, du ber om ett samtal. Modellen finns här för att du ska känna igen den och kunna försvara den när någon tycker att du borde pitcha hårdare.</p>
+      <div class="steps" style="margin-top:16px">
+        <div class="step"><b>Systemet söker</b><small>Schemalagd sökning hittar företag som liknar dem du redan vunnit.</small></div>
+        <div class="step"><b>Personligt mejl</b><small>Anpassat per mottagare. Inte ett massutskick.</small></div>
+        <div class="step key"><b>Kvartsfrågan</b><small>"Vill ni prata om ett problem i en kvart, eller ta en fika?" Ingen pitch. Bara en inbjudan.</small></div>
+        <div class="step"><b>Du lyssnar</b><small>Kunden beskriver verksamheten och vad som skaver. Du frågar vidare.</small></div>
+        <div class="step"><b>Du speglar</b><small>Nu visar du lösningen — på just det problem kunden själv beskrev.</small></div>
+        <div class="step"><b>Överens om nästa steg</b><small>Offert, installation, igång.</small></div>
+      </div>
+      <div class="note warn" style="margin-top:14px">Steg 3 är det som gör dig ovanlig. Frestelsen när du vill växa är att skruva upp volymen och göra inbjudan effektivare. Det är precis det du inte ska göra. Öka antalet rätt mottagare, behåll frågan.</div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Första 30 dagarna</h2><span class="eyebrow">${chDone} av ${S.challenge.length}</span></div>
+      <p class="prose">Ingen av de här handlar om att bli bättre på att sälja — alla handlar om att få syn på vad som redan fungerar. Skriv om dem som du vill, de är dina.</p>
+      <div style="margin-top:12px">
+        ${S.challenge.map((c,i)=>`
+          <div class="ck ${c.done?'done':''}">
+            <input type="checkbox" data-chtoggle="${c.id}" ${c.done?"checked":""} aria-label="Klar">
+            <input class="tedit" id="te-${c.id}" data-chtext="${c.id}" value="${esc(c.text)}" aria-label="Uppgift">
+            <input class="tedit" style="width:88px;flex:none;font-family:var(--font-d);font-size:11.5px" data-chwk="${c.id}" value="${esc(c.wk)}" aria-label="När">
+            <span class="tools">
+              <button class="mv" data-chmove="${c.id}|-1" title="Upp" aria-label="Upp"${i===0?" disabled":""}>&uarr;</button>
+              <button class="mv" data-chmove="${c.id}|1" title="Ner" aria-label="Ner"${i===S.challenge.length-1?" disabled":""}>&darr;</button>
+              <button class="mv del" data-chdel="${c.id}" title="Ta bort" aria-label="Ta bort">&times;</button>
+            </span>
+          </div>`).join("")}
+      </div>
+      <div class="addrow"><button class="btn btn-sm" id="addch" type="button">+ Lägg till uppgift</button></div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Tre spår som går parallellt</h2>
+        <span class="eyebrow">${pw?("vecka "+pw+" av 12"):"sätt startdatum nedan"}</span></div>
+      <p class="prose">Inte en vecka-för-vecka-plan, utan tre saker som rullar samtidigt fram till februari. Allt här är ditt att ändra: skriv om en uppgift, lägg till egna, ta bort det som inte passar.</p>
+      <div class="grid g2" style="margin-top:14px">
+        <div class="f"><label for="set-started">När startar planen?</label>
+          <input type="date" id="set-started" data-set="started" value="${esc(S.started)}"></div>
+        <div class="f"><label for="set-hours">Timmar i veckan vid sidan av skolan</label>
+          <input type="number" min="0" max="60" id="set-hours" data-set="hours" value="${esc(S.hours)}" placeholder="t.ex. 6"></div>
+      </div>
+      <div style="margin-top:16px">
+        ${S.plan.map((b,i)=>{
+          const d=b.tasks.filter(t=>t.done).length;
+          return `<div class="block">
+            <div class="bhead">
+              <input class="tedit" style="width:72px;flex:none;font-family:var(--font-d);font-weight:800;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)" data-pwk="${b.id}" value="${esc(b.wk)}" aria-label="Spår">
+              <input class="tedit ttl" data-ptitle="${b.id}" value="${esc(b.title)}" aria-label="Rubrik">
+              <span class="pr">${d}/${b.tasks.length}</span>
+              <span class="tools">
+                <button class="mv" data-bmove="${b.id}|-1" title="Upp" aria-label="Upp"${i===0?" disabled":""}>&uarr;</button>
+                <button class="mv" data-bmove="${b.id}|1" title="Ner" aria-label="Ner"${i===S.plan.length-1?" disabled":""}>&darr;</button>
+                ${pendingDel===("b:"+b.id)
+                  ? `<span class="confirm">Ta bort hela spåret? <button class="btn btn-sm" data-bdel="${b.id}" type="button">Ja</button><button class="btn btn-sm btn-ghost" data-cancel="1" type="button">Nej</button></span>`
+                  : `<button class="mv del" data-bask="${b.id}" title="Ta bort spåret" aria-label="Ta bort spåret">&times;</button>`}
+              </span>
+            </div>
+            <div class="body">
+              ${b.tasks.length? b.tasks.map((t,j)=>`
+                <div class="ck ${t.done?'done':''}">
+                  <input type="checkbox" data-ptoggle="${b.id}|${t.id}" ${t.done?"checked":""} aria-label="Klar">
+                  <input class="tedit" id="te-${t.id}" data-ptext="${b.id}|${t.id}" value="${esc(t.text)}" aria-label="Uppgift">
+                  ${t.gate?`<span class="gate18">efter 18 år</span>`:""}
+                  <span class="tools">
+                    <button class="mv" data-pgate="${b.id}|${t.id}" title="Märk som 18-årsgräns" aria-label="Märk som 18-årsgräns">18</button>
+                    <button class="mv" data-pmove="${b.id}|${t.id}|-1" title="Upp" aria-label="Upp"${j===0?" disabled":""}>&uarr;</button>
+                    <button class="mv" data-pmove="${b.id}|${t.id}|1" title="Ner" aria-label="Ner"${j===b.tasks.length-1?" disabled":""}>&darr;</button>
+                    <button class="btn btn-sm btn-ghost" data-ptoweek="${b.id}|${t.id}" type="button">Till min vecka</button>
+                    <button class="mv del" data-pdel="${b.id}|${t.id}" title="Ta bort" aria-label="Ta bort">&times;</button>
+                  </span>
+                </div>`).join("")
+              : `<p class="small" style="padding:12px 0">Inga uppgifter i det här spåret än.</p>`}
+              <div class="addrow"><button class="btn btn-sm" data-padd="${b.id}" type="button">+ Lägg till uppgift</button></div>
+            </div>
+          </div>`;
+        }).join("")}
+      </div>
+      <div class="addrow">
+        <button class="btn btn-sm" id="addblock" type="button">+ Lägg till spår</button>
+        ${pendingDel==="reset"
+          ? `<span class="confirm">Skriva över planen med originalet? <button class="btn btn-sm" id="doreset" type="button">Ja</button><button class="btn btn-sm btn-ghost" data-cancel="1" type="button">Nej</button></span>`
+          : `<button class="btn btn-sm btn-ghost" id="askreset" type="button">Återställ originalplanen</button>`}
+      </div>
+    </div>
+
+    <div class="ab">
+      <h2>Februari: då blir det ditt eget bolag</h2>
+      <p class="prose" style="margin-top:8px">Just nu går faktureringen genom en egenanställningstjänst som behåller en stor del av beloppet. Det är inget fel på lösningen — den är det som gör att du kan ta betalt alls innan du är myndig. Men den har ett slutdatum, och det är nära.</p>
+      <p class="prose" style="margin-top:10px">Aktiebolag kräver att du fyllt 18, så bildandet ligger efter födelsedagen. Uppgifterna märkta <strong>efter 18 år</strong> i spår 3 är precis de som inte går att göra innan. Allt annat går att förbereda nu, och det är det som avgör hur snabbt det går sedan.</p>
+      <p class="prose" style="margin-top:10px">Du <strong>skulle</strong> kunna driva enskild näringsverksamhet redan nu, från 16 år, med både dina förmyndares samtycke och överförmyndarens tillstånd — och med personligt ansvar för allt firman åtar sig. Med AB inom räckhåll är det sällan värt processen, men dörren finns om februari drar ut.</p>
+      <p class="srcs" style="color:#ffffff9c">Kontrollera alltid hos källan: <a href="https://bolagsverket.se/foretag/aktiebolag/startaaktiebolag.html" target="_blank" rel="noopener" style="color:#ffd9a8">Bolagsverket om att starta aktiebolag</a> · <a href="https://verksamt.se/starta-foretag/under-18" target="_blank" rel="noopener" style="color:#ffd9a8">Verksamt om att starta företag under 18</a> · överförmyndarnämnden i din kommun. Det här är planeringsstöd, inte juridisk rådgivning.</p>
+    </div>
+  </div>`;
+}
+
+/* ============== view: prospekt ============== */
+function renderProspects(){
+  const act=active();
+  const counts=STAGES.map((_,i)=>act.filter(p=>p.stage>=i).length);
+  const max=Math.max(1,counts[0]);
+  const rows=S.prospects.slice().sort((a,b)=>
+    (a.state==="Aktiv"?0:1)-(b.state==="Aktiv"?0:1) || (b.stage-a.stage) || ((a.nextDate||"9")<(b.nextDate||"9")?-1:1));
+  const inds=[...new Set(S.prospects.map(p=>p.industry).filter(Boolean))];
+  const offers=[...new Set(S.prospects.map(p=>p.offer).filter(Boolean))];
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Din tratt</h2><span class="eyebrow">${act.length} aktiva av ${S.prospects.length}</span></div>
+      ${act.length? `<div class="fun">
+        ${STAGES.map((s,i)=>`<div class="fun-row">
+          <span class="lbl">${esc(s)}</span>
+          <span class="fun-bar"><i style="width:${Math.max(2,counts[i]/max*100)}%"></i></span>
+          <span class="n">${counts[i]}</span>
+        </div>`).join("")}
+      </div>
+      <p class="small" style="margin-top:10px">Pausade och inte aktuella räknas inte med. Varje rad räknas i alla steg den passerat, så tratten visar hur långt de kommit.</p>`
+      : `<div class="empty"><b>Tratten är tom</b>Lägg in ett företag nedan, eller importera en CSV från ditt eget prospekteringsverktyg.</div>`}
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Lägg till företag</h2></div>
+      <div class="grid g3">
+        <div class="f"><label for="np-co">Företag</label><input id="np-co" placeholder="Företagsnamn"></div>
+        <div class="f"><label for="np-ct">Kontakt<span class="hint"> förnamn räcker</span></label><input id="np-ct" placeholder="Förnamn"></div>
+        <div class="f"><label for="np-in">Segment<span class="hint"> viktigast av allt</span></label><input id="np-in" placeholder="t.ex. e-handel" list="industries"></div>
+        <div class="f"><label for="np-st">Läge</label><select id="np-st">${STAGES.map((s,i)=>`<option value="${i}">${esc(s)}</option>`).join("")}</select></div>
+        <div class="f"><label for="np-na">Nästa steg</label><input id="np-na" placeholder="t.ex. följ upp mejlet"></div>
+        <div class="f"><label for="np-nd">Datum</label><input id="np-nd" type="date"></div>
+      </div>
+      <datalist id="industries">${inds.map(i=>`<option value="${esc(i)}">`).join("")}</datalist>
+      <datalist id="offers">${offers.map(i=>`<option value="${esc(i)}">`).join("")}</datalist>
+      <div class="row" style="margin-top:14px">
+        <button class="btn btn-pri" id="addprospect" type="button">Lägg till</button>
+        <button class="btn" id="imp" type="button">Importera CSV</button>
+        <button class="btn" id="expcsv" type="button">Exportera CSV</button>
+        <input type="file" id="impfile" accept=".csv,text/csv" hidden>
+      </div>
+      <p class="small" style="margin-top:10px">CSV-kolumner: företag, kontakt, segment, läge, nästa steg, datum, anteckning. Håll personuppgifterna till ett förnamn och en företagsadress.</p>
+    </div>
+
+    ${rows.length? `<div class="card">
+      <div class="hd"><h2>Alla rader</h2><span class="eyebrow">allt går att ändra direkt</span></div>
+      <div class="tw"><table><thead><tr>
+        <th>Företag</th><th>Kontakt</th><th>Segment</th><th>Erbjudande</th><th>Läge</th><th>Status</th>
+        <th>Senaste kontakt</th><th>Nästa steg</th><th>Datum</th><th>Anteckning</th><th></th>
+      </tr></thead><tbody>
+        ${rows.map(p=>{const d=daysTo(p.nextDate);return `<tr class="${p.state!=="Aktiv"?"paused":""}">
+          <td><input class="cell" style="font-weight:700;min-width:120px" data-pf="${p.id}|company" value="${esc(p.company)}" aria-label="Företag"></td>
+          <td><input class="cell" style="min-width:80px" data-pf="${p.id}|contact" value="${esc(p.contact||"")}" aria-label="Kontakt"></td>
+          <td><input class="cell" style="min-width:90px" data-pf="${p.id}|industry" value="${esc(p.industry||"")}" list="industries" aria-label="Segment"></td>
+          <td><input class="cell" style="min-width:90px" data-pf="${p.id}|offer" value="${esc(p.offer||"")}" list="offers" placeholder="—" aria-label="Erbjudande"></td>
+          <td><select data-pstage="${p.id}" style="min-width:140px">${STAGES.map((s,i)=>`<option value="${i}"${i===p.stage?" selected":""}>${esc(s)}</option>`).join("")}</select></td>
+          <td><select data-pstate="${p.id}" style="min-width:110px">${STATES.map(s=>`<option${s===p.state?" selected":""}>${esc(s)}</option>`).join("")}</select></td>
+          <td><input type="date" class="cell" style="min-width:130px" data-pf="${p.id}|last" value="${esc(p.last||"")}" aria-label="Senaste kontakt"></td>
+          <td><input class="cell" style="min-width:120px" data-pf="${p.id}|nextAction" value="${esc(p.nextAction||"")}" aria-label="Nästa steg"></td>
+          <td><input type="date" class="cell ${(d!==null&&d<0&&p.stage<5&&p.state==="Aktiv")?'due':''}" style="min-width:130px" data-pf="${p.id}|nextDate" value="${esc(p.nextDate||"")}" aria-label="Datum"></td>
+          <td><input class="cell" style="min-width:120px" data-pf="${p.id}|note" value="${esc(p.note||"")}" aria-label="Anteckning"></td>
+          <td><button class="x" data-delp="${p.id}" title="Ta bort" aria-label="Ta bort">&times;</button></td>
+        </tr>`;}).join("")}
+      </tbody></table></div>
+    </div>`:``}
+  </div>`;
+}
+
+/* ============== view: resultat ============== */
+function segTable(key,label){
+  const by={};
+  S.prospects.forEach(p=>{
+    const k=((p[key]||"").trim())||"Utan "+label;
+    by[k]=by[k]||{n:0,mailed:0,calls:0,cust:0};
+    by[k].n++; if(p.stage>=1) by[k].mailed++; if(p.stage>=2) by[k].calls++; if(p.stage===5) by[k].cust++;
+  });
+  const rows=Object.entries(by).sort((a,b)=>b[1].cust-a[1].cust||b[1].n-a[1].n);
+  if(!rows.length) return "";
+  return `<div class="tw"><table style="min-width:620px"><thead><tr>
+    <th>${esc(label[0].toUpperCase()+label.slice(1))}</th><th class="num">Prospekt</th><th class="num">Mejlade</th>
+    <th class="num">Samtal</th><th class="num">Kunder</th><th class="num">Mejl → kund</th>
+  </tr></thead><tbody>
+    ${rows.map(([name,v])=>`<tr>
+      <td><b>${esc(name)}</b></td>
+      <td class="num">${v.n}</td><td class="num">${v.mailed}</td><td class="num">${v.calls}</td><td class="num">${v.cust}</td>
+      <td class="num">${v.mailed>=10? `<b>${(v.cust/v.mailed*100).toFixed(0)} %</b>` : `<span class="thin">för få än</span>`}</td>
+    </tr>`).join("")}
+  </tbody></table></div>`;
+}
+function renderResults(){
+  const weeks=weekList(); const data=weeks.map(w=>({w, v:S.weeks[w]||{}}));
+  const any=data.some(d=>KPI.some(k=>Number(d.v[k.k])>0));
+  const wk=S.weeks[thisWeek()]||{};
+  const offers=[...new Set(S.prospects.map(p=>(p.offer||"").trim()).filter(Boolean))];
+
+  const b=S.biz, cut=Math.min(100,Math.max(0,Number(b.feecut)||0));
+  const gross=Number(b.install)+Number(b.mrr)*12;
+  const ext=Number(b.intercom)*12;
+  const tb=gross-ext;
+  const payout=tb*(1-cut/100);
+  const costOfCut=tb-payout;
+  const hSales=Number(b.hSales)||0, hInst=Number(b.hInstall)||0, hSup=(Number(b.hSupport)||0)*12;
+  const hTot=hSales+hInst+hSup;
+  const perHour=hTot>0?payout/hTot:null;
+  const capH=(Number(S.hours)||0)*4.3;
+  const maxCust=(Number(b.hSupport)>0)?Math.floor(capH/Number(b.hSupport)):null;
+
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Veckans siffror</h2><span class="eyebrow">${thisWeek()}</span></div>
+      <p class="prose">Fyll i på fredagen. Tar en minut och är det som gör grafen meningsfull.</p>
+      <div class="grid g3" style="margin-top:14px">
+        ${KPI.map(k=>`<div class="f"><label for="w-${k.k}">${esc(k.t)}</label>
+          <input type="number" min="0" id="w-${k.k}" data-week="${k.k}" value="${wk[k.k]!=null?esc(wk[k.k]):""}" placeholder="0"></div>`).join("")}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Utveckling</h2><span class="eyebrow">åtta veckor</span></div>
+      ${any? chart(data) : `<div class="empty"><b>Grafen väntar på sin första fredag</b>Fyll i siffrorna ovan. Efter två veckor börjar den säga något.</div>`}
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Vilket segment svarar bäst?</h2><span class="eyebrow">mätt, inte gissat</span></div>
+      <p class="prose">En total konverteringssiffra är ett snitt. Den här tabellen visar vad snittet består av.</p>
+      ${S.prospects.length? segTable("industry","segment")
+        : `<div class="empty"><b>Ingen data än</b>Fyll i segment på dina prospekt, så räknas tabellen ut åt dig.</div>`}
+      <p class="small" style="margin-top:10px">Under tio mejlade i ett segment står det "för få än" i stället för en procentsats. Ett utfall på två kontakter säger ingenting, hur lockande det än ser ut.</p>
+    </div>
+
+    ${offers.length>1? `<div class="card">
+      <div class="hd"><h2>Vilket erbjudande fungerar bäst?</h2></div>
+      ${segTable("offer","erbjudande")}
+    </div>`:``}
+
+    <div class="card">
+      <div class="hd"><h2>Ditt utgångsläge</h2><span class="eyebrow">uppskattning</span></div>
+      <p class="prose">Det du berättat så här långt, innan verktyget hunnit mäta något eget. Det är en uppskattning och ska läsas som en sådan — siffrorna ovan är de mätta.</p>
+      <div class="grid g3" style="margin-top:14px">
+        <div class="f"><label for="b-mails">Mejl skickade totalt</label><input type="number" min="0" id="b-mails" data-base="mails" value="${esc(S.base.mails)}"></div>
+        <div class="f"><label for="b-rate">Andel som blivit kund (%)</label><input type="number" min="0" max="100" step="0.1" id="b-rate" data-base="rate" value="${esc(S.base.rate)}"></div>
+        <div class="tile"><div class="k">Det skulle ge</div><div class="v">${nf(Number(S.base.mails)*Number(S.base.rate)/100)}</div><div class="s">kunder, om nivån hållit</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Vad ger en kund?</h2></div>
+      <p class="prose">Priset är inte vad du får behålla. Intercom kostar löpande, och faktureringstjänsten tar sin del. Fyll i det du vet — tomma fält räknas som noll.</p>
+      <div class="grid g3" style="margin-top:14px">
+        <div class="f"><label for="z-install">Installation, engångspris (kr)</label><input type="number" min="0" id="z-install" data-biz="install" value="${esc(b.install)}"></div>
+        <div class="f"><label for="z-mrr">Abonnemang per månad (kr)</label><input type="number" min="0" id="z-mrr" data-biz="mrr" value="${esc(b.mrr)}"></div>
+        <div class="f"><label for="z-ic">Intercom per kund och månad (kr)</label><input type="number" min="0" id="z-ic" data-biz="intercom" value="${esc(b.intercom)}"></div>
+        <div class="f"><label for="z-hsa">Timmar sälj per vunnen kund<span class="hint"> prospektering, mejl, samtal</span></label><input type="number" min="0" step="0.5" id="z-hsa" data-biz="hSales" value="${esc(b.hSales)}"></div>
+        <div class="f"><label for="z-hi">Timmar installation</label><input type="number" min="0" step="0.5" id="z-hi" data-biz="hInstall" value="${esc(b.hInstall)}"></div>
+        <div class="f"><label for="z-hs">Timmar support per månad</label><input type="number" min="0" step="0.5" id="z-hs" data-biz="hSupport" value="${esc(b.hSupport)}"></div>
+        <div class="f"><label for="z-fc">Faktureringstjänsten behåller (%)<span class="hint"> 0 när du har eget AB</span></label><input type="number" min="0" max="100" id="z-fc" data-biz="feecut" value="${esc(b.feecut)}"></div>
+      </div>
+      <div class="tiles" style="margin-top:16px">
+        <div class="tile"><div class="k">Kunden betalar, år 1</div><div class="v">${nf(gross)}</div><div class="s">kr</div></div>
+        <div class="tile"><div class="k">Täckningsbidrag</div><div class="v">${nf(tb)}</div><div class="s">kr, efter Intercom</div></div>
+        <div class="tile hi"><div class="k">Utbetalt till dig</div><div class="v">${nf(payout)}</div><div class="s">kr per kund, år 1</div></div>
+        <div class="tile"><div class="k">Per arbetad timme</div><div class="v">${perHour!==null?nf(perHour):"—"}</div>
+          <div class="s">${perHour!==null?"kr, "+nf(hTot)+" h totalt":"fyll i timmarna"}</div></div>
+      </div>
+      <div class="note" style="margin-top:14px"><strong>Läs siffrorna rätt.</strong> Täckningsbidraget är vad affären ger innan du tagit ut något själv — det är inte vinst och inte din inkomst. Med egenanställning är <em>Utbetalt till dig</em> det du faktiskt får, eftersom deras avdrag redan täcker avgift, arbetsgivaravgift och skatt. Sätter du avdraget till 0 för eget AB blir samma siffra bolagets pengar före dina egna skatter, vilket är något helt annat.</div>
+      ${cut>0? `<div class="note warn" style="margin-top:12px"><strong>${nf(costOfCut)} kr per kund och år</strong> är vad faktureringsvägen kostar vid ${cut} procent. Med fem kunder blir det ${nf(costOfCut*5)} kr om året. Det är det starkaste argumentet för att ha bolaget klart att registrera i februari.</div>`:``}
+      ${maxCust!==null&&maxCust>0? `<div class="note" style="margin-top:12px"><strong>Kapacitet:</strong> med ${esc(S.hours)} timmar i veckan och ${esc(b.hSupport)} timmar support per kund och månad räcker tiden till ungefär <strong>${maxCust} kunder</strong> parallellt — och då är varken sälj eller installationer inräknade. Nå den gränsen och nästa steg är att höja priset eller lämna ifrån dig arbete, inte att skicka fler mejl.</div>`:``}
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <div class="hd"><h3>Det här fungerade</h3></div>
+        <textarea data-set="worked" rows="4" placeholder="Vilket mejl, vilket segment, vilket samtal?">${esc(S.worked||"")}</textarea>
+      </div>
+      <div class="card">
+        <div class="hd"><h3>Det här ändrar jag nästa vecka</h3></div>
+        <textarea data-set="change" rows="4" placeholder="En sak. Inte fem.">${esc(S.change||"")}</textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Säkerhetskopia</h2></div>
+      <p class="prose">Står det <strong>sparat i molnet</strong> uppe till höger följer dina uppgifter med mellan dina enheter. Står det <strong>sparat i denna webbläsare</strong> gör de inte det — då finns de bara här, försvinner om du rensar webbläsardata, och syns inte på din telefon. Ta ut en kopia med jämna mellanrum oavsett vilket.</p>
+      <div class="row" style="margin-top:12px">
+        <button class="btn" id="expjson" type="button">Exportera allt</button>
+        <button class="btn" id="impjson" type="button">Läs in säkerhetskopia</button>
+        <input type="file" id="impjsonf" accept=".json,application/json" hidden>
+      </div>
+    </div>
+  </div>`;
+}
+
+function chart(data){
+  const W=720,H=210,PL=34,PR=10,PT=14,PB=34;
+  const iw=W-PL-PR, ih=H-PT-PB;
+  const keys=["mails","calls","customers"];
+  const cols=["var(--brand-2)","var(--accent)","var(--good)"];
+  const names=["Mejl","Samtal","Kunder"];
+  let max=0; data.forEach(d=>keys.forEach(k=>{max=Math.max(max,Number(d.v[k])||0)}));
+  max=Math.max(4,Math.ceil(max*1.15));
+  const bw=iw/data.length, gw=bw*0.62/keys.length;
+  let g="";
+  [0,Math.round(max/2),max].forEach(t=>{const y=PT+ih-(t/max)*ih;
+    g+=`<line x1="${PL}" y1="${y.toFixed(1)}" x2="${W-PR}" y2="${y.toFixed(1)}" stroke="var(--line)" stroke-width="1"/>`
+     + `<text x="${PL-6}" y="${(y+4).toFixed(1)}" text-anchor="end" font-size="10" fill="var(--fg-faint)" font-family="system-ui">${t}</text>`;});
+  data.forEach((d,i)=>{
+    const x0=PL+i*bw+bw*0.19;
+    keys.forEach((k,j)=>{
+      const v=Number(d.v[k])||0; const h=(v/max)*ih;
+      if(h>0) g+=`<rect x="${(x0+j*gw).toFixed(1)}" y="${(PT+ih-h).toFixed(1)}" width="${(gw*0.82).toFixed(1)}" height="${h.toFixed(1)}" fill="${cols[j]}" rx="2"/>`;
+    });
+    g+=`<text x="${(PL+i*bw+bw/2).toFixed(1)}" y="${H-12}" text-anchor="middle" font-size="9.5" fill="var(--fg-faint)" font-family="system-ui">${d.w.slice(5)}</text>`;
+  });
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Mejl, bokade samtal och nya kunder per vecka">${g}</svg>
+  <div class="row" style="margin-top:10px">${names.map((n,j)=>
+    `<span class="small" style="display:inline-flex;align-items:center;gap:6px"><i style="width:10px;height:10px;border-radius:2px;background:${cols[j]};display:inline-block"></i>${n}</span>`).join("")}</div>`;
+}
+
+/* ============== view: idéer ============== */
+function ageList(items){
+  return items.map(([id,html])=>`<label class="agechk${S.checks[id]?" done":""}">
+    <input type="checkbox" data-check="${id}" ${S.checks[id]?"checked":""}><span>${html}</span></label>`).join("");
+}
+function ageCount(items){
+  return `<span class="pr">${items.filter(([id])=>S.checks[id]).length}/${items.length}</span>`;
+}
+function renderIdeas(){
+  const P={nu:"Gör nu",sen:"När du har tid",pr:"Synlighet"};
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Idébank</h2></div>
+      <p class="prose">Sorterat efter vad som ger mest just nu. De tre översta handlar alla om kunder du redan har eller segment du redan vunnit i — det är billigast och säkrast. Nätverk, media och rådgivning är bra, men de ska inte konkurrera med det.</p>
+      <p class="small" style="margin-top:10px">Göm det som inte passar dig med krysset, och lägg till dina egna idéer längst ner.${S.hidden.length?` <button class="btn-link" data-ishow="1" type="button">Visa de ${S.hidden.length} gömda igen</button>`:""}</p>
+    </div>
+    <div class="ideas">
+      ${IDEAS.filter(i=>!S.hidden.includes(i.id)).map(i=>`<div class="idea">
+        <div class="top"><span class="prio ${i.p}">${esc(P[i.p])}</span><span class="time">${esc(i.time)}</span>
+          <button class="mv del" data-ihide="${i.id}" style="margin-left:auto" title="Göm" aria-label="Göm">&times;</button></div>
+        <h4>${esc(i.t)}</h4>
+        <p class="why">${esc(i.why)}</p>
+        <div class="first"><b>Första steget:</b> ${esc(i.first)}</div>
+        <div class="foot"><button class="btn btn-sm btn-pri" data-toweek="${esc(i.add)}" type="button">Till min vecka</button></div>
+      </div>`).join("")}
+      ${S.ideas.map(x=>`<div class="idea">
+        <div class="top"><span class="prio nu">Min egen</span>
+          <input class="tedit" data-ifield="${x.id}|time" value="${esc(x.time)}" placeholder="Tid" style="width:78px;flex:none" aria-label="Tidsåtgång">
+          <button class="mv del" data-idel="${x.id}" style="margin-left:auto" title="Ta bort" aria-label="Ta bort">&times;</button></div>
+        <input class="tedit ttl" id="ie-${x.id}" data-ifield="${x.id}|t" value="${esc(x.t)}" placeholder="Vad är idén?" aria-label="Rubrik">
+        <input class="tedit" data-ifield="${x.id}|why" value="${esc(x.why)}" placeholder="Varför skulle det fungera?" aria-label="Varför">
+        <input class="tedit" data-ifield="${x.id}|first" value="${esc(x.first)}" placeholder="Vad är första steget?" aria-label="Första steget">
+        <div class="foot"><button class="btn btn-sm btn-pri" data-itoweek="${x.id}" type="button">Till min vecka</button></div>
+      </div>`).join("")}
+    </div>
+    <div class="addrow"><button class="btn btn-sm" id="addidea" type="button">+ Lägg till egen idé</button></div>
+
+    <div class="card">
+      <div class="hd"><h2>Din ålder, hanterad</h2></div>
+      <p class="prose">Du är inte en lovande ung entreprenör. Du är en entreprenör med betalande kunder som dessutom är 17 år. Skillnaden avgör vilka rum du ska in i: de där företagare och beslutsfattare finns, inte de som är byggda för unga förmågor.</p>
+      <div class="grid g2" style="margin-top:14px">
+        <div class="note"><strong>När någon tvekar:</strong> svara innan de hinner fråga. Vem fakturerar, vem bär ansvaret enligt avtalet, vad händer om du är sjuk eller har prov. Ett förberett svar gör åldern till en detalj.</div>
+        <div class="note"><strong>När du vill synas:</strong> då är åldern hela vinkeln. Riktiga kunder, fungerande teknik, 17 år, och hinder på vägen för att du inte är myndig. Skriv texten färdig själv.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Vad som går nu, och vad som väntar till februari</h2></div>
+      <p class="prose">Åldern stoppar mindre än man tror. Det mesta i din verksamhet går redan. Det som faktiskt kräver att du är myndig är nästan bara avtalen — och de löser sig i februari.</p>
+      <div class="agegrid">
+        <div class="agecol now"><h4>Fritt fram redan nu ${ageCount(AGE_NOW)}</h4>${ageList(AGE_NOW)}</div>
+        <div class="agecol cond"><h4>Går, men kräver rätt upplägg ${ageCount(AGE_COND)}</h4>${ageList(AGE_COND)}</div>
+        <div class="agecol later"><h4>Väntar till februari ${ageCount(AGE_LATER)}</h4>${ageList(AGE_LATER)}</div>
+      </div>
+      <p class="small" style="margin-top:12px">Det som kräver 18 år handlar om att binda sig i avtal, inte om att få driva verksamhet. Som omyndig behöver du förmyndares samtycke för avtal som sträcker sig längre än det vardagliga, och vissa motparter säger nej ändå. Fråga alltid motparten vad som gäller — svaren skiljer sig mellan banker, registrarer och leverantörer.</p>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Dataskydd</h2><span class="eyebrow">gäller redan nu</span></div>
+      <p class="prose">Din tjänst läser och svarar på meddelanden från dina kunders kunder. Det är personuppgifter. Då är din kund personuppgiftsansvarig och du personuppgiftsbiträde, och mellan er krävs ett personuppgiftsbiträdesavtal — ett PUB-avtal. Det gäller från första kunden, inte från februari.</p>
+      <p class="prose" style="margin-top:10px">Komplikationen i ditt fall är vem som undertecknar. Går faktureringen genom en egenanställningstjänst är det inte självklart att det är du som är avtalspart. Reder du inte ut det kan avtalet vara tecknat av fel part, och då skyddar det ingen.</p>
+      <div class="grid g2" style="margin-top:14px">
+        <div class="note"><strong style="display:block;margin-bottom:6px">Kedjan du behöver kunna rita</strong>Kundens slutkund lämnar uppgifter. Din kund är ansvarig. Du är biträde. Intercom är ditt underbiträde. Varje led ska din kund känna till och godkänna.</div>
+        <div class="note"><strong style="display:block;margin-bottom:6px">Tre frågor att kunna svara på</strong>Vilka uppgifter passerar lösningen? Vilka leverantörer får åtkomst, och var lagras data? Hur länge sparas den, och vem raderar?</div>
+      </div>
+      <div class="note warn" style="margin-top:12px"><strong>Mänsklig överlämning.</strong> Bestäm i förväg vilka ärenden AI:n inte ska svara på själv — klagomål, uppsägningar, allt som rör någons personliga förhållanden — och hur snabbt en människa tar över. Skriv in det i kundavtalet. Det är både ett dataskyddskrav och ditt bästa säljargument mot den som är rädd för att AI ska svara fel.</div>
+      <p class="srcs">Källor att läsa själv: <a href="https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/personuppgiftsansvariga-och-personuppgiftsbitraden/personuppgiftsbitradesavtal/" target="_blank" rel="noopener">IMY om PUB-avtal</a> · <a href="https://verksamt.se" target="_blank" rel="noopener">Verksamt</a> · <a href="https://bolagsverket.se" target="_blank" rel="noopener">Bolagsverket</a>. Det här är planeringsstöd, inte juridisk rådgivning — låt någon kunnig granska avtalen innan du skickar dem till kund.</p>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Praktiska frågor att lösa</h2></div>
+      <details class="block" open><summary>Företagsform</summary><div class="body">
+        <p class="prose" style="padding-top:10px"><strong>Aktiebolag</strong> kräver att du fyllt 18. Det blir möjligt i februari, och det är dit du siktar.</p>
+        <p class="prose" style="margin-top:8px"><strong>Enskild näringsverksamhet</strong> går faktiskt redan nu — från 16 år, med både dina förmyndares samtycke och tillstånd från överförmyndaren i kommunen, som prövar om formen är lämplig med tanke på risken. Du blir personligen ansvarig för allt firman åtar sig. Med AB inom räckhåll är det oftast inte värt processen.</p>
+        <p class="prose" style="margin-top:8px"><strong>Egenanställning</strong> är det du använder nu. Går att göra under 18 med målsmans underskrift. Kontrollera hur det fungerar för löpande kundavtal och inte bara enstaka fakturor.</p>
+        <p class="srcs">Kolla med överförmyndarnämnden i din kommun innan du bestämmer dig — reglerna sitter hos dem, inte här. Läs mer: <a href="https://verksamt.se/starta-foretag/under-18" target="_blank" rel="noopener">Verksamt om att starta företag under 18</a> · <a href="https://bolagsverket.se/foretag/aktiebolag/startaaktiebolag.html" target="_blank" rel="noopener">Bolagsverket om att starta aktiebolag</a>.</p>
+      </div></details>
+      <details class="block"><summary>Hemsida och domän</summary><div class="body">
+        <p class="prose" style="padding-top:10px">Domänregistret kräver personnummer men stoppar inte minderåriga rakt av. Hindret är avtalet med registraren, som normalt kräver 18 år. Praktiska vägen är att en vuxen registrerar och överlåter senare.</p>
+        <p class="prose" style="margin-top:8px">Fråga dina föräldrar först. Går inte det har Lisa erbjudit sig att registrera domänen och föra över den till dig sedan. Skriv ner vem som äger den och när den ska överlåtas, så blir det ingen diskussion om det.</p>
+      </div></details>
+      <details class="block"><summary>Nätverk och kontakter</summary><div class="body">
+        <p class="prose" style="padding-top:10px">Du får vanligen komma som gäst en eller två gånger, och det finns ofta flera grupper i samma stad.</p>
+        <ul class="prose" style="margin-top:8px;padding-left:20px">
+          <li><strong>BNI</strong> — gästbesök, flera nätverk per stad</li>
+          <li><strong>KAN, Kungsbacka Affärsnätverk</strong> — hör efter vilka träffar som passar</li>
+          <li><strong>Företagarna</strong> — lokalt nätverk och aktiviteter</li>
+          <li><strong>NyföretagarCentrum</strong> — kostnadsfri rådgivning, lyfter fram intressanta bolag</li>
+          <li><strong>High Five Halmstad</strong> — du har redan haft kontakt, ta upp den igen</li>
+          <li><strong>Almi</strong> — rådgivning och möjligen verifieringsmedel. Beloppen avgörs i samtal, så räkna inte med en summa i förväg</li>
+        </ul>
+      </div></details>
+    </div>
+  </div>`;
+}
+
+/* ============== events: redigera planen ============== */
+const findBlock=id=>S.plan.find(b=>b.id===id);
+function move(arr,i,d){ const j=i+d; if(j<0||j>=arr.length) return; const [x]=arr.splice(i,1); arr.splice(j,0,x); }
+function focusTask(id){ const n=document.getElementById("te-"+id); if(n){ n.focus(); n.scrollIntoView({block:"center"}); } }
+function toWeek(text){ S.prios.push({id:uid(),text,done:false}); save(); location.hash="vecka"; render(); }
+
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-go],[data-toweek],[data-delprio],[data-delp],[data-chmove],[data-chdel],[data-pmove],[data-pdel],[data-pgate],[data-ptoweek],[data-padd],[data-bmove],[data-bask],[data-bdel],[data-cancel],[data-ihide],[data-idel],[data-ishow],[data-itoweek],#addprio,#addprospect,#imp,#expcsv,#expjson,#impjson,#gate-go,#addch,#addblock,#askreset,#doreset,#addidea");
+  if(!t) return;
+  const D=t.dataset;
+  if(D.go!=null){ location.hash=D.go; render(); return; }
+  if(D.toweek!=null){ toWeek(D.toweek); return; }
+  if(D.cancel){ pendingDel=null; render(); return; }
+  if(D.delprio){ S.prios=S.prios.filter(p=>p.id!==D.delprio); save(); render(); return; }
+  if(D.delp){ S.prospects=S.prospects.filter(p=>p.id!==D.delp); save(); render(); return; }
+  if(D.chmove){ const [id,d]=D.chmove.split("|"); const i=S.challenge.findIndex(c=>c.id===id);
+    if(i>=0){ move(S.challenge,i,Number(d)); save(); render(); } return; }
+  if(D.chdel){ S.challenge=S.challenge.filter(c=>c.id!==D.chdel); save(); render(); return; }
+  if(D.pmove){ const [bid,tid,d]=D.pmove.split("|"); const b=findBlock(bid);
+    if(b){ const i=b.tasks.findIndex(x=>x.id===tid); if(i>=0){ move(b.tasks,i,Number(d)); save(); render(); } } return; }
+  if(D.pdel){ const [bid,tid]=D.pdel.split("|"); const b=findBlock(bid);
+    if(b){ b.tasks=b.tasks.filter(x=>x.id!==tid); save(); render(); } return; }
+  if(D.pgate){ const [bid,tid]=D.pgate.split("|"); const b=findBlock(bid);
+    const x=b&&b.tasks.find(y=>y.id===tid); if(x){ x.gate=!x.gate; save(); render(); } return; }
+  if(D.ptoweek){ const [bid,tid]=D.ptoweek.split("|"); const b=findBlock(bid);
+    const x=b&&b.tasks.find(y=>y.id===tid); if(x&&x.text.trim()) toWeek(x.text); return; }
+  if(D.padd){ const b=findBlock(D.padd);
+    if(b){ const id=uid(); b.tasks.push({id,text:"",done:false,gate:false}); save(); render(); focusTask(id); } return; }
+  if(D.bmove){ const [bid,d]=D.bmove.split("|"); const i=S.plan.findIndex(b=>b.id===bid);
+    if(i>=0){ move(S.plan,i,Number(d)); save(); render(); } return; }
+  if(D.bask){ pendingDel="b:"+D.bask; render(); return; }
+  if(D.bdel){ S.plan=S.plan.filter(b=>b.id!==D.bdel); pendingDel=null; save(); render(); return; }
+  if(D.ihide){ if(!S.hidden.includes(D.ihide)) S.hidden.push(D.ihide); save(); render(); return; }
+  if(D.ishow){ S.hidden=[]; save(); render(); return; }
+  if(D.idel){ S.ideas=S.ideas.filter(x=>x.id!==D.idel); save(); render(); return; }
+  if(D.itoweek){ const x=S.ideas.find(y=>y.id===D.itoweek);
+    if(x){ const txt=(x.t||"").trim()+((x.first||"").trim()?": "+x.first.trim():""); if(txt) toWeek(txt); } return; }
+  switch(t.id){
+    case "gate-go": tryUnlock(); break;
+    case "addprio": { const i=$("#newprio"); const v=i.value.trim(); if(!v) return;
+      S.prios.push({id:uid(),text:v,done:false}); save(); render(); break; }
+    case "addprospect": { const co=$("#np-co").value.trim(); if(!co) return;
+      S.prospects.push({id:uid(),company:co,contact:$("#np-ct").value.trim(),industry:$("#np-in").value.trim(),
+        offer:"",stage:Number($("#np-st").value)||0,state:"Aktiv",last:todayISO(),
+        nextAction:$("#np-na").value.trim(),nextDate:$("#np-nd").value||"",note:""});
+      save(); render(); break; }
+    case "addch": { const id=uid(); S.challenge.push({id,text:"",wk:"",done:false}); save(); render(); focusTask(id); break; }
+    case "addblock": { S.plan.push({id:uid(),wk:"Eget spår",title:"Vad jag vill göra",tasks:[]}); save(); render(); break; }
+    case "askreset": pendingDel="reset"; render(); break;
+    case "doreset": S.plan=[]; S.challenge=[]; seed(); pendingDel=null; save(); render(); break;
+    case "addidea": { const id=uid(); S.ideas.push({id,t:"",why:"",first:"",time:""}); save(); render();
+      const n=document.getElementById("ie-"+id); if(n) n.focus(); break; }
+    case "imp": $("#impfile").click(); break;
+    case "impjson": $("#impjsonf").click(); break;
+    case "expcsv": exportCSV(); break;
+    case "expjson": offer("saljmotor-backup.json", JSON.stringify(S,null,2)); break;
+  }
+});
+
+document.addEventListener("change",e=>{
+  const el=e.target, D=el.dataset;
+  if(D.prio){ const p=S.prios.find(x=>x.id===D.prio); if(p){p.done=el.checked; save(); render();} return; }
+  if(D.check){ S.checks[D.check]=el.checked; save(); render(); return; }
+  if(D.chtoggle){ const c=S.challenge.find(x=>x.id===D.chtoggle); if(c){ c.done=el.checked; save(); render(); } return; }
+  if(D.ptoggle){ const [bid,tid]=D.ptoggle.split("|"); const b=findBlock(bid);
+    const x=b&&b.tasks.find(y=>y.id===tid); if(x){ x.done=el.checked; save(); render(); } return; }
+  if(D.pstage){ const p=S.prospects.find(x=>x.id===D.pstage);
+    if(p){ p.stage=Number(el.value); p.last=todayISO(); save(); render(); } return; }
+  if(D.pstate){ const p=S.prospects.find(x=>x.id===D.pstate); if(p){ p.state=el.value; save(); render(); } return; }
+  if(el.id==="impfile" && el.files&&el.files[0]) importCSV(el.files[0]);
+  if(el.id==="impjsonf" && el.files&&el.files[0]) importJSON(el.files[0]);
+});
+
+document.addEventListener("input",e=>{
+  const el=e.target, D=el.dataset, v=el.value;
+  if(D.set!=null){ S[D.set]=v; lsWrite(); queue(); if(D.set==="started"||D.set==="hours") queueRender(); return; }
+  if(D.week!=null){ const w=thisWeek(); S.weeks[w]=S.weeks[w]||{}; S.weeks[w][D.week]=v===""?"":Number(v); lsWrite(); queue(); return; }
+  if(D.base!=null){ S.base[D.base]=v===""?0:Number(v); lsWrite(); queue(); queueRender(); return; }
+  if(D.biz!=null){ S.biz[D.biz]=v===""?0:Number(v); lsWrite(); queue(); queueRender(); return; }
+  if(D.pf!=null){ const [id,f]=D.pf.split("|"); const p=S.prospects.find(x=>x.id===id);
+    if(p){ p[f]=v; lsWrite(); queue(); } return; }
+  if(D.chtext!=null){ const c=S.challenge.find(x=>x.id===D.chtext); if(c){ c.text=v; lsWrite(); queue(); } return; }
+  if(D.chwk!=null){ const c=S.challenge.find(x=>x.id===D.chwk); if(c){ c.wk=v; lsWrite(); queue(); } return; }
+  if(D.ptext!=null){ const [bid,tid]=D.ptext.split("|"); const b=findBlock(bid);
+    const x=b&&b.tasks.find(y=>y.id===tid); if(x){ x.text=v; lsWrite(); queue(); } return; }
+  if(D.ptitle!=null){ const b=findBlock(D.ptitle); if(b){ b.title=v; lsWrite(); queue(); } return; }
+  if(D.pwk!=null){ const b=findBlock(D.pwk); if(b){ b.wk=v; lsWrite(); queue(); } return; }
+  if(D.ifield!=null){ const [id,f]=D.ifield.split("|"); const x=S.ideas.find(y=>y.id===id); if(x){ x[f]=v; lsWrite(); queue(); } return; }
+});
+
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Enter") return;
+  if(e.target.id==="gate-pw"){ tryUnlock(); return; }
+  if(e.target.id==="newprio"){ $("#addprio").click(); }
+  if(["np-co","np-ct","np-in","np-na","np-nd"].includes(e.target.id)){ $("#addprospect").click(); }
+});
+window.addEventListener("hashchange",render);
+
+let st=null, rt=null;
+function queue(){ clearTimeout(st); st=setTimeout(save,600); }
+function queueRender(){ clearTimeout(rt); rt=setTimeout(()=>{
+  const a=document.activeElement, id=a&&a.id, pos=(a&&a.selectionStart);
+  render();
+  if(id){ const n=document.getElementById(id); if(n){ n.focus(); try{ if(pos!=null) n.setSelectionRange(pos,pos);}catch(e){} } }
+},700); }
+
+/* ============== csv / json ============== */
+function splitCSV(line){
+  const out=[]; let cur="", q=false;
+  for(let i=0;i<line.length;i++){ const c=line[i];
+    if(q){ if(c==='"'){ if(line[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=c; }
+    else if(c==='"') q=true;
+    else if(c===","||c===";"){ out.push(cur); cur=""; }
+    else cur+=c; }
+  out.push(cur); return out.map(s=>s.trim());
+}
+function importCSV(file){
+  const r=new FileReader();
+  r.onload=()=>{
+    const lines=String(r.result).split(/\r?\n/).filter(l=>l.trim()); if(!lines.length) return;
+    const first=splitCSV(lines[0]).join(" ").toLowerCase();
+    const start=/f(ö|o)retag|company/.test(first)?1:0;
+    for(let i=start;i<lines.length;i++){
+      const c=splitCSV(lines[i]); if(!c[0]) continue;
+      const si=STAGES.findIndex(s=>s.toLowerCase()===String(c[3]||"").toLowerCase());
+      S.prospects.push({id:uid(),company:c[0],contact:c[1]||"",industry:c[2]||"",offer:"",
+        stage:si>=0?si:0,state:"Aktiv",last:"",
+        nextAction:c[4]||"",nextDate:/^\d{4}-\d{2}-\d{2}$/.test(c[5]||"")?c[5]:"",note:c[6]||""});
+    }
+    save(); render();
+  };
+  r.readAsText(file);
+}
+async function offer(filename,data){
+  try{ const d=await window.claude?.use?.("downloads"); if(d){ await d.save({filename,data}); return; } }catch(e){}
+  try{ await navigator.clipboard.writeText(data); }catch(e){}
+}
+function exportCSV(){
+  const q=s=>'"'+String(s==null?"":s).replace(/"/g,'""')+'"';
+  const rows=[["foretag","kontakt","segment","lage","nasta steg","datum","anteckning","status","senaste kontakt","erbjudande"]]
+    .concat(S.prospects.map(p=>[p.company,p.contact,p.industry,STAGES[p.stage],p.nextAction,p.nextDate,p.note,p.state,p.last,p.offer]));
+  offer("prospekt.csv", rows.map(r=>r.map(q).join(",")).join("\n"));
+}
+function importJSON(file){
+  const r=new FileReader();
+  r.onload=()=>{ try{ const o=JSON.parse(String(r.result));
+    S=Object.assign(JSON.parse(JSON.stringify(DEF)),o);
+    S.biz=Object.assign({},DEF.biz,o.biz||{}); S.base=Object.assign({},DEF.base,o.base||{});
+    seed(); save(); render();
+  }catch(e){} };
+  r.readAsText(file);
+}
+
+/* ============== gate + boot ============== */
+function tryUnlock(){
+  const v=($("#gate-pw").value||"").trim().toLowerCase();
+  if(v===PASSWORD){ try{ sessionStorage.setItem("hamza-unlocked","1"); }catch(e){} open_(); }
+  else { $("#gate-err").hidden=false; $("#gate-pw").value=""; $("#gate-pw").focus(); }
+}
+function open_(){ $("#gate").hidden=true; $("#app").hidden=false; render(); setMode(mode); connect(); }
+function boot(){
+  const local=lsRead();
+  if(local) S=Object.assign(JSON.parse(JSON.stringify(DEF)),local,{
+    biz:Object.assign({},DEF.biz,local.biz||{}), base:Object.assign({},DEF.base,local.base||{})});
+  if(!S.started) S.started=todayISO();
+  seed();
+  let un=false; try{ un=sessionStorage.getItem("hamza-unlocked")==="1"; }catch(e){}
+  if(un) open_(); else $("#gate-pw").focus();
+}
+let connected=false;
+async function connect(){
+  if(connected) return; connected=true;
+  let timer=setTimeout(()=>setMode("local"),10000);
+  try{
+    const d=await window.claude?.use?.("db");
+    clearTimeout(timer);
+    if(!d){ setMode("local"); return; }
+    db=d;
+    const snap=await db.doc("state/all").get();
+    const v=snap && (snap.data ? (typeof snap.data==="function"? snap.data(): snap.data) : null);
+    if(v && typeof v==="object"){
+      S=Object.assign(JSON.parse(JSON.stringify(DEF)),v,{
+        biz:Object.assign({},DEF.biz,v.biz||{}), base:Object.assign({},DEF.base,v.base||{})});
+      if(!S.started) S.started=todayISO();
+      seed(); lsWrite(); render();
+    } else { await save(); }
+    setMode("db");
+  }catch(e){ clearTimeout(timer); setMode("local"); }
+}
+boot();
+</script>

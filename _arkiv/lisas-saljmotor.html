@@ -1,0 +1,730 @@
+<title>Lisas säljmotor</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
+<style>
+/* Layout: indigo brand bar + tab rail, single column of cards on warm grey, max 1140px */
+:root{
+  --bg:#f5f3f1; --surface:#ffffff; --surface-2:#eceae7; --surface-3:#faf8f7;
+  --fg:#241f2b; --fg-soft:#655d70; --fg-faint:#8d8499;
+  --line:#e2dede; --line-strong:#cdc7d2;
+  --brand:#2e2550; --brand-2:#413466; --brand-fg:#efebf7;
+  --accent:#b8464f; --accent-fg:#ffffff; --accent-wash:#fbecec;
+  --good:#2f6f55; --good-wash:#e6f0ec;
+  --warn:#9a6a1c; --warn-wash:#f9f0e2;
+  --crit:#a63a3a; --crit-wash:#f9eaea;
+  --focus:#6f5bb5;
+  --font-d:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  --font-b:"Literata",Georgia,"Times New Roman",serif;
+  --r:10px; --r-lg:16px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141118; --surface:#1d1924; --surface-2:#272131; --surface-3:#19151f;
+  --fg:#ece8f1; --fg-soft:#a99fb6; --fg-faint:#857b93;
+  --line:#2f2839; --line-strong:#3e3549;
+  --brand:#1e1838; --brand-2:#2b2250; --brand-fg:#ddd5ee;
+  --accent:#e08a90; --accent-fg:#2a1113; --accent-wash:#2e1c1e;
+  --good:#71bd9c; --good-wash:#172620;
+  --warn:#d7a455; --warn-wash:#2a2115;
+  --crit:#e08f8f; --crit-wash:#2c1a1a;
+  --focus:#9b86e0;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#141118; --surface:#1d1924; --surface-2:#272131; --surface-3:#19151f;
+  --fg:#ece8f1; --fg-soft:#a99fb6; --fg-faint:#857b93;
+  --line:#2f2839; --line-strong:#3e3549;
+  --brand:#1e1838; --brand-2:#2b2250; --brand-fg:#ddd5ee;
+  --accent:#e08a90; --accent-fg:#2a1113; --accent-wash:#2e1c1e;
+  --good:#71bd9c; --good-wash:#172620;
+  --warn:#d7a455; --warn-wash:#2a2115;
+  --crit:#e08f8f; --crit-wash:#2c1a1a;
+  --focus:#9b86e0;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-d);font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--brand)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--font-d);text-wrap:balance;margin:0}
+p{margin:0}
+.prose{font-family:var(--font-b);font-size:15px;line-height:1.6;color:var(--fg-soft);max-width:68ch}
+.prose strong{color:var(--fg);font-weight:600}
+button{font:inherit;color:inherit}
+input,textarea,select{font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line-strong);border-radius:8px;padding:8px 10px;width:100%}
+input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+textarea{resize:vertical;font-family:var(--font-b)}
+.num{font-variant-numeric:tabular-nums}
+
+#gate{min-height:100svh;display:grid;place-items:center;padding-block:40px;background:radial-gradient(1100px 460px at 50% -12%,var(--brand-2),transparent 70%),var(--bg)}
+.gate-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;max-width:420px;width:100%;box-shadow:0 18px 50px -24px rgba(0,0,0,.35)}
+.gate-card h1{font-size:23px;font-weight:800;letter-spacing:-.01em}
+.lock{width:38px;height:38px;border-radius:50%;background:var(--accent-wash);color:var(--accent);display:grid;place-items:center;font-size:18px;margin-bottom:14px}
+.gate-row{display:flex;gap:8px;margin-top:16px}
+.gate-row input{flex:1;min-width:0}
+#gate-err{color:var(--crit);font-size:13px;margin-top:10px}
+
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--brand);color:var(--brand-fg)}
+.topbar .wrap{display:flex;align-items:center;gap:14px;padding-block:12px;flex-wrap:nowrap}
+.mark{font-weight:800;font-size:17px;letter-spacing:-.01em;display:flex;align-items:center;gap:9px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar .meta{flex:none}
+.mark span.dot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none}
+.topbar .meta{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:12px;color:#ffffffb0}
+.chip-live{display:inline-flex;align-items:center;gap:6px;border:1px solid #ffffff33;border-radius:999px;padding:3px 9px}
+.chip-live i{width:7px;height:7px;border-radius:50%;background:var(--good);display:block}
+.chip-live.local i{background:var(--warn)}
+.tabs{background:var(--brand-2);position:sticky;top:calc(env(safe-area-inset-top,0px) + 50px);z-index:19}
+.tabs .wrap{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{background:none;border:0;border-bottom:3px solid transparent;color:#ffffffa8;padding:11px 13px;font-size:13.5px;font-weight:600;white-space:nowrap;cursor:pointer}
+.tab[aria-current="page"]{color:#fff;border-bottom-color:var(--accent)}
+main{padding-block:26px 64px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px}
+.stack>*+*{margin-top:16px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-faint)}
+.card h2{font-size:19px;font-weight:700;letter-spacing:-.01em}
+.card h3{font-size:15px;font-weight:700}
+.hd{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.hd .eyebrow{margin-left:auto}
+.grid{display:grid;gap:16px}
+@media(min-width:760px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+.grid>*{min-width:0}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line-strong);background:var(--surface);border-radius:8px;padding:8px 13px;font-size:13.5px;font-weight:600;cursor:pointer}
+.btn:hover{border-color:var(--fg-faint)}
+.btn-pri{background:var(--accent);color:var(--accent-fg);border-color:transparent}
+.btn-pri:hover{filter:brightness(1.07)}
+.btn-ghost{border-color:transparent;background:var(--surface-2)}
+.btn-sm{padding:5px 9px;font-size:12.5px}
+.btn-link{border:0;background:none;color:var(--accent);padding:0;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(136px,1fr))}
+.tile{background:var(--surface-3);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.tile .k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-faint)}
+.tile .v{font-size:25px;font-weight:800;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums}
+.tile .s{font-size:12px;color:var(--fg-soft)}
+.tile.hi{background:var(--accent-wash);border-color:transparent}
+.tile.hi .v{color:var(--accent)}
+
+.ck{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;padding:10px 0;border-top:1px solid var(--line)}
+.ck:first-child{border-top:0}
+.ck input[type=checkbox]{width:19px;height:19px;flex:none;margin-top:1px;accent-color:var(--good)}
+.ck .t{flex:1;min-width:0;font-family:var(--font-b);font-size:15px;line-height:1.45}
+.ck.done .t{color:var(--fg-faint);text-decoration:line-through}
+.ck .when{font-size:11.5px;color:var(--fg-faint);white-space:nowrap}
+.x{border:0;background:none;color:var(--fg-faint);cursor:pointer;padding:2px 5px;font-size:16px;line-height:1;border-radius:5px}
+.x:hover{color:var(--crit);background:var(--surface-2)}
+
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:760px}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--surface-2);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-soft);font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;border-radius:999px;padding:2px 8px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.s0{background:var(--surface-2);color:var(--fg-soft)}
+.s1,.s2{background:var(--warn-wash);color:var(--warn)}
+.s3,.s4{background:var(--accent-wash);color:var(--accent)}
+.s5{background:var(--good-wash);color:var(--good)}
+.spar{display:inline-block;border-radius:5px;padding:2px 7px;font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.sp-pg{background:var(--accent-wash);color:var(--accent)}
+.sp-fl{background:var(--warn-wash);color:var(--warn)}
+.sp-rg{background:var(--good-wash);color:var(--good)}
+.due{color:var(--crit);font-weight:700}
+
+.fun{display:grid;gap:7px}
+.fun-row{display:grid;grid-template-columns:110px 1fr 46px;align-items:center;gap:10px;font-size:13px}
+.fun-row .lbl{color:var(--fg-soft);font-weight:600}
+.fun-bar{background:var(--surface-2);border-radius:5px;height:24px;overflow:hidden}
+.fun-bar i{display:block;height:100%;background:var(--brand-2);border-radius:5px}
+.fun-row:last-child .fun-bar i{background:var(--good)}
+.fun-row .n{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+
+.note{background:var(--surface-3);border:1px solid var(--line);border-left:3px solid var(--fg-faint);border-radius:0 var(--r) var(--r) 0;padding:12px 14px;font-family:var(--font-b);font-size:14px;color:var(--fg-soft);line-height:1.55}
+.note.warn{border-left-color:var(--warn);background:var(--warn-wash)}
+.note.good{border-left-color:var(--good);background:var(--good-wash)}
+.note.crit{border-left-color:var(--crit);background:var(--crit-wash)}
+.empty{text-align:center;padding:28px 16px;color:var(--fg-soft);font-family:var(--font-b)}
+.empty b{display:block;font-family:var(--font-d);color:var(--fg);font-size:15px;margin-bottom:5px}
+.f{display:grid;gap:4px}
+.f label{font-size:12px;font-weight:700;color:var(--fg-soft)}
+.f .hint{font-size:11.5px;color:var(--fg-faint);font-weight:400}
+.fieldset{display:grid;gap:11px}
+.small{font-size:12.5px;color:var(--fg-faint)}
+.cov{height:10px;background:var(--surface-2);border-radius:999px;overflow:hidden;margin-top:8px}
+.cov i{display:block;height:100%;background:var(--accent);border-radius:999px}
+svg.chart{width:100%;height:auto;display:block}
+/* mobil: 16px hindrar iOS fran att zooma vid fokus, storre traffytor for fingrar */
+@media(max-width:760px){
+  input,select,textarea{font-size:16px}
+  .x{padding:6px 9px;font-size:18px}
+  .btn-sm{padding:7px 11px}
+  .ck input[type=checkbox]{width:22px;height:22px}
+  .tiles{grid-template-columns:repeat(auto-fit,minmax(118px,1fr))}
+  .fun-row{grid-template-columns:92px 1fr 40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<section id="gate">
+  <div class="gate-card">
+    <div class="lock" aria-hidden="true">&#9679;</div>
+    <h1>Lisas säljmotor</h1>
+    <p class="prose" style="margin-top:8px">Pipeline för hälsotjänsten. Skriv lösenordet för att öppna.</p>
+    <div class="gate-row">
+      <input id="gate-pw" type="password" placeholder="Lösenord" autocomplete="current-password" aria-label="Lösenord">
+      <button class="btn btn-pri" id="gate-go" type="button">Öppna</button>
+    </div>
+    <p id="gate-err" hidden>Fel lösenord. Försök igen.</p>
+    <p class="small" style="margin-top:18px;line-height:1.5">Lösenordet håller nyfikna ögon borta. Det som faktiskt styr åtkomsten är vem du delat länken med.</p>
+  </div>
+</section>
+
+<div id="app" hidden>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="mark"><span class="dot"></span>Lisas säljmotor</div>
+      <div class="meta"><span class="chip-live" id="storemode"><i></i><span id="storemode-t">sparar…</span></span></div>
+    </div>
+  </header>
+  <nav class="tabs" aria-label="Delar"><div class="wrap" id="tabs"></div></nav>
+  <main class="wrap"><div id="view"></div></main>
+</div>
+
+<script>
+"use strict";
+const PASSWORD = "moduler";
+const STAGES = ["Prospekt","Kontaktad","Svar","Möte","Offert","Vunnen"];
+const SPAR = ["Föreläsning","Screening","Program"];
+const KOMMUNER = 290;
+const KPI = [
+  {k:"nya", t:"Nya prospekt"},
+  {k:"utskick", t:"Utskick"},
+  {k:"svar", t:"Svar"},
+  {k:"moten", t:"Möten"},
+  {k:"offerter", t:"Offerter"},
+  {k:"vunna", t:"Vunna"}
+];
+
+const DEF = {
+  goal:"", learning:"", worked:"", change:"",
+  prios:[], acts:[], deals:[], camps:[], clients:[], weeks:{}
+};
+let S = JSON.parse(JSON.stringify(DEF));
+let db=null, mode="local";
+const LS="lisas-saljmotor-v1";
+
+function lsRead(){ try{ const r=localStorage.getItem(LS); if(r) return JSON.parse(r);}catch(e){} return null; }
+function lsWrite(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
+async function save(){ lsWrite(); if(db){ try{ await db.doc("state/all").set(JSON.parse(JSON.stringify(S))); }catch(e){} } }
+function setMode(m){
+  mode=m; const el=document.getElementById("storemode"), t=document.getElementById("storemode-t");
+  if(!el) return;
+  el.classList.toggle("local", m!=="db");
+  t.textContent = m==="db" ? "sparat i molnet" : "sparat i denna webbläsare";
+}
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9);
+const todayISO=()=>new Date().toISOString().slice(0,10);
+const nf=n=>(Math.round(n)||0).toLocaleString("sv-SE");
+const sparKey=s=>({"Föreläsning":"fl","Screening":"rg","Program":"pg"}[s]||"pg");
+function isoWeek(d){
+  const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
+  const dn=t.getUTCDay()||7; t.setUTCDate(t.getUTCDate()+4-dn);
+  const y0=new Date(Date.UTC(t.getUTCFullYear(),0,1));
+  return t.getUTCFullYear()+"-v"+String(Math.ceil(((t-y0)/86400000+1)/7)).padStart(2,"0");
+}
+const thisWeek=()=>isoWeek(new Date());
+function weekList(){ const out=[],d=new Date();
+  for(let i=7;i>=0;i--){ const x=new Date(d); x.setDate(x.getDate()-i*7); out.push(isoWeek(x)); } return out; }
+function daysTo(iso){ if(!iso) return null; const d=new Date(iso+"T00:00:00"); if(isNaN(d)) return null;
+  return Math.round((d-new Date(todayISO()+"T00:00:00"))/86400000); }
+function daysSince(iso){ const d=daysTo(iso); return d===null?null:-d; }
+
+const VIEWS=[
+  ["vecka","Min vecka",renderWeek],
+  ["pipeline","Pipeline",renderPipeline],
+  ["resultat","Resultat",renderResults],
+  ["kampanjer","Kampanjer",renderCamps],
+  ["kunder","Mina kunder",renderClients]
+];
+const currentView=()=>{ const h=(location.hash||"").replace(/^#/,"");
+  return VIEWS.some(v=>v[0]===h)?h:"vecka"; };
+function renderTabs(){ const cur=currentView();
+  $("#tabs").innerHTML=VIEWS.map(([id,l])=>`<button class="tab" data-go="${id}"${id===cur?' aria-current="page"':''}>${esc(l)}</button>`).join(""); }
+function render(){ renderTabs(); $("#view").innerHTML=VIEWS.find(x=>x[0]===currentView())[2](); }
+
+/* ---------- min vecka ---------- */
+function staleClients(){
+  return S.clients.filter(c=>c.status!=="Vilande").map(c=>({c,d:daysSince(c.last)}))
+    .filter(x=>x.d!==null && x.d>=90).sort((a,b)=>b.d-a.d);
+}
+function renderWeek(){
+  const wk=S.weeks[thisWeek()]||{};
+  const follow=S.deals.filter(d=>d.stage<5&&d.nextDate).map(d=>({d,n:daysTo(d.nextDate)}))
+    .filter(x=>x.n!==null&&x.n<=7).sort((a,b)=>a.n-b.n);
+  const stale=staleClients();
+  const open=S.deals.filter(d=>d.stage>0&&d.stage<5);
+  const openValue=open.reduce((a,d)=>a+(Number(d.value)||0),0);
+  const wonValue=S.deals.filter(d=>d.stage===5).reduce((a,d)=>a+(Number(d.value)||0),0);
+  return `
+  <div class="stack">
+    <div class="tiles">
+      <div class="tile"><div class="k">Affärer i rörelse</div><div class="v">${open.length}</div><div class="s">kontaktad till offert</div></div>
+      <div class="tile hi"><div class="k">Värde i pipeline</div><div class="v">${nf(openValue)}</div><div class="s">kr, ej vunnet än</div></div>
+      <div class="tile"><div class="k">Vunnet hittills</div><div class="v">${nf(wonValue)}</div><div class="s">kr</div></div>
+      <div class="tile"><div class="k">Behöver höras av</div><div class="v">${stale.length}</div><div class="s">kunder, 90+ dagar</div></div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <div class="hd"><h2>Veckans fokus</h2></div>
+        <textarea data-set="goal" rows="2" placeholder="Vad är viktigast den här veckan?">${esc(S.goal)}</textarea>
+        <div class="hd" style="margin-top:18px"><h3>Tre prioriteringar</h3><span class="eyebrow">${S.prios.filter(p=>!p.done).length} kvar</span></div>
+        ${S.prios.length?S.prios.map(p=>`<div class="ck ${p.done?'done':''}">
+          <input type="checkbox" data-prio="${p.id}" ${p.done?"checked":""} aria-label="Klar">
+          <span class="t">${esc(p.text)}</span>
+          <button class="x" data-delprio="${p.id}" aria-label="Ta bort">&times;</button></div>`).join("")
+          :`<p class="small" style="padding:10px 0">Tre räcker. Fler är ingen prioritering.</p>`}
+        <div class="row" style="margin-top:12px">
+          <input id="newprio" placeholder="Lägg till" style="flex:1;min-width:140px">
+          <button class="btn" id="addprio" type="button">Lägg till</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hd"><h2>Inbokat</h2></div>
+        ${S.acts.length?S.acts.slice().sort((a,b)=>(a.date||"9")<(b.date||"9")?-1:1).map(a=>{
+          const n=daysTo(a.date);
+          return `<div class="ck ${a.done?'done':''}">
+            <input type="checkbox" data-act="${a.id}" ${a.done?"checked":""} aria-label="Klar">
+            <span class="t">${esc(a.text)}</span>
+            <span class="when ${(n!==null&&n<0&&!a.done)?'due':''}">${a.date?esc(a.date):"—"}</span>
+            <button class="x" data-delact="${a.id}" aria-label="Ta bort">&times;</button></div>`;}).join("")
+          :`<div class="empty"><b>Inget inbokat</b>Lägg in möten, utskick och deadlines.</div>`}
+        <div class="row" style="margin-top:12px">
+          <input id="newact" placeholder="Vad ska göras?" style="flex:1;min-width:120px">
+          <input id="newactd" type="date" style="width:150px">
+          <button class="btn" id="addact" type="button">Boka</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Att följa upp</h2><span class="eyebrow">nästa 7 dagar</span></div>
+      ${follow.length?`<div class="tw"><table><thead><tr><th>Organisation</th><th>Spår</th><th>Nästa steg</th><th>Datum</th><th>Läge</th></tr></thead><tbody>
+        ${follow.map(({d,n})=>`<tr>
+          <td><b>${esc(d.org)}</b>${d.contact?`<br><span class="small">${esc(d.contact)}</span>`:""}</td>
+          <td><span class="spar sp-${sparKey(d.spar)}">${esc(d.spar)}</span></td>
+          <td>${esc(d.nextAction||"—")}</td>
+          <td class="${n<0?'due':''}">${esc(d.nextDate)}${n<0?" (försenat)":n===0?" (idag)":""}</td>
+          <td><span class="pill s${d.stage}">${esc(STAGES[d.stage])}</span></td></tr>`).join("")}
+      </tbody></table></div>`
+      :`<div class="empty"><b>Inget som brinner</b>Sätt datum för nästa steg i pipelinen, så dyker de upp här.</div>`}
+      ${stale.length?`<div class="note warn" style="margin-top:14px"><strong>${stale.length} befintliga uppdragsgivare</strong> har du inte hört av dig till på 90 dagar eller mer. ${esc(stale[0].c.name)} ligger längst bak, ${stale[0].d} dagar. En befintlig kund är alltid billigare än en ny.</div>`:""}
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <div class="hd"><h2>Veckans siffror</h2><span class="eyebrow">${thisWeek()}</span></div>
+        <div class="fieldset">
+          ${KPI.map(k=>`<div class="f"><label for="w-${k.k}">${esc(k.t)}</label>
+            <input type="number" min="0" id="w-${k.k}" data-week="${k.k}" value="${wk[k.k]!=null?esc(wk[k.k]):""}" placeholder="0"></div>`).join("")}
+        </div>
+      </div>
+      <div class="card">
+        <div class="hd"><h2>Lärdomar</h2></div>
+        <div class="f"><label>Det här fungerade</label>
+          <textarea data-set="worked" rows="3" placeholder="Vilket utskick, vilken målgrupp, vilket samtal?">${esc(S.worked)}</textarea></div>
+        <div class="f" style="margin-top:12px"><label>Det här ändrar jag</label>
+          <textarea data-set="change" rows="3" placeholder="En sak.">${esc(S.change)}</textarea></div>
+        <div class="f" style="margin-top:12px"><label>Vad lärde jag mig förra veckan?</label>
+          <textarea data-set="learning" rows="2">${esc(S.learning)}</textarea></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---------- pipeline ---------- */
+function renderPipeline(){
+  const counts=STAGES.map((_,i)=>S.deals.filter(d=>d.stage>=i).length);
+  const max=Math.max(1,counts[0]);
+  const rows=S.deals.slice().sort((a,b)=>(b.stage-a.stage)||((a.nextDate||"9")<(b.nextDate||"9")?-1:1));
+  const orgs=[...new Set(S.deals.map(d=>d.target).filter(Boolean))];
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Tratten</h2><span class="eyebrow">${S.deals.length} affärer</span></div>
+      ${S.deals.length?`<div class="fun">${STAGES.map((s,i)=>`<div class="fun-row">
+        <span class="lbl">${esc(s)}</span>
+        <span class="fun-bar"><i style="width:${Math.max(2,counts[i]/max*100)}%"></i></span>
+        <span class="n">${counts[i]}</span></div>`).join("")}</div>`
+      :`<div class="empty"><b>Tratten är tom</b>Lägg in en organisation nedan. Program, föreläsning och rådgivning ligger i samma tratt men räknas var för sig.</div>`}
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Ny affär</h2></div>
+      <div class="grid g3">
+        <div class="f"><label for="n-org">Organisation</label><input id="n-org" placeholder="t.ex. Kungsbacka kommun"></div>
+        <div class="f"><label for="n-ct">Kontakt</label><input id="n-ct" placeholder="Förnamn"></div>
+        <div class="f"><label for="n-sp">Spår</label><select id="n-sp">${SPAR.map(s=>`<option>${esc(s)}</option>`).join("")}</select></div>
+        <div class="f"><label for="n-tg">Målgrupp</label><input id="n-tg" placeholder="Kommun, Företag, Region…" list="targets"></div>
+        <div class="f"><label for="n-val">Värde (kr)</label><input id="n-val" type="number" min="0" placeholder="0"></div>
+        <div class="f"><label for="n-st">Läge</label><select id="n-st">${STAGES.map((s,i)=>`<option value="${i}">${esc(s)}</option>`).join("")}</select></div>
+        <div class="f"><label for="n-na">Nästa steg</label><input id="n-na" placeholder="t.ex. ringa upp"></div>
+        <div class="f"><label for="n-nd">Datum</label><input id="n-nd" type="date"></div>
+      </div>
+      <datalist id="targets">${orgs.map(o=>`<option value="${esc(o)}">`).join("")}</datalist>
+      <div class="row" style="margin-top:14px">
+        <button class="btn btn-pri" id="adddeal" type="button">Lägg till</button>
+        <button class="btn" id="impdeal" type="button">Importera CSV</button>
+        <button class="btn" id="expdeal" type="button">Exportera CSV</button>
+        <input type="file" id="impdealf" accept=".csv,text/csv" hidden>
+      </div>
+      <p class="small" style="margin-top:10px">CSV-kolumner: organisation, kontakt, spår, målgrupp, värde, läge, nästa steg, datum.</p>
+    </div>
+
+    ${rows.length?`<div class="card">
+      <div class="hd"><h2>Alla affärer</h2></div>
+      <div class="tw"><table><thead><tr>
+        <th>Organisation</th><th>Spår</th><th>Målgrupp</th><th class="num">Värde</th><th>Läge</th><th>Nästa steg</th><th>Datum</th><th></th>
+      </tr></thead><tbody>
+        ${rows.map(d=>{const n=daysTo(d.nextDate);return `<tr>
+          <td><b>${esc(d.org)}</b>${d.contact?`<br><span class="small">${esc(d.contact)}</span>`:""}</td>
+          <td><span class="spar sp-${sparKey(d.spar)}">${esc(d.spar)}</span></td>
+          <td>${esc(d.target||"—")}</td>
+          <td class="num">${d.value?nf(d.value):"—"}</td>
+          <td><select data-dstage="${d.id}" style="min-width:130px">${STAGES.map((s,i)=>`<option value="${i}"${i===d.stage?" selected":""}>${esc(s)}</option>`).join("")}</select></td>
+          <td>${esc(d.nextAction||"—")}</td>
+          <td class="${(n!==null&&n<0&&d.stage<5)?'due':''}">${d.nextDate?esc(d.nextDate):"—"}</td>
+          <td><button class="x" data-deldeal="${d.id}" aria-label="Ta bort">&times;</button></td></tr>`;}).join("")}
+      </tbody></table></div></div>`:``}
+  </div>`;
+}
+
+/* ---------- resultat ---------- */
+function agg(list){
+  const o={n:0,kontaktad:0,moten:0,vunna:0,varde:0};
+  list.forEach(d=>{ o.n++; if(d.stage>=1)o.kontaktad++; if(d.stage>=3)o.moten++;
+    if(d.stage===5){o.vunna++; o.varde+=Number(d.value)||0;} });
+  return o;
+}
+function renderResults(){
+  const bySpar=SPAR.map(s=>[s,agg(S.deals.filter(d=>d.spar===s))]);
+  const targets=[...new Set(S.deals.map(d=>(d.target||"Utan målgrupp").trim()||"Utan målgrupp"))];
+  const byTarget=targets.map(t=>[t,agg(S.deals.filter(d=>((d.target||"Utan målgrupp").trim()||"Utan målgrupp")===t))])
+    .sort((a,b)=>b[1].vunna-a[1].vunna||b[1].n-a[1].n);
+  const kommuner=new Set(S.deals.filter(d=>/kommun/i.test(d.target||"")&&d.stage>=1).map(d=>d.org.trim().toLowerCase()));
+  const cov=Math.min(100,kommuner.size/KOMMUNER*100);
+  const weeks=weekList().map(w=>({w,v:S.weeks[w]||{}}));
+  const any=weeks.some(x=>KPI.some(k=>Number(x.v[k.k])>0));
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Var intäkterna kommer ifrån</h2></div>
+      <p class="prose">Samma tratt, men delarna beter sig olika. En föreläsning går fort och är mindre. Ett program tar längre tid och väger tyngre. Screening ligger ofta emellan och öppnar dörren till det större. Tabellen visar vilken del som faktiskt bär.</p>
+      <div class="tw"><table><thead><tr>
+        <th>Spår</th><th class="num">Affärer</th><th class="num">Kontaktade</th><th class="num">Möten</th><th class="num">Vunna</th><th class="num">Möte → vunnen</th><th class="num">Intäkt</th>
+      </tr></thead><tbody>
+        ${bySpar.map(([s,v])=>`<tr>
+          <td><span class="spar sp-${sparKey(s)}">${esc(s)}</span></td>
+          <td class="num">${v.n}</td><td class="num">${v.kontaktad}</td><td class="num">${v.moten}</td><td class="num">${v.vunna}</td>
+          <td class="num">${v.moten?Math.round(v.vunna/v.moten*100)+" %":"—"}</td>
+          <td class="num"><b>${v.varde?nf(v.varde):"—"}</b></td></tr>`).join("")}
+      </tbody></table></div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Kommuntäckning</h2><span class="eyebrow">av ${KOMMUNER}</span></div>
+      <p class="prose">Antal kommuner du faktiskt kontaktat, räknat på rader där målgruppen innehåller ordet kommun.</p>
+      <div class="tiles" style="margin-top:14px">
+        <div class="tile hi"><div class="k">Kontaktade</div><div class="v">${kommuner.size}</div><div class="s">av ${KOMMUNER} kommuner</div></div>
+        <div class="tile"><div class="k">Kvar</div><div class="v">${KOMMUNER-kommuner.size}</div><div class="s">orörda</div></div>
+        <div class="tile"><div class="k">Täckning</div><div class="v">${cov.toFixed(1)} %</div><div class="s">av landet</div></div>
+      </div>
+      <div class="cov"><i style="width:${Math.max(0.5,cov)}%"></i></div>
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Per målgrupp</h2></div>
+      ${S.deals.length?`<div class="tw"><table><thead><tr>
+        <th>Målgrupp</th><th class="num">Affärer</th><th class="num">Möten</th><th class="num">Vunna</th><th class="num">Vinst&shy;andel</th><th class="num">Intäkt</th>
+      </tr></thead><tbody>
+        ${byTarget.map(([t,v])=>`<tr><td><b>${esc(t)}</b></td>
+          <td class="num">${v.n}</td><td class="num">${v.moten}</td><td class="num">${v.vunna}</td>
+          <td class="num">${v.kontaktad?Math.round(v.vunna/v.kontaktad*100)+" %":"—"}</td>
+          <td class="num">${v.varde?nf(v.varde):"—"}</td></tr>`).join("")}
+      </tbody></table></div>`:`<div class="empty"><b>Ingen data än</b>Fyll i målgrupp på affärerna.</div>`}
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Utveckling</h2><span class="eyebrow">åtta veckor</span></div>
+      ${any?chart(weeks):`<div class="empty"><b>Grafen väntar på sin första fredag</b>Fyll i Veckans siffror på Min vecka.</div>`}
+    </div>
+  </div>`;
+}
+function chart(data){
+  const W=720,H=210,PL=34,PR=10,PT=14,PB=34, iw=W-PL-PR, ih=H-PT-PB;
+  const keys=["utskick","moten","vunna"], cols=["var(--brand-2)","var(--accent)","var(--good)"], names=["Utskick","Möten","Vunna"];
+  let max=0; data.forEach(d=>keys.forEach(k=>{max=Math.max(max,Number(d.v[k])||0)}));
+  max=Math.max(4,Math.ceil(max*1.15));
+  const bw=iw/data.length, gw=bw*0.62/keys.length;
+  let g="";
+  [0,Math.round(max/2),max].forEach(t=>{const y=PT+ih-(t/max)*ih;
+    g+=`<line x1="${PL}" y1="${y.toFixed(1)}" x2="${W-PR}" y2="${y.toFixed(1)}" stroke="var(--line)" stroke-width="1"/>`
+     +`<text x="${PL-6}" y="${(y+4).toFixed(1)}" text-anchor="end" font-size="10" fill="var(--fg-faint)" font-family="system-ui">${t}</text>`;});
+  data.forEach((d,i)=>{ const x0=PL+i*bw+bw*0.19;
+    keys.forEach((k,j)=>{ const v=Number(d.v[k])||0, h=(v/max)*ih;
+      if(h>0) g+=`<rect x="${(x0+j*gw).toFixed(1)}" y="${(PT+ih-h).toFixed(1)}" width="${(gw*0.82).toFixed(1)}" height="${h.toFixed(1)}" fill="${cols[j]}" rx="2"/>`;});
+    g+=`<text x="${(PL+i*bw+bw/2).toFixed(1)}" y="${H-12}" text-anchor="middle" font-size="9.5" fill="var(--fg-faint)" font-family="system-ui">${d.w.slice(5)}</text>`;});
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Utskick, möten och vunna affärer per vecka">${g}</svg>
+  <div class="row" style="margin-top:10px">${names.map((n,j)=>
+    `<span class="small" style="display:inline-flex;align-items:center;gap:6px"><i style="width:10px;height:10px;border-radius:2px;background:${cols[j]};display:inline-block"></i>${n}</span>`).join("")}</div>`;
+}
+
+/* ---------- kampanjer ---------- */
+function renderCamps(){
+  const rows=S.camps.slice().sort((a,b)=>(b.date||"")<(a.date||"")?-1:1);
+  const tot=rows.reduce((a,c)=>({sent:a.sent+(+c.sent||0),open:a.open+(+c.open||0),rep:a.rep+(+c.rep||0),met:a.met+(+c.met||0),won:a.won+(+c.won||0)}),{sent:0,open:0,rep:0,met:0,won:0});
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Utskick och kampanjer</h2></div>
+      <p class="prose">Logga varje utskick från Apollo eller MailerLite här. Det är den här tabellen som visar vilken lista och vilket ämne som faktiskt ger möten — inte bara öppningar.</p>
+      ${rows.length?`<div class="tiles" style="margin-top:14px">
+        <div class="tile"><div class="k">Skickat</div><div class="v">${nf(tot.sent)}</div><div class="s">mejl totalt</div></div>
+        <div class="tile"><div class="k">Öppningsgrad</div><div class="v">${tot.sent?Math.round(tot.open/tot.sent*100):0} %</div><div class="s">${nf(tot.open)} öppnade</div></div>
+        <div class="tile"><div class="k">Svarsgrad</div><div class="v">${tot.sent?(tot.rep/tot.sent*100).toFixed(1):0} %</div><div class="s">${nf(tot.rep)} svar</div></div>
+        <div class="tile hi"><div class="k">Möte per utskick</div><div class="v">${tot.sent?(tot.met/tot.sent*100).toFixed(1):0} %</div><div class="s">${nf(tot.met)} möten</div></div>
+      </div>`:""}
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Nytt utskick</h2></div>
+      <div class="grid g3">
+        <div class="f"><label for="c-name">Namn</label><input id="c-name" placeholder="t.ex. HR-chefer Halland nov"></div>
+        <div class="f"><label for="c-date">Datum</label><input id="c-date" type="date" value="${todayISO()}"></div>
+        <div class="f"><label for="c-list">Lista eller segment</label><input id="c-list" placeholder="t.ex. Apollo: kommuner 100–200"></div>
+        <div class="f"><label for="c-sent">Skickade</label><input id="c-sent" type="number" min="0"></div>
+        <div class="f"><label for="c-open">Öppnade</label><input id="c-open" type="number" min="0"></div>
+        <div class="f"><label for="c-rep">Svar</label><input id="c-rep" type="number" min="0"></div>
+      </div>
+      <div class="row" style="margin-top:14px"><button class="btn btn-pri" id="addcamp" type="button">Lägg till</button></div>
+      <p class="small" style="margin-top:10px">Möten och vunna affärer fyller du i i tabellen efterhand, när de faktiskt kommit.</p>
+    </div>
+
+    ${rows.length?`<div class="card">
+      <div class="hd"><h2>Alla utskick</h2></div>
+      <div class="tw"><table><thead><tr>
+        <th>Kampanj</th><th>Datum</th><th class="num">Skickat</th><th class="num">Öppnat</th><th class="num">Svar</th><th class="num">Möten</th><th class="num">Vunna</th><th class="num">Möte/utskick</th><th></th>
+      </tr></thead><tbody>
+        ${rows.map(c=>`<tr>
+          <td><b>${esc(c.name)}</b>${c.list?`<br><span class="small">${esc(c.list)}</span>`:""}</td>
+          <td>${esc(c.date||"—")}</td>
+          <td class="num">${nf(c.sent)}</td>
+          <td class="num">${nf(c.open)}${c.sent?`<br><span class="small">${Math.round(c.open/c.sent*100)} %</span>`:""}</td>
+          <td class="num">${nf(c.rep)}</td>
+          <td class="num"><input type="number" min="0" data-cfield="${c.id}|met" value="${esc(c.met||0)}" style="max-width:72px"></td>
+          <td class="num"><input type="number" min="0" data-cfield="${c.id}|won" value="${esc(c.won||0)}" style="max-width:72px"></td>
+          <td class="num"><b>${c.sent?(100*(+c.met||0)/c.sent).toFixed(1)+" %":"—"}</b></td>
+          <td><button class="x" data-delcamp="${c.id}" aria-label="Ta bort">&times;</button></td></tr>`).join("")}
+      </tbody></table></div></div>`:``}
+  </div>`;
+}
+
+/* ---------- kunder ---------- */
+function renderClients(){
+  const rows=S.clients.slice().sort((a,b)=>(a.last||"")<(b.last||"")?-1:1);
+  const stale=staleClients();
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Befintliga uppdragsgivare</h2><span class="eyebrow">${S.clients.length} st</span></div>
+      <p class="prose">De som redan köpt hälsotjänsten av dig är den billigaste försäljningen du har. Den här listan finns för att ingen ska hinna glömmas bort. Kunder i Head of Passion, LagPasset och PreMeny hör inte hemma här.</p>
+      ${stale.length?`<div class="note warn" style="margin-top:14px"><strong>${stale.length} av dem</strong> har inte hört från dig på 90 dagar eller mer. Ett mejl räcker ofta.</div>`
+        :S.clients.length?`<div class="note good" style="margin-top:14px">Ingen har legat obevakad i 90 dagar. Bra hållet.</div>`:""}
+    </div>
+
+    <div class="card">
+      <div class="hd"><h2>Ny uppdragsgivare</h2></div>
+      <div class="grid g3">
+        <div class="f"><label for="k-name">Organisation</label><input id="k-name" placeholder="Namn"></div>
+        <div class="f"><label for="k-what">Senaste uppdrag</label><input id="k-what" placeholder="t.ex. föreläsning ledningsgrupp"></div>
+        <div class="f"><label for="k-last">Senaste kontakt</label><input id="k-last" type="date" value="${todayISO()}"></div>
+        <div class="f"><label for="k-next">Nästa möjlighet</label><input id="k-next" placeholder="t.ex. uppföljning program"></div>
+        <div class="f"><label for="k-nextd">När</label><input id="k-nextd" type="date"></div>
+        <div class="f"><label for="k-status">Status</label><select id="k-status"><option>Aktiv</option><option>Vilande</option></select></div>
+      </div>
+      <div class="row" style="margin-top:14px"><button class="btn btn-pri" id="addclient" type="button">Lägg till</button></div>
+    </div>
+
+    ${rows.length?`<div class="card">
+      <div class="hd"><h2>Alla</h2></div>
+      <div class="tw"><table><thead><tr>
+        <th>Organisation</th><th>Senaste uppdrag</th><th>Senaste kontakt</th><th>Nästa möjlighet</th><th>Status</th><th></th>
+      </tr></thead><tbody>
+        ${rows.map(c=>{const d=daysSince(c.last);
+          return `<tr>
+          <td><b>${esc(c.name)}</b></td>
+          <td>${esc(c.what||"—")}</td>
+          <td class="${(d!==null&&d>=90&&c.status!=="Vilande")?'due':''}">${esc(c.last||"—")}${d!==null?`<br><span class="small">${d} dagar sedan</span>`:""}</td>
+          <td>${esc(c.next||"—")}${c.nextd?`<br><span class="small">${esc(c.nextd)}</span>`:""}</td>
+          <td><select data-kstatus="${c.id}"><option${c.status==="Aktiv"?" selected":""}>Aktiv</option><option${c.status==="Vilande"?" selected":""}>Vilande</option></select></td>
+          <td><button class="x" data-delclient="${c.id}" aria-label="Ta bort">&times;</button></td></tr>`;}).join("")}
+      </tbody></table></div></div>`:``}
+
+    <div class="card">
+      <div class="hd"><h2>Säkerhetskopia</h2></div>
+      <div class="row"><button class="btn" id="expjson" type="button">Exportera allt</button>
+        <button class="btn" id="impjson" type="button">Läs in kopia</button>
+        <input type="file" id="impjsonf" accept=".json,application/json" hidden></div>
+    </div>
+  </div>`;
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-go],[data-delprio],[data-delact],[data-deldeal],[data-delcamp],[data-delclient],#addprio,#addact,#adddeal,#addcamp,#addclient,#impdeal,#expdeal,#expjson,#impjson,#gate-go");
+  if(!t) return;
+  const D=t.dataset;
+  if(D.go!=null){ location.hash=D.go; render(); return; }
+  if(D.delprio){ S.prios=S.prios.filter(p=>p.id!==D.delprio); save(); render(); return; }
+  if(D.delact){ S.acts=S.acts.filter(a=>a.id!==D.delact); save(); render(); return; }
+  if(D.deldeal){ S.deals=S.deals.filter(d=>d.id!==D.deldeal); save(); render(); return; }
+  if(D.delcamp){ S.camps=S.camps.filter(c=>c.id!==D.delcamp); save(); render(); return; }
+  if(D.delclient){ S.clients=S.clients.filter(c=>c.id!==D.delclient); save(); render(); return; }
+  switch(t.id){
+    case "gate-go": tryUnlock(); break;
+    case "addprio": { const v=$("#newprio").value.trim(); if(!v)return;
+      S.prios.push({id:uid(),text:v,done:false}); save(); render(); break; }
+    case "addact": { const v=$("#newact").value.trim(); if(!v)return;
+      S.acts.push({id:uid(),text:v,date:$("#newactd").value||"",done:false}); save(); render(); break; }
+    case "adddeal": { const o=$("#n-org").value.trim(); if(!o)return;
+      S.deals.push({id:uid(),org:o,contact:$("#n-ct").value.trim(),spar:$("#n-sp").value,
+        target:$("#n-tg").value.trim(),value:Number($("#n-val").value)||0,stage:Number($("#n-st").value)||0,
+        nextAction:$("#n-na").value.trim(),nextDate:$("#n-nd").value||""});
+      save(); render(); break; }
+    case "addcamp": { const n=$("#c-name").value.trim(); if(!n)return;
+      S.camps.push({id:uid(),name:n,date:$("#c-date").value||"",list:$("#c-list").value.trim(),
+        sent:Number($("#c-sent").value)||0,open:Number($("#c-open").value)||0,rep:Number($("#c-rep").value)||0,met:0,won:0});
+      save(); render(); break; }
+    case "addclient": { const n=$("#k-name").value.trim(); if(!n)return;
+      S.clients.push({id:uid(),name:n,what:$("#k-what").value.trim(),last:$("#k-last").value||"",
+        next:$("#k-next").value.trim(),nextd:$("#k-nextd").value||"",status:$("#k-status").value});
+      save(); render(); break; }
+    case "impdeal": $("#impdealf").click(); break;
+    case "impjson": $("#impjsonf").click(); break;
+    case "expdeal": exportDeals(); break;
+    case "expjson": offer("lisas-saljmotor-backup.json", JSON.stringify(S,null,2)); break;
+  }
+});
+document.addEventListener("change",e=>{
+  const D=e.target.dataset;
+  if(D.prio){ const p=S.prios.find(x=>x.id===D.prio); if(p){p.done=e.target.checked; save(); render();} return; }
+  if(D.act){ const a=S.acts.find(x=>x.id===D.act); if(a){a.done=e.target.checked; save(); render();} return; }
+  if(D.dstage){ const d=S.deals.find(x=>x.id===D.dstage); if(d){d.stage=Number(e.target.value); save(); render();} return; }
+  if(D.kstatus){ const c=S.clients.find(x=>x.id===D.kstatus); if(c){c.status=e.target.value; save(); render();} return; }
+  if(e.target.id==="impdealf" && e.target.files&&e.target.files[0]) importDeals(e.target.files[0]);
+  if(e.target.id==="impjsonf" && e.target.files&&e.target.files[0]) importJSON(e.target.files[0]);
+});
+document.addEventListener("input",e=>{
+  const D=e.target.dataset, v=e.target.value;
+  if(D.set!=null){ S[D.set]=v; lsWrite(); queue(); return; }
+  if(D.week!=null){ const w=thisWeek(); S.weeks[w]=S.weeks[w]||{}; S.weeks[w][D.week]=v===""?"":Number(v); lsWrite(); queue(); return; }
+  if(D.cfield!=null){ const [id,f]=D.cfield.split("|"); const c=S.camps.find(x=>x.id===id);
+    if(c){ c[f]=Number(v)||0; lsWrite(); queue(); queueRender(); } return; }
+});
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Enter") return;
+  if(e.target.id==="gate-pw"){ tryUnlock(); return; }
+  if(e.target.id==="newprio") $("#addprio").click();
+  if(e.target.id==="newact"||e.target.id==="newactd") $("#addact").click();
+  if(["n-org","n-ct","n-tg","n-val","n-na","n-nd"].includes(e.target.id)) $("#adddeal").click();
+  if(["c-name","c-list","c-sent","c-open","c-rep"].includes(e.target.id)) $("#addcamp").click();
+  if(["k-name","k-what","k-next"].includes(e.target.id)) $("#addclient").click();
+});
+window.addEventListener("hashchange",render);
+
+let st=null, rt=null;
+function queue(){ clearTimeout(st); st=setTimeout(save,600); }
+function queueRender(){ clearTimeout(rt); rt=setTimeout(()=>{
+  const a=document.activeElement, id=a&&a.id;
+  render(); if(id){ const n=document.getElementById(id); if(n) n.focus(); }
+},800); }
+
+/* ---------- csv / json ---------- */
+function splitCSV(line){
+  const out=[]; let cur="", q=false;
+  for(let i=0;i<line.length;i++){ const c=line[i];
+    if(q){ if(c==='"'){ if(line[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=c; }
+    else if(c==='"') q=true;
+    else if(c===","||c===";"){ out.push(cur); cur=""; }
+    else cur+=c; }
+  out.push(cur); return out.map(s=>s.trim());
+}
+function importDeals(file){
+  const r=new FileReader();
+  r.onload=()=>{
+    const lines=String(r.result).split(/\r?\n/).filter(l=>l.trim()); if(!lines.length) return;
+    const start=/organisation|f(ö|o)retag|company/i.test(lines[0])?1:0;
+    for(let i=start;i<lines.length;i++){
+      const c=splitCSV(lines[i]); if(!c[0]) continue;
+      const si=STAGES.findIndex(s=>s.toLowerCase()===String(c[5]||"").toLowerCase());
+      S.deals.push({id:uid(),org:c[0],contact:c[1]||"",spar:SPAR.includes(c[2])?c[2]:"Program",
+        target:c[3]||"",value:Number(String(c[4]||"").replace(/\s/g,""))||0,stage:si>=0?si:0,
+        nextAction:c[6]||"",nextDate:/^\d{4}-\d{2}-\d{2}$/.test(c[7]||"")?c[7]:""});
+    }
+    save(); render();
+  };
+  r.readAsText(file);
+}
+async function offer(filename,data){
+  try{ const d=await window.claude?.use?.("downloads"); if(d){ await d.save({filename,data}); return; } }catch(e){}
+  try{ await navigator.clipboard.writeText(data); }catch(e){}
+}
+function exportDeals(){
+  const q=s=>'"'+String(s==null?"":s).replace(/"/g,'""')+'"';
+  const rows=[["organisation","kontakt","spar","malgrupp","varde","lage","nasta steg","datum"]]
+    .concat(S.deals.map(d=>[d.org,d.contact,d.spar,d.target,d.value,STAGES[d.stage],d.nextAction,d.nextDate]));
+  offer("pipeline.csv", rows.map(r=>r.map(q).join(",")).join("\n"));
+}
+function importJSON(file){
+  const r=new FileReader();
+  r.onload=()=>{ try{ S=Object.assign(JSON.parse(JSON.stringify(DEF)),JSON.parse(String(r.result))); save(); render(); }catch(e){} };
+  r.readAsText(file);
+}
+
+/* ---------- gate + boot ---------- */
+function tryUnlock(){
+  if(($("#gate-pw").value||"").trim().toLowerCase()===PASSWORD){
+    try{ sessionStorage.setItem("lisa-unlocked","1"); }catch(e){}
+    open_();
+  } else { $("#gate-err").hidden=false; $("#gate-pw").value=""; $("#gate-pw").focus(); }
+}
+function open_(){ $("#gate").hidden=true; $("#app").hidden=false; render(); setMode(mode); connect(); }
+function boot(){
+  const local=lsRead(); if(local) S=Object.assign(JSON.parse(JSON.stringify(DEF)),local);
+  let un=false; try{ un=sessionStorage.getItem("lisa-unlocked")==="1"; }catch(e){}
+  if(un) open_(); else $("#gate-pw").focus();
+}
+let connected=false;
+async function connect(){
+  if(connected) return; connected=true;
+  const timer=setTimeout(()=>setMode("local"),10000);
+  try{
+    const d=await window.claude?.use?.("db");
+    clearTimeout(timer);
+    if(!d){ setMode("local"); return; }
+    db=d;
+    const snap=await db.doc("state/all").get();
+    const v=snap && (snap.data ? (typeof snap.data==="function"?snap.data():snap.data) : null);
+    if(v && typeof v==="object"){ S=Object.assign(JSON.parse(JSON.stringify(DEF)),v); lsWrite(); render(); }
+    else { await save(); }
+    setMode("db");
+  }catch(e){ clearTimeout(timer); setMode("local"); }
+}
+boot();
+</script>
