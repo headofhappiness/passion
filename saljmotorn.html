@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Säljmotorn – få fart på din försäljning | Head of Passion</title>
-<meta name="description" content="Säljmotorn är ett exempel från Head of Passion: ett enkelt verktyg för att få koll på din försäljning, en konkret plan och en demonstration av hur AI kan hjälpa dig hitta och följa upp kunder. Vi kan bygga en som är anpassad efter ditt företag.">
+<title>Säljmotorn – ta nästa steg i din försäljning | Head of Passion</title>
+<meta name="description" content="Prova Säljmotorn från Head of Passion. Hitta ditt nästa steg, gör en enkel försäljningsplan och följ upp dina kontakter. Se också ett tydligt exempel på vad AI skulle kunna hjälpa till med.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap">
@@ -259,7 +259,7 @@ svg.chart{width:100%;height:auto;display:block}
 <header class="topbar">
   <div class="wrap">
     <div class="mark"><i></i>Säljmotorn</div>
-    <div class="byline">Ett exempel från <a href="https://headofpassion.se/">Head of Passion</a> · <a href="#ai" id="toai">Se AI-exemplet</a></div>
+    <div class="byline">Från <a href="https://headofpassion.se/">Head of Passion</a> · <a href="#ai" id="toai">Se AI-exemplet</a></div>
   </div>
 </header>
 <nav class="tabs" aria-label="Huvuddelar"><div class="wrap" id="tabs"></div></nav>
@@ -267,8 +267,8 @@ svg.chart{width:100%;height:auto;display:block}
   <noscript><p class="prose">Säljmotorn behöver JavaScript för att fungera.</p></noscript>
   <div id="view"></div>
   <footer class="foot">
-    <strong>Säljmotorn är ett exempel från <a href="https://headofpassion.se/">Head of Passion</a>, byggt med hjälp av AI.</strong> Vi kan bygga en som är anpassad efter ditt företag: <a href="https://headofpassion.se/timbanken">headofpassion.se/timbanken</a>.<br>
-    Dina uppgifter sparas i den webbläsare du använder nu, på den här enheten. De följer inte automatiskt med till andra enheter eller webbläsare, så ta en säkerhetskopia (längst ner under Kontakter) om du vill flytta dem eller vara säker på att behålla dem. Skriv inte in känsliga uppgifter, och använd inte verktyget på en delad dator. Sidan hämtar typsnitt från Google Fonts.
+    <strong>Säljmotorn är ett exempel från <a href="https://headofpassion.se/">Head of Passion</a>.</strong> Vill du ha hjälp att anpassa ett liknande verktyg för ditt företag? <a href="https://headofpassion.se/timbanken">Läs om min rådgivning</a>.<br>
+    Det du skriver sparas lokalt i webbläsaren på den här enheten, inte på ett konto. Det synkas inte mellan enheter och kan försvinna om webbläsardata rensas. Du kan spara en säkerhetskopia under Kontakter. Undvik känsliga personuppgifter och delade datorer. Sidan hämtar typsnitt från Google Fonts.
   </footer>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -281,9 +281,9 @@ const HOME="https://headofpassion.se/";
 const MORE="https://headofpassion.se/timbanken";
 const STATUS=["Ny idé","Kontaktad","Har svarat","Samtal bokat","Offert skickad","Kund","Pausad","Inte aktuell"];
 const MODES={
-  start:{label:"Jag ska starta företag",help:"Då börjar vi med grunden: vem du vill hjälpa, vad du erbjuder och var du hittar dina första kunder. Du behöver ingen försäljningshistorik."},
-  kunder:{label:"Jag har kommit igång men vill hitta fler kunder",help:"Då handlar det om att hitta fler kunder av rätt sort, och ha en enkel rutin för att ta kontakt och följa upp."},
-  smart:{label:"Jag säljer redan och vill arbeta smartare",help:"Då är nästa steg att se vad som redan fungerar, följa upp mer systematiskt och lägga tiden där den ger mest."}
+  start:{label:"Jag ska starta företag",help:"Vi börjar med grunden: vem du vill hjälpa, vad du erbjuder och hur du kan hitta dina första kunder. Du behöver inte ha sålt något tidigare."},
+  kunder:{label:"Jag har kommit igång och vill hitta fler kunder",help:"Vi fokuserar på att hitta fler kunder som passar dig och på en enkel rutin för kontakt och uppföljning."},
+  smart:{label:"Jag har kunder och vill arbeta smartare",help:"Vi tittar på vad som redan fungerar, hur du kan följa upp bättre och vad som är värt din tid."}
 };
 const ORDER={
   start:["c1","c2","c3","c4","c5","c6","c7","c8"],
@@ -297,12 +297,12 @@ const DEF_CHECKS=[
     ["Fråga en möjlig kund: \"Vad är jobbigast med [ditt område] just nu?\"","Skriv ner svaret med kundens egna ord.","Välj det problem som du bäst kan lösa."]],
   ["c3","Har jag ett tydligt erbjudande?","Skriv mitt erbjudande i tre rader: vem det är till, vad kunden får och vad det kostar.",
     ["Rad 1: vem erbjudandet är till.","Rad 2: vad kunden får, och vad som blir bättre.","Rad 3: vad det kostar och hur man säger ja."]],
-  ["c4","Vet jag vad jag behöver ta betalt?","Räkna på vad jag behöver ta in per månad och vad det blir per timme eller per kund (se räknehjälpen längre ner).",
-    ["Öppna räknehjälpen längre ner på sidan.","Fyll i vad du vill få ut, dina kostnader och hur många timmar du kan ta betalt för.","Använd siffran som en grov riktning och bekräfta med en redovisningskonsult."]],
+  ["c4","Har jag räknat på vad jag behöver ta betalt?","Gör en första överslagsräkning för vad du behöver ta in. Räknehjälpen längre ner kan vara en start, men den ger inte ett färdigt pris.",
+    ["Öppna räknehjälpen längre ner på sidan och se den som ett första exempel.","Fyll i vad du vill få ut, dina kostnader och hur många timmar du kan ta betalt för.","Räkna sedan vidare med skatter, avgifter och andra kostnader innan du bestämmer ditt pris."]],
   ["c5","Vet jag var jag kan hitta mina kunder?","Lista tio personer eller ställen där mina kunder finns: nätverk, grupper, kontakter, platser.",
     ["Skriv en lista med tio ställen eller personer: nätverk, grupper, kunder som kan rekommendera, platser.","Stryk över det du inte skulle orka följa upp.","Välj de två första att ta kontakt med den här veckan."]],
-  ["c6","Har jag bestämt hur jag ska ta första kontakten?","Skriv ett kort första meddelande som ber om ett samtal i stället för att sälja, och skicka det till tre personer.",
-    ["Skriv tre meningar: vem du är, varför du hör av dig, och en fråga om ett kort samtal.","Läs högt. Låter det som du?","Skicka till tre personer och lägg in dem under Kontakter."]],
+  ["c6","Vet jag hur jag vill ta första kontakten?","Välj ett enkelt sätt att ta kontakt. Skriv ett personligt meddelande och föreslå ett litet nästa steg, till exempel ett kort samtal.",
+    ["Skriv tre meningar: varför du hör av dig, hur du kan hjälpa och en enkel fråga.","Läs högt. Låter det som du?","Testa med några relevanta personer och lägg in dem under Kontakter."]],
   ["c7","Har jag en rutin för att följa upp intresserade kunder?","Bestäm en fast tid i veckan för uppföljning, och lägg in nästa steg och datum på varje kontakt.",
     ["Välj en fast tid i veckan, till exempel fredag förmiddag.","Gå igenom Kontakter: vilka har ett nästa steg och ett datum?","Lägg in nästa steg och datum för alla som saknar det."]],
   ["c8","Vet jag vad jag ska göra denna vecka?","Välj tre aktiviteter för veckan och lägg in dem under Mina nästa aktiviteter.",
@@ -316,25 +316,25 @@ const WEEKS=[
 ];
 const PLAN30={
   start:[
-   ["Skriv en mening om vem jag helst vill hjälpa","Prata med tre personer som kan vara kunder och fråga vad som är jobbigast just nu","Skriv ner problemet med kundens egna ord","Titta på vad andra i min bransch erbjuder och tar betalt"],
-   ["Skriv mitt erbjudande i tre rader","Bestäm ett första pris och räkna på om det går ihop","Lista tio personer eller ställen där mina kunder finns","Lägg in minst fem tänkbara kunder under Kontakter"],
-   ["Skriv ett kort första meddelande som ber om ett samtal","Kontakta fem tänkbara kunder","Boka minst ett samtal","Skriv ner vad de sa efter varje samtal"],
-   ["Följ upp alla som visat intresse","Skriv ner tre saker jag lärt mig","Justera erbjudande eller meddelande efter svaren","Välj nästa steg för månaden som kommer"]],
+   ["Skriv en mening om vilka kunder du helst vill hjälpa","Prata med tre personer som kan vara kunder och fråga vad som är jobbigast just nu","Skriv ner kundernas behov med deras egna ord","Titta på vad andra i min bransch erbjuder och tar betalt"],
+   ["Beskriv ditt erbjudande i tre rader","Bestäm ett första pris och räkna på om det går ihop","Lista tio personer eller ställen där dina kunder finns","Lägg in minst fem tänkbara kunder under Kontakter"],
+   ["Skriv ett kort, personligt första meddelande","Kontakta fem tänkbara kunder","Föreslå ett kort samtal för den som visar intresse","Skriv ner vad de sa efter varje samtal"],
+   ["Följ upp alla som visat intresse","Skriv ner tre saker du har lärt dig","Justera erbjudande eller meddelande efter svaren","Välj nästa steg för månaden som kommer"]],
   kunder:[
-   ["Titta på mina senaste kunder: vad har de gemensamt?","Skriv ner vilka problem jag oftast hjälpt dem med","Bestäm vilken typ av kund jag vill ha fler av","Skriv en mening om vem jag hjälper och hur"],
+   ["Titta på mina senaste kunder: vad har de gemensamt?","Skriv ner vilka problem du oftast har hjälpt dem med","Bestäm vilken typ av kund du vill ha fler av","Skriv en mening om vem du hjälper och hur"],
    ["Gör erbjudandet tydligare: vem det är till, vad kunden får, vad det kostar","Lista tio nya tänkbara kunder av rätt sort","Fråga två nöjda kunder om de känner någon med samma behov","Lägg in kontakterna under Kontakter"],
-   ["Skriv ett kort, personligt meddelande som ber om ett samtal","Kontakta tio av kontakterna","Boka minst två samtal","Lägg in nästa steg och datum på varje kontakt"],
+   ["Skriv ett kort, personligt meddelande som ber om ett samtal","Kontakta tio av kontakterna","Föreslå samtal för de kontakter som visar intresse","Lägg in nästa steg och datum på varje kontakt"],
    ["Följ upp alla som svarat eller visat intresse","Skriv ner vad som fick folk att svara","Gör mer av det som fungerade","Välj nästa steg för månaden som kommer"]],
   smart:[
-   ["Gå igenom de senaste affärerna: var kom kunderna ifrån?","Räkna ut vad jag tjänar på mina vanligaste erbjudanden","Välj en sak i försäljningen som jag vill förbättra","Lägg in mina aktiva kontakter under Kontakter"],
-   ["Sätt en fast tid varje vecka för uppföljning","Skriv ner mitt bästa första meddelande så att jag kan återanvända det","Lista mina bästa kunder och vad de köper återkommande","Välj en kanal jag vill satsa på"],
+   ["Gå igenom de senaste affärerna: var kom kunderna ifrån?","Räkna på lönsamheten i dina vanligaste erbjudanden","Välj en sak i försäljningen att förbättra","Lägg in dina aktiva kontakter under Kontakter"],
+   ["Sätt en fast tid varje vecka för uppföljning","Spara ditt bästa första meddelande så att du kan återanvända det","Lista dina bästa kunder och vad de köper återkommande","Välj en kanal att fokusera på"],
    ["Följ upp alla kontakter som gått tysta","Be tre nöjda kunder om en rekommendation eller introduktion","Testa en förbättring i hur jag tar kontakt","Boka samtal med kunder som kan köpa mer"],
-   ["Jämför vad som gav svar och vad som inte gjorde det","Skriv ner tre saker att göra mer av","Sluta med en sak som inte ger något","Planera nästa månad"]]
+   ["Jämför vad som gav svar och vad som inte gjorde det","Välj tre saker att göra mer av","Välj en sak att lägga mindre tid på","Planera nästa månad"]]
 };
 const PLAN90=[
-  ["Månad 2, vecka 1–2","Bygg trovärdighet",["Enkel sida med vad jag gör, två kundcase och ett sätt att höra av sig","Skriv ner svaret på den vanligaste invändningen i förväg","Skriv en kort text om vad jag lärt mig, redo att publicera"]],
-  ["Månad 2, vecka 3–4","Låt kunderna öppna dörrarna",["Be 2–3 kunder om en introduktion","Skriv två korta kundcase med kundens godkännande","Fråga kunderna vad som fick dem att boka samtalet"]],
-  ["Månad 3, vecka 1–2","Nätverk och samarbeten",["Besök ett affärsnätverk som gäst","Kontakta två företag som möter mina kunder om ett samarbete","Boka en kostnadsfri rådgivningstimme"]],
+  ["Månad 2, vecka 1–2","Bygg trovärdighet",["Skapa en enkel sida som visar vad du erbjuder och hur man kontaktar dig","Fundera på hur du vill bemöta en vanlig kundfråga","Skriv en kort text om vad jag lärt mig, redo att publicera"]],
+  ["Månad 2, vecka 3–4","Låt kunderna öppna dörrarna",["Be 2–3 kunder om en introduktion","Fråga om du får använda ett kundexempel eller omdöme","Fråga kunderna vad som fick dem att boka samtalet"]],
+  ["Månad 3, vecka 1–2","Nätverk och samarbeten",["Besök ett affärsnätverk som gäst","Kontakta två företag som möter mina kunder om ett samarbete","Boka rådgivning om du vill få nya perspektiv"]],
   ["Månad 3, vecka 3–4","Summera och planera nästa kvartal",["Summera tre månader: vad fungerade bäst?","Sätt tre aktivitetsmål för nästa kvartal","Bestäm vad jag slutar göra"]]
 ];
 /* fiktiva företag för AI-demonstrationen */
@@ -453,7 +453,7 @@ function celebrate(m){
 }
 
 /* ============== navigation ============== */
-const VIEWS=[["start","Start","#bf6a5b"],["plan","Min plan","#e3a23b"],["kontakter","Kontakter","#4f86b5"],["ai","AI-assistent","#7a5c9e"]];
+const VIEWS=[["start","Start","#bf6a5b"],["plan","Min plan","#e3a23b"],["kontakter","Kontakter","#4f86b5"],["ai","AI-exempel","#7a5c9e"]];
 const RENDER={start:renderStart,plan:renderPlan,kontakter:renderContacts,ai:renderAI};
 function cur(){let h=(location.hash||"").replace(/^#/,"");if(h==="checklista")h="plan";return VIEWS.some(v=>v[0]===h)?h:"start";}
 function go(id,scrollTo){
@@ -472,11 +472,11 @@ function autosizeAll(){document.querySelectorAll("textarea.tedit").forEach(autos
 window.addEventListener("resize",autosizeAll);
 document.addEventListener("toggle",autosizeAll,true);
 function banner(){
-  if(pending==="clear")return `<div class="banner demo"><span class="confirm">Lämna exemplet och börja med din egen Säljmotor? Du får en tom version. <button class="btn btn-sm btn-pri" data-a="do" data-v="clear" type="button">Ja, börja med min egen</button><button class="btn btn-sm" data-a="cancel" type="button">Nej, stanna i exemplet</button></span></div>`;
-  if(pending==="sample")return `<div class="banner own"><span class="confirm">Skriva över dina uppgifter med exemplet? Det du skrivit försvinner om du inte har en säkerhetskopia. <button class="btn btn-sm btn-pri" data-a="do" data-v="sample" type="button">Ja, visa exemplet</button><button class="btn btn-sm" data-a="cancel" type="button">Nej</button></span></div>`;
+  if(pending==="clear")return `<div class="banner demo"><span class="confirm">Vill du börja med en tom version? Dina ändringar i exemplet följer inte med. <button class="btn btn-sm btn-pri" data-a="do" data-v="clear" type="button">Ja, börja med min version</button><button class="btn btn-sm" data-a="cancel" type="button">Stanna i exemplet</button></span></div>`;
+  if(pending==="sample")return `<div class="banner own"><span class="confirm">Vill du ersätta din version med exemplet? Dina uppgifter försvinner om du inte har sparat en säkerhetskopia. <button class="btn btn-sm btn-pri" data-a="do" data-v="sample" type="button">Ja, visa exemplet</button><button class="btn btn-sm" data-a="cancel" type="button">Nej</button></span></div>`;
   return S.demo
-   ?`<div class="banner demo"><span><b>Du provar exemplet</b> med fiktiva företag och kontakter. Klicka runt och ändra fritt. Det sparas inte som din egen version.</span><span class="acts"><button class="btn btn-sm btn-pri" data-a="ask" data-v="clear" type="button">Börja med min egen Säljmotor</button></span></div>`
-   :`<div class="banner own"><span><b>Det här är din egen Säljmotor.</b> Allt sparas i den här webbläsaren.</span><span class="acts"><button class="btn btn-sm" data-a="ask" data-v="sample" type="button">Visa exemplet igen</button></span></div>`;
+   ?`<div class="banner demo"><span><b>Du tittar på ett exempel</b> med påhittade företag och kontakter. Prova fritt – ändringarna följer inte med till din egen version.</span><span class="acts"><button class="btn btn-sm btn-pri" data-a="ask" data-v="clear" type="button">Börja med min version</button></span></div>`
+   :`<div class="banner own"><span><b>Du använder din egen version.</b> Det du skriver sparas i webbläsaren på den här enheten.</span><span class="acts"><button class="btn btn-sm" data-a="ask" data-v="sample" type="button">Visa exemplet</button></span></div>`;
 }
 
 /* ============== beräkningar ============== */
@@ -511,9 +511,9 @@ function trend(){
     if(h>0)g+=`<rect x="${x.toFixed(1)}" y="${(H-PB-h).toFixed(1)}" width="${(bw*.64).toFixed(1)}" height="${h.toFixed(1)}" rx="4" fill="#3f8f7c"/>`;
     g+=`<text x="${(x+bw*.32).toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="10" fill="#6e778c" font-family="system-ui">${k.slice(5)}</text>`;
     if(v)g+=`<text x="${(x+bw*.32).toFixed(1)}" y="${(H-PB-h-4).toFixed(1)}" text-anchor="middle" font-size="10.5" font-weight="700" fill="#22344e" font-family="system-ui">${v}</text>`;});
-  return `<div class="card" style="border-top-color:#3f8f7c"><div class="hd"><h2>Din takt</h2><span class="eyebrow">saker du gjort per vecka</span></div>
+  return `<div class="card" style="border-top-color:#3f8f7c"><div class="hd"><h2>Din aktivitet över tid</h2><span class="eyebrow">registrerade händelser per vecka</span></div>
     <svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Antal avklarade aktiviteter och kontakter per vecka">${g}</svg>
-    <p class="small" style="margin-top:6px">Visas först när det finns några veckors historik.</p></div>`;
+    <p class="small" style="margin-top:6px">Visar registrerade aktiviteter och steg i kontakterna, inte arbetad tid.</p></div>`;
 }
 function renderStart(){
   const c=counts(),sg=suggestion();
@@ -522,36 +522,34 @@ function renderStart(){
   const follow=S.prospects.filter(p=>p.status<5&&isDate(p.date)).map(p=>({p,d:daysTo(p.date)})).filter(x=>x.d!==null&&x.d<=7).sort((a,b)=>a.d-b.d);
   const nothing=!c.acts&&!c.contacted&&!c.calls&&!c.customers;
   let nextBox;
-  if(sg.kind==="none")nextBox=`<h2>Börja här: få koll på din försäljning</h2><p class="prose">Svara på åtta korta frågor. Svaren används till en enda sak: att föreslå vad som är mest värt att göra först. Det tar ungefär fem minuter.</p><div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="go" data-v="plan" data-s="checklista" type="button">Till frågorna</button></div>`;
-  else if(sg.kind==="item")nextBox=`<h2>Det här är värt att göra först</h2><p class="prose"><strong>${esc(sg.item.text)}</strong> Du svarade ${sg.item.ans==="nej"?"Nej":"Delvis"}. ${esc(tipOf(sg.item))}</p><div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="toweek" data-t="${esc(tipOf(sg.item))}" type="button">Lägg in som aktivitet</button><button class="btn" data-a="go" data-v="plan" type="button">Se din plan</button></div>`;
-  else nextBox=`<h2>Du har svarat Ja på allt</h2><p class="prose">Då är det dags att göra mer av det som fungerar. Välj en sak att förbättra den här veckan, och följ upp alla som visat intresse.</p><div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="toweek" data-t="Följ upp alla som visat intresse" type="button">Lägg till uppföljning</button><button class="btn" data-a="go" data-v="kontakter" type="button">Till kontakterna</button></div>`;
+  if(sg.kind==="none")nextBox=`<h2>Börja här: hitta ditt nästa steg</h2><p class="prose">Svara på åtta enkla frågor och få ett förslag på vad du kan börja med. Det tar ungefär fem minuter.</p><div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="go" data-v="plan" data-s="checklista" type="button">Till frågorna</button></div>`;
+  else if(sg.kind==="item")nextBox=`<h2>Ett bra nästa steg</h2><p class="small" style="margin-bottom:6px">Du svarade ${sg.item.ans==="nej"?"Nej":"Delvis"} på: ${esc(sg.item.text)}</p><p class="prose">${esc(tipOf(sg.item))}</p><p class="small" style="margin-top:6px">Förslaget bygger på dina svar. Du väljer själv vad du vill börja med.</p><div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="toweek" data-t="${esc(tipOf(sg.item))}" type="button">Lägg in som aktivitet</button><button class="btn" data-a="go" data-v="plan" type="button">Se din plan</button></div>`;
+  else nextBox=`<h2>Du har en bra grund att bygga vidare på</h2><p class="prose">Du svarade ja på alla frågorna. Välj en sak att förbättra den här veckan och följ upp dem som visat intresse.</p><div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="toweek" data-t="Följ upp alla som visat intresse" type="button">Lägg till uppföljning</button><button class="btn" data-a="go" data-v="kontakter" type="button">Till kontakterna</button></div>`;
   return `
   <div class="stack">
     <div class="hero">
-      <h1>Säljmotorn – <span>få fart</span> på din försäljning</h1>
-      <p>Få koll på vad som behöver göras, hitta dina nästa kunder och ta ett steg i taget. Här kan du prova ett exempel på en Säljmotor. Vi kan också bygga en som är helt anpassad efter ditt företag.</p>
+      <h1>Säljmotorn – <span>ta nästa steg</span> i din försäljning</h1>
+      <p>Få koll på vad som är viktigast, hitta tänkbara kunder och gör en enkel plan för de kommande veckorna. Börja där du är.</p>
       <div class="steps3">
-        <button class="stepcard" type="button" data-a="go" data-v="plan" data-s="checklista"><b>1</b><span><strong>Få koll på din försäljning</strong>Svara på några enkla frågor och se vad du behöver göra.</span></button>
-        <button class="stepcard" type="button" data-a="go" data-v="plan" data-s="plan30"><b>2</b><span><strong>Få en konkret handlingsplan</strong>Välj dina nästa aktiviteter, bocka av och följ dina framsteg.</span></button>
-        <button class="stepcard ai" type="button" data-a="go" data-v="ai"><b>3</b><span><strong>Upptäck vad AI kan göra åt dig</strong>Se hur AI kan hitta kunder, föreslå mejl och skapa anpassade landningssidor.</span></button>
+        <button class="stepcard" type="button" data-a="go" data-v="plan" data-s="checklista"><b>1</b><span><strong>Hitta ditt nästa steg</strong>Åtta enkla frågor hjälper dig att prioritera.</span></button>
+        <button class="stepcard" type="button" data-a="go" data-v="plan" data-s="plan30"><b>2</b><span><strong>Gör en plan du kan följa</strong>Välj aktiviteter, sätt datum och bocka av.</span></button>
+        <button class="stepcard ai" type="button" data-a="go" data-v="ai"><b>3</b><span><strong>Se ett exempel med AI</strong>Utforska hur AI skulle kunna hitta kunder och föreslå mejl.</span></button>
       </div>
-      <div class="strip">Det här är ett exempel. Vi kan anpassa Säljmotorn efter dina kunder, ditt erbjudande och hur du vill arbeta, och även låta AI hjälpa dig att hitta nya kunder. <button class="btn-link" style="color:var(--gold)" data-a="go" data-v="ai" type="button">Se hur →</button></div>
-      <div class="modes-h">Var står du just nu?</div>
-      <div class="modes" role="group" aria-label="Var står du just nu?">
+      <div class="modes-h">Var står du i dag?</div>
+      <div class="modes" role="group" aria-label="Var står du i dag?">
         ${Object.entries(MODES).map(([k,m])=>`<button class="mode" type="button" data-a="mode" data-v="${k}" aria-pressed="${S.mode===k}">${esc(m.label)}</button>`).join("")}
       </div>
       <div class="modehelp">${pending&&pending.startsWith("mode:")
         ?`<span class="confirm" style="background:#fff">Byta utgångsläge? Din 30-dagarsplan byts mot planen för det läget. Kontakter, svar och aktiviteter ligger kvar. <button class="btn btn-sm btn-pri" data-a="do" data-v="${esc(pending)}" type="button">Ja, byt</button><button class="btn btn-sm" data-a="cancel" type="button">Nej</button></span>`
-        :S.mode?esc(MODES[S.mode].help)+" Planen under Min plan är anpassad efter det.":"Välj det som passar dig bäst, så anpassas vägledningen. Du kan också bara klicka runt."}</div>
-      ${S.demo?`<div class="demoline"><span>Du provar exemplet. Din 30-dagarsplan anpassas, men exempeldatan ligger kvar.</span><button class="btn btn-sm" data-a="ask" data-v="clear" type="button">Börja med min egen Säljmotor</button></div>`:""}
+        :S.mode?esc(MODES[S.mode].help)+" Planen under Min plan är anpassad efter det.":"Välj det som passar bäst, så anpassas din plan. Du kan ändra senare."}</div>
     </div>
 
     <div class="card next">${nextBox}</div>
 
     <div class="grid g2">
       <div class="card">
-        <div class="hd"><h2>Mitt viktigaste fokus</h2></div>
-        <textarea id="focus" data-f="focus" rows="2" placeholder="En sak som är viktigast den här veckan. Till exempel: boka tre samtal med tänkbara kunder.">${esc(S.focus)}</textarea>
+        <div class="hd"><h2>Mitt fokus den här veckan</h2></div>
+        <textarea id="focus" data-f="focus" rows="2" placeholder="Vad är viktigast att få gjort? Till exempel: kontakta tre tänkbara kunder.">${esc(S.focus)}</textarea>
         ${sg.kind==="item"?`<div style="margin-top:8px"><button class="btn-link" data-a="usefocus" data-t="${esc(tipOf(sg.item))}" type="button">Använd förslaget från checklistan</button></div>`:""}
       </div>
       <div class="card" style="border-top-color:#3f8f7c">
@@ -559,7 +557,7 @@ function renderStart(){
         ${open.length?open.slice(0,3).map(a=>actRow(a)).join(""):`<div class="empty"><b>Inga aktiviteter än</b>Skriv in en sak du ska göra härnäst.</div>`}
         ${open.length>3?`<details class="more"><summary>Visa fler (${open.length-3})</summary><div class="inner">${open.slice(3).map(a=>actRow(a)).join("")}</div></details>`:""}
         <div class="row" style="margin-top:12px">
-          <input id="newact" placeholder="Vad ska göras?" aria-label="Ny aktivitet" style="flex:1;min-width:150px">
+          <input id="newact" placeholder="Nästa aktivitet" aria-label="Ny aktivitet" style="flex:1;min-width:150px">
           <input id="newactd" type="date" aria-label="Datum" style="width:150px">
           <button class="btn" data-a="addact" type="button">Lägg till</button>
         </div>
@@ -572,15 +570,15 @@ function renderStart(){
         <div class="hd"><h2>Kontakter att följa upp</h2><span class="eyebrow">de närmaste 7 dagarna</span></div>
         ${follow.length?follow.map(({p,d})=>`<div class="ck"><span class="t"><b>${esc(p.name||"Namnlös")}</b>${p.next?`<br><span class="small">${esc(p.next)}</span>`:""}</span>
           <span class="when ${d<0?'due':''}">${esc(fmtDate(p.date))}${d<0?" (försenat)":d===0?" (idag)":""}</span><span class="pill st${p.status}">${esc(STATUS[p.status])}</span></div>`).join("")
-        :`<div class="empty"><b>Inget som brinner</b>Lägg in nästa steg och datum på en kontakt, så dyker den upp här.</div>`}
+        :`<div class="empty"><b>Inget att följa upp just nu</b>När du lägger in ett nästa steg och datum för en kontakt visas den här.</div>`}
         <div class="row" style="margin-top:10px"><button class="btn btn-sm" data-a="go" data-v="kontakter" type="button">Öppna kontakterna</button></div>
       </div>
       <div class="card" style="border-top-color:#e1957a">
-        <div class="hd"><h2>Det här har jag åstadkommit</h2></div>
-        ${nothing?`<div class="empty"><b>Här fylls det på medan du jobbar</b>Varje avklarad uppgift och varje kontakt du tar räknas.</div>`
+        <div class="hd"><h2>Så går det</h2></div>
+        ${nothing?`<div class="empty"><b>Här ser du dina framsteg</b>Översikten fylls på när du bockar av uppgifter och uppdaterar dina kontakter.</div>`
         :`<div class="tiles"><div class="tile c1"><div class="k">Uppgifter klara</div><div class="v">${c.acts}</div></div>
           <div class="tile c2"><div class="k">Kontaktade</div><div class="v">${c.contacted}</div></div>
-          <div class="tile c3"><div class="k">Samtal</div><div class="v">${c.calls}</div></div>
+          <div class="tile c3"><div class="k">Samtal bokade</div><div class="v">${c.calls}</div></div>
           <div class="tile c4"><div class="k">Kunder</div><div class="v">${c.customers}</div></div></div>`}
       </div>
     </div>
@@ -588,9 +586,9 @@ function renderStart(){
     ${trend()}
 
     <div class="card cta">
-      <h2>Vill du skapa din egen Säljmotor?</h2>
-      <p class="prose" style="margin-top:8px">Det här är ett exempel på vad vi kan bygga med AI. Se hur en AI-assistent kan hitta kunder, föreslå mejl och följa upp svar, eller läs mer om att skapa en Säljmotor för just ditt företag.</p>
-      <div class="row" style="margin-top:14px"><button class="btn btn-pri" data-a="go" data-v="ai" type="button">Se AI-exemplet</button><a class="btn" style="background:transparent;color:#fff;border-color:#ffffff66" href="${MORE}">Läs mer</a></div>
+      <h2>Vill du ha hjälp att anpassa Säljmotorn?</h2>
+      <p class="prose" style="margin-top:8px">Du kan använda den här versionen som den är. Vill du ha ett verktyg som passar just ditt företag och ditt sätt att sälja? Jag hjälper dig gärna att utforska möjligheterna.</p>
+      <div class="row" style="margin-top:14px"><button class="btn btn-pri" data-a="go" data-v="ai" type="button">Se AI-exemplet</button><a class="btn" style="background:transparent;color:#fff;border-color:#ffffff66" href="${MORE}">Så kan jag hjälpa dig</a></div>
     </div>
   </div>`;
 }
@@ -633,9 +631,9 @@ function renderBlocks(list,span,ids){
     </div></div>`;}).join("");
 }
 function calcTiles(need,perH,cust){
-  return `<div class="tile c1"><div class="k">Behöver ta in per månad</div><div class="v">${need?nf(need):"–"}</div><div class="small">kr, utan moms</div></div>
-    <div class="tile c2"><div class="k">Per timme</div><div class="v">${perH!==null&&need?nf(perH):"–"}</div><div class="small">kr, utan moms</div></div>
-    <div class="tile c3"><div class="k">Antal kunder per månad</div><div class="v">${cust!==null&&need?cust:"–"}</div><div class="small">till det priset</div></div>`;
+  return `<div class="tile c1"><div class="k">Summa i räkneexemplet</div><div class="v">${need?nf(need):"–"}</div><div class="small">kr, utan moms</div></div>
+    <div class="tile c2"><div class="k">Per debiterbar timme</div><div class="v">${perH!==null&&need?nf(perH):"–"}</div><div class="small">kr, utan moms</div></div>
+    <div class="tile c3"><div class="k">Kunder per månad</div><div class="v">${cust!==null&&need?cust:"–"}</div><div class="small">i det här exemplet</div></div>`;
 }
 function renderPlan(){
   const sg=suggestion(),total=S.checks.length,ans=S.checks.filter(c=>c.ans).length,k=S.calc;
@@ -645,7 +643,7 @@ function renderPlan(){
   <div class="stack">
     <div class="card" id="checklista">
       <div class="hd"><h2>Steg 1: Få koll på din försäljning</h2><span class="eyebrow">${ans} av ${total} besvarade</span></div>
-      <p class="prose"><strong>Varför?</strong> Svaren används till en enda sak: att föreslå vad som är mest värt att göra först, så att du slipper gissa. Det finns inga rätta svar och du behöver inte ha sålt något än. Den här delen är enkel och gratis: färdiga frågor och färdiga förslag, ingen AI.</p>
+      <p class="prose">Svara Ja, Delvis eller Nej. Utifrån svaren får du ett konkret förslag på vad du kan börja med. Du behöver inte ha sålt något tidigare, och det finns inga rätta eller felaktiga svar.</p>
       <div style="margin-top:8px">
         ${S.checks.map(c=>`<div class="q"><div class="qrow"><textarea class="tedit ttl" rows="1" data-f="qtext" data-id="${c.id}" aria-label="Fråga">${esc(c.text)}</textarea>
           <button class="x" data-a="qdel" data-id="${c.id}" title="Ta bort frågan" aria-label="Ta bort frågan">&times;</button></div>
@@ -653,41 +651,41 @@ function renderPlan(){
             ${[["ja","Ja"],["delvis","Delvis"],["nej","Nej"]].map(([v,l])=>`<button class="ans ${v}" type="button" data-a="ans" data-id="${c.id}" data-v="${v}" aria-pressed="${c.ans===v}">${l}</button>`).join("")}
           </div></div>`).join("")}
       </div>
-      <p class="small" style="margin-top:6px">Frågorna är dina att ändra, ta bort och lägga till egna.</p>
+      <p class="small" style="margin-top:6px">Du kan ändra frågorna eller lägga till egna om du vill.</p>
       <div class="row" style="margin-top:10px"><button class="btn btn-sm" data-a="qadd" type="button">+ Lägg till egen fråga</button>
         ${pending==="qreset"?`<span class="confirm">Återställa originalfrågorna? Dina egna frågor och svar försvinner. <button class="btn btn-sm btn-pri" data-a="do" data-v="qreset" type="button">Ja</button><button class="btn btn-sm" data-a="cancel" type="button">Nej</button></span>`
         :`<button class="btn btn-sm btn-ghost" data-a="ask" data-v="qreset" type="button">Återställ originalfrågorna</button>`}</div>
     </div>
 
     <div class="card" style="border-top-color:#bf6a5b">
-      <div class="hd"><h2>Så här blir svaren till en plan</h2></div>
+      <div class="hd"><h2>Ditt förslag</h2></div>
       ${sg.kind==="none"?`<div class="empty"><b>Svara på några frågor ovan</b>Då får du ett konkret förslag här, och kan lägga in det som en aktivitet med ett klick.</div>`
-      :sg.kind==="item"?`<div class="note good"><strong>Förslag: ${esc(sg.item.text)}</strong> Du svarade ${sg.item.ans==="nej"?"Nej":"Delvis"}, så det är ett bra ställe att börja.
+      :sg.kind==="item"?`<div class="note good"><strong>Ett möjligt första steg</strong> – ${esc(tipOf(sg.item))}
         ${(sg.item.how&&sg.item.how.length)?`<div style="margin-top:8px"><b>Så här kan du göra:</b><ol class="how">${sg.item.how.map(h=>`<li>${esc(h)}</li>`).join("")}</ol></div>`:`<div style="margin-top:8px">${esc(tipOf(sg.item))}</div>`}</div>
         <div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="toweek" data-t="${esc(tipOf(sg.item))}" type="button">Lägg in som aktivitet på Start</button><button class="btn" data-a="go" data-v="plan" data-s="plan30" type="button">Se din 30-dagarsplan</button></div>
-        <p class="small" style="margin-top:10px">Aktiviteten hamnar under Mina nästa aktiviteter på Start. 30-dagarsplanen här under visar vad du kan göra vecka för vecka. Förslaget är ett stöd att utgå från, inte ett mått på hur bra du är.${sg.missing?" Svara på resten av frågorna för ett bättre förslag.":""}</p>`
-      :`<div class="note good"><strong>Du har svarat Ja på allt.</strong> Då är det en bra tid att göra mer av det som fungerar: följ upp alla som visat intresse och välj en sak att förbättra.</div>
+        <p class="small" style="margin-top:10px">När du lägger till förslaget visas det på Start. Du kan ändra det när du vill.${sg.missing?" Svara gärna på fler frågor om du vill få ett mer träffsäkert förslag.":""}</p>`
+      :`<div class="note good"><strong>Du har en bra utgångspunkt.</strong> Välj en sak att förbättra och följ upp dem som visat intresse.</div>
         <div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="toweek" data-t="Följ upp alla som visat intresse" type="button">Lägg till uppföljning</button></div>`}
     </div>
 
     <div class="card" style="border-top-color:#3f8f7c" id="plan30">
       <div class="hd"><h2>Steg 2: Din 30-dagarsplan</h2><span class="eyebrow">${dn} av ${tot} klara</span></div>
-      <p class="prose">Fyra veckor, ett steg i taget. ${S.mode?esc(MODES[S.mode].label)+": planen är anpassad efter det.":"Välj ett utgångsläge på Start så anpassas planen efter var du står."} Bocka av, ändra texten eller lägg till egna uppgifter. "Till veckan" flyttar en uppgift till dina aktiviteter på Start.</p>
-      <div class="grid g2" style="margin:14px 0"><div class="f"><label for="started">Det här är dag 1</label><input type="date" id="started" data-f="started" value="${esc(S.started)}"></div></div>
+      <p class="prose">En möjlig plan för fyra veckor, ett steg i taget. ${S.mode?"Planen utgår från: "+esc(MODES[S.mode].label)+".":"Välj ett utgångsläge på Start för att anpassa planen."} Ändra, hoppa över eller lägg till uppgifter. Klicka på ”Till veckan” för att lyfta in det du vill göra nu.</p>
+      <div class="grid g2" style="margin:14px 0"><div class="f"><label for="started">Startdatum för planen</label><input type="date" id="started" data-f="started" value="${esc(S.started)}"></div></div>
       ${renderBlocks(S.plan30,7,true)}
       <div class="row" style="margin-top:12px"><button class="btn btn-sm" data-a="addblock" data-v="30" type="button">+ Lägg till period</button>
       ${pending==="plan30reset"?`<span class="confirm">Skriva över planen med originalet? Dina ändringar försvinner. <button class="btn btn-sm btn-pri" data-a="do" data-v="plan30reset" type="button">Ja</button><button class="btn btn-sm" data-a="cancel" type="button">Nej</button></span>`
       :`<button class="btn btn-sm btn-ghost" data-a="ask" data-v="plan30reset" type="button">Återställ originalplanen</button>`}</div>
-      <details class="more" style="background:#fff"><summary>Vill du planera längre? Tre månader (valfritt)</summary><div class="inner">
-        <p class="prose" style="margin-bottom:12px">När du har gjort första månaden kan du fortsätta här. Det är ett förslag, inte ett krav.</p>
+      <details class="more" style="background:#fff"><summary>Vill du fortsätta? Månad 2–3 (valfritt)</summary><div class="inner">
+        <p class="prose" style="margin-bottom:12px">Här finns fler idéer för när du vill planera längre. Använd bara det som passar dig.</p>
         ${renderBlocks(S.plan90,14,false)}
         <div class="row" style="margin-top:12px"><button class="btn btn-sm" data-a="addblock" data-v="90" type="button">+ Lägg till period</button></div></div></details>
     </div>
 
     <details class="more" style="background:#fff">
-      <summary>Räkna på vad du behöver ta betalt (grov överslagsräkning)</summary>
+      <summary>Räknehjälp för prissättning (förenklat exempel)</summary>
       <div class="inner">
-        <div class="note warn" style="margin-bottom:12px">Använd den här bara för att få en känsla för storleksordningen, inte som underlag för prissättning. Skatt, arbetsgivaravgifter, moms, semester och sjukdom är inte inräknade, så den visar vad du behöver ta in och inte vad som blir kvar. Fråga en redovisningskonsult när du ska bestämma ett pris på riktigt.</div>
+        <div class="note warn" style="margin-bottom:12px">Det här är en enkel räkneövning, inte ett färdigt prisförslag. Den räknar inte med skatter, sociala avgifter, semester, sjukfrånvaro eller alla andra kostnader. Resultatet kan därför vara för lågt. Gör en fullständig kalkyl innan du bestämmer ditt pris.</div>
         <div class="grid g2">
           <div class="f"><label for="k-want">Det jag vill få ut per månad, före skatt (kr)</label><input type="number" min="0" inputmode="numeric" id="k-want" data-f="calc" data-k="want" value="${esc(k.want)}"></div>
           <div class="f"><label for="k-costs">Företagets kostnader per månad (kr)<span class="hint"> t.ex. program, försäkring, lokal</span></label><input type="number" min="0" inputmode="numeric" id="k-costs" data-f="calc" data-k="costs" value="${esc(k.costs)}"></div>
@@ -710,7 +708,7 @@ function contactCard(p){
       <div class="f"><label>Kontaktperson</label><input data-f="pcontact" data-id="${p.id}" value="${esc(p.contact)}" placeholder="Förnamn räcker"></div>
       <div class="f"><label>Nästa steg</label><input data-f="pnext" data-id="${p.id}" value="${esc(p.next)}" placeholder="t.ex. följ upp mejlet"></div>
       <div class="f"><label>Datum för nästa steg${late?' <span class="due">(försenat)</span>':''}</label><input type="date" data-c="pdate" data-id="${p.id}" value="${esc(p.date)}"></div>
-      <div class="f wide"><label>Vad har jag gjort hittills?</label><textarea data-f="pdid" data-id="${p.id}" rows="2" placeholder="t.ex. skickade ett mejl, fick svar, bokade ett samtal">${esc(p.did)}</textarea></div>
+      <div class="f wide"><label>Anteckningar</label><textarea data-f="pdid" data-id="${p.id}" rows="2" placeholder="Till exempel: mejlade, fick svar eller bokade samtal">${esc(p.did)}</textarea></div>
     </div>
     <div class="row" style="margin-top:10px;justify-content:flex-end">${pending==="p:"+p.id
       ?`<span class="confirm">Ta bort kontakten? <button class="btn btn-sm btn-pri" data-a="pdelc" data-id="${p.id}" type="button">Ja, ta bort</button><button class="btn btn-sm" data-a="cancel" type="button">Nej</button></span>`
@@ -724,7 +722,7 @@ function renderContacts(){
   <div class="stack">
     <div class="card">
       <div class="hd"><h2>Dina kontakter</h2><span class="eyebrow">${S.prospects.length} totalt</span></div>
-      <p class="prose">Här samlar du personer och företag som kan bli kunder. Inom försäljning kallas de ofta prospekt, men här säger vi bara kontakter. Skriv in vad du har gjort och vad nästa steg är, så glömmer du ingen. Här skriver du in dem själv. <button class="btn-link" data-a="go" data-v="ai" type="button">Se hur en AI-assistent skulle kunna hjälpa till →</button></p>
+      <p class="prose">Samla personer och företag du vill hålla kontakt med. Skriv kort vad som hänt, vad nästa steg är och när du vill följa upp. Du lägger in kontakterna själv. <button class="btn-link" data-a="go" data-v="ai" type="button">Se hur en AI-assistent skulle kunna hjälpa till →</button></p>
       ${cnt.length?`<div class="chips" style="margin-top:12px">${cnt.map(([s,n])=>`<span class="chip">${esc(s)}: ${n}</span>`).join("")}</div>`:""}
     </div>
     <div class="card" style="border-top-color:#e3a23b">
@@ -741,7 +739,7 @@ function renderContacts(){
     </div>
     <div class="card" style="border-top-color:#22344e">
       <div class="hd"><h2>Säkerhetskopia</h2></div>
-      <p class="prose">Dina uppgifter sparas bara i den här webbläsaren på den här enheten. De följer inte med till andra enheter eller webbläsare, och försvinner om du rensar webbläsarens data. Ta en kopia ibland, eller när du vill flytta dem. Filen innehåller allt du skrivit, så förvara den på ett ställe du litar på.</p>
+      <p class="prose">Dina uppgifter sparas bara i den här webbläsaren och synkas inte mellan enheter. De kan försvinna om du rensar webbläsardata. Spara gärna en kopia då och då. Filen innehåller allt du skrivit, så förvara den säkert.</p>
       <div class="row" style="margin-top:12px"><button class="btn" data-a="export" type="button">Spara kopia (fil)</button><button class="btn" data-a="import" type="button">Läs in kopia</button><input type="file" id="impfile" accept=".json,application/json" hidden></div>
     </div>
   </div>`;
@@ -750,31 +748,31 @@ function renderContacts(){
 /* ============== vy: AI-assistent (demonstration) ============== */
 function aiStepBody(co){
   if(AI.step===1)return `
-    <p class="prose">I en egen Säljmotor kan en <b>schemalagd sökning</b>, till exempel varje måndag, leta upp företag som liknar dina bästa kunder. Här är tre fiktiva exempel. Välj ett för att se varför det kan vara en intressant kund.</p>
+    <p class="prose">En anpassad lösning skulle till exempel kunna leta efter företag som liknar dina bästa kunder. Välj ett av de påhittade företagen för att se hur ett förslag kan se ut.</p>
     <div class="cocards" style="margin-top:12px">${AI_CO.map((c,i)=>`<button class="co" type="button" data-a="aico" data-v="${i}" aria-pressed="${AI.co===i}"><strong>${esc(c.name)}</strong><span>${esc(c.kind)}</span></button>`).join("")}</div>
     <div class="note ai" style="margin-top:12px"><b>Varför ${esc(co.name.replace(" (exempel)",""))} kan vara intressant:</b><ul style="margin:6px 0 0;padding-left:18px">${co.why.map(w=>`<li>${esc(w)}</li>`).join("")}</ul></div>
-    <div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="aistep" data-v="2" type="button">Nästa: se mejlutkastet</button><button class="btn" data-a="aiadd" type="button">Lägg till i mina kontakter</button></div>`;
+    <div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="aistep" data-v="2" type="button">Nästa: se mejlutkastet</button>${S.demo?`<button class="btn" data-a="aiadd" type="button">Testa att lägga till i kontaktlistan</button>`:`<span class="small">Exempelföretag läggs bara till i exempelversionen.</span>`}</div>`;
   if(AI.step===2)return `
-    <p class="prose">AI skriver ett <b>personligt utkast</b> med en ingång som bygger på fakta om företaget. <b>Du läser, ändrar och godkänner. Inget skickas utan ditt ja.</b></p>
+    <p class="prose">AI skulle kunna skriva ett <b>personligt mejlutkast</b> utifrån information om företaget. Uppgifterna behöver kontrolleras, och <b>du granskar och ändrar innan något skickas.</b></p>
     <div class="mail" style="margin-top:12px"><div class="mh"><b>Till:</b> ${esc(co.who)}, ${esc(co.name)}<br><b>Ämne:</b> En kort fråga om bokningar</div>
-      <div class="mb"><p>Hej ${esc(co.who)}!</p><p>${esc(co.hook)} Jag hjälper småföretag att få ${esc(co.offer)} som tar emot förfrågningar utan att någon behöver ringa eller svara.</p><p>Jag har gjort ett litet förslag för just er verksamhet. Har du en kvart nästa vecka så visar jag det? Inget krav.</p><p>Hälsningar,<br>[Ditt namn]</p></div></div>
-    <div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="aistep" data-v="3" type="button">Godkänn och skicka (i demon skickas inget)</button><button class="btn" data-a="aistep" data-v="1" type="button">Tillbaka</button></div>`;
+      <div class="mb"><p>Hej ${esc(co.who)}!</p><p>${esc(co.hook)} Jag hjälper småföretag att få ${esc(co.offer)} som tar emot förfrågningar utan att någon behöver ringa eller svara.</p><p>Jag har en idé som skulle kunna förenkla det. Skulle du vilja prata i en kvart nästa vecka och se om den är relevant för er?</p><p>Hälsningar,<br>[Ditt namn]</p></div></div>
+    <div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="aistep" data-v="3" type="button">Visa ett tänkt svar</button><button class="btn" data-a="aistep" data-v="1" type="button">Tillbaka</button></div>`;
   if(AI.step===3){
     const sg=co.sug;
     return `
-    <p class="prose"><b>Tänk om din Säljmotor också kunde hålla koll på mejlen?</b> Här är ett fiktivt svar. Med en frivillig koppling till Gmail eller Outlook kan Säljmotorn märka att ${esc(co.who)} svarat, koppla mejlet till rätt företag och föreslå vad du kan göra härnäst.</p>
+    <p class="prose">Med en frivillig mejlkoppling skulle en anpassad lösning kunna hjälpa dig att hålla koll på svar och föreslå nästa steg. Här är ett påhittat svar från ${esc(co.who)}.</p>
     <div class="mail" style="margin-top:12px"><div class="mh"><b>Från:</b> ${esc(co.who)}, ${esc(co.name)}<br><b>Ämne:</b> Sv: En kort fråga om bokningar</div><div class="mb"><p>${esc(co.reply)}</p><p>/ ${esc(co.who)}</p></div></div>
     <div class="note ai" style="margin-top:12px"><span class="tag">Förslag från AI</span>
-      <p style="margin-top:8px"><b>Svaret kopplades till ${esc(co.name)}.</b></p>
+      <p style="margin-top:8px"><b>Exempel på uppföljning för ${esc(co.name)}.</b></p>
       <p>Föreslagen status: <span class="pill st${sg.status}">${esc(STATUS[sg.status])}</span><br>Föreslaget nästa steg: ${esc(sg.next)}</p>
       ${AI.dec===null?`<div class="row" style="margin-top:10px"><button class="btn btn-pri btn-sm" data-a="aidec" data-v="ok" type="button">Godkänn förslaget</button><button class="btn btn-sm" data-a="aidec" data-v="no" type="button">Nej tack, jag bestämmer själv</button></div>`
-      :AI.dec==="ok"?`<p style="margin-top:10px"><b>Du godkände.</b> Kontakten skulle nu få status ${esc(STATUS[sg.status])} och nästa steg "${esc(sg.next)}". I demon ändras inget på riktigt.</p>`
-      :`<p style="margin-top:10px"><b>Du avvisade förslaget.</b> Inget ändrades. Du bestämmer alltid själv.</p>`}
+      :AI.dec==="ok"?`<p style="margin-top:10px"><b>Du valde att godkänna förslaget.</b> I en riktig lösning skulle kontakten kunna få status ${esc(STATUS[sg.status])} och nästa steg "${esc(sg.next)}". Här ändras inget i din kontaktlista.</p>`
+      :`<p style="margin-top:10px"><b>Du valde att inte använda förslaget.</b> Inget ändrades. Du bestämmer själv.</p>`}
     </div>
-    <p class="small" style="margin-top:10px"><b>AI föreslår, du bestämmer.</b> Säljmotorn skulle aldrig skicka mejl, boka möten eller ändra kunduppgifter utan att du godkänner det först.</p>
+    <p class="small" style="margin-top:10px"><b>AI föreslår, du bestämmer.</b> I en anpassad lösning kan vi bygga in att inga mejl skickas och inga kunduppgifter ändras utan att du först godkänner det.</p>
     <div class="row" style="margin-top:12px"><button class="btn btn-pri" data-a="aistep" data-v="4" type="button">Nästa: landningssida</button><button class="btn" data-a="aistep" data-v="2" type="button">Tillbaka</button></div>`;}
   return `
-    <p class="prose">Vid behov kan AI också hjälpa till att skapa en <b>landningssida anpassad för just det här företaget</b>, som du kan länka till i mejlet. Så här skulle ett förslag kunna se ut:</p>
+    <p class="prose">AI skulle också kunna hjälpa till att skissa på en <b>enkel landningssida</b> som visar en idé för kunden. Här är ett påhittat exempel:</p>
     <div class="mock" style="margin-top:12px"><div class="bar"><i></i><i></i><i></i><span>exempel.se/forslag</span></div>
       <div class="body"><span class="eyebrow">Förslag till ${esc(co.name.replace(" (exempel)",""))}</span><h3 style="font-size:20px">${esc(co.page.title)}</h3><p class="small">Så här skulle en enkel sida kunna se ut för just er.</p>
         ${co.page.fields.map(f=>`<div class="fld">${esc(f)}</div>`).join("")}<button class="btn btn-pri" type="button" disabled style="opacity:.85">${esc(co.page.btn)}</button></div></div>
@@ -786,26 +784,26 @@ function renderAI(){
   return `
   <div class="stack">
     <div class="card">
-      <span class="eyebrow">Exempel – din AI-säljassistent</span>
-      <h2 style="margin-top:4px;font-size:22px">Låt AI hjälpa dig att hitta och följa upp kunder</h2>
-      <p class="prose" style="margin-top:8px">I den gratis Säljmotorn skriver du in kunder själv. En personligt anpassad Säljmotor kan göra mycket av det jobbet åt dig: hitta företag, förbereda personliga mejl, upptäcka svar och föreslå nästa steg.</p>
-      <div class="note ai" style="margin-top:12px"><b>Det här är en demonstration.</b> Allt nedan är fiktiva företag och mejl. Ingen sökning körs, ingen mejl läses och inget skickas. Klicka dig igenom för att se hur det skulle kunna fungera.</div>
+      <span class="eyebrow">Så skulle AI kunna hjälpa till</span>
+      <h2 style="margin-top:4px;font-size:22px">Se ett exempel på AI i försäljningen</h2>
+      <p class="prose" style="margin-top:8px">I den här versionen lägger du in kontakter själv. Här kan du se hur en anpassad lösning skulle kunna hitta företag, föreslå personliga mejl och hjälpa dig att följa upp.</p>
+      <div class="note ai" style="margin-top:12px"><b>Det här är bara ett exempel.</b> Företagen och mejlen är påhittade. Ingen AI-sökning görs, inga mejl läses och ingenting skickas.</div>
       <div class="aisteps" role="group" aria-label="Steg i demonstrationen">${steps.map((s,i)=>`<button class="aistep" type="button" data-a="aistep" data-v="${i+1}" aria-pressed="${AI.step===i+1}"><b>${i+1}</b>${s}</button>`).join("")}</div>
       ${aiStepBody(co)}
     </div>
 
     <div class="card" style="border-top-color:#7a5c9e">
-      <div class="hd"><h2>Gratisversionen och en personlig Säljmotor</h2></div>
+      <div class="hd"><h2>Det här ingår – och det här skulle kunna byggas</h2></div>
       <div class="cmp">
-        <div><h3>Allmänna Säljmotorn (gratis att prova)</h3><ul><li>Checklista och säljplan</li><li>Enkel kontaktlista</li><li>Fiktiv AI-demonstration</li><li>Manuell uppföljning</li></ul></div>
-        <div class="pro"><h3>Personligt anpassad Säljmotor</h3><ul><li>Byggs för just ditt företag</li><li>Anpassade kundflöden</li><li>Möjlig koppling till Gmail eller Outlook</li><li>Verklig prospektering och mejlutkast</li><li>Automatiska förslag på uppföljning</li></ul></div>
+        <div><h3>Den här Säljmotorn (gratis)</h3><ul><li>Checklista och säljplan</li><li>Enkel kontaktlista</li><li>Fiktiv AI-demonstration</li><li>Manuell uppföljning</li></ul></div>
+        <div class="pro"><h3>En anpassad version (möjligheter)</h3><ul><li>Byggs för just ditt företag</li><li>Anpassade kundflöden</li><li>Möjlig koppling till Gmail eller Outlook</li><li>Verklig prospektering och mejlutkast</li><li>Automatiska förslag på uppföljning</li></ul></div>
       </div>
-      <p class="small" style="margin-top:12px">En mejlkoppling skulle vara frivillig, bygga på säker inloggning via Google eller Microsoft och bara ge tillgång till det som behövs. Du skulle kunna koppla bort den när du vill, och uppgifterna hanteras enligt GDPR. Det här är något vi går igenom tillsammans innan något kopplas in.</p>
+      <p class="small" style="margin-top:12px">En eventuell mejlkoppling behöver planeras separat med säkra behörigheter och en genomgång av personuppgiftshanteringen. Ingenting kopplas till dina konton i det här exemplet.</p>
     </div>
 
     <div class="card" style="border-top-color:#7a5c9e">
-      <div class="hd"><h2>Tänk om Säljmotorn var byggd för just ditt företag?</h2></div>
-      <p class="prose">Kunder kommer inte bara via mejl. En frisör, coach eller hantverkare får dem kanske genom bokningar, telefon, rekommendationer eller formulär på hemsidan. Säljmotorn anpassas efter hur just ditt företag hittar och får sina kunder. Vi kan anpassa checklistor, aktiviteter, kundflöden, mål, beräkningar och utseende. Det här är exempel på möjliga anpassningar. Du får inte en skräddarsydd lösning genom att klicka här, utan vi bygger den tillsammans.</p>
+      <div class="hd"><h2>Olika företag säljer på olika sätt</h2></div>
+      <p class="prose">Försäljning behöver inte börja med ett mejl. Du kanske får kunder genom bokningar, rekommendationer, samtal eller din webbutik. Här är några exempel på hur ett verktyg skulle kunna anpassas.</p>
     </div>
     <div class="grid g3">
       <div class="ex" style="--c:#4f86b5"><h3>Konsult</h3><p class="small">Hitta rätt uppdragsgivare, boka möten, följa upp offerter och återkommande uppdrag.</p>
@@ -819,10 +817,10 @@ function renderAI(){
         <ul><li>Aktivitet: planera nästa kampanj</li><li>Vad är en kund värd över tid?</li></ul></div>
     </div>
     <div class="card cta" id="inbjudan">
-      <h2>Vill du ha din egen Säljmotor?</h2>
-      <p class="prose" style="margin-top:8px">Det här är bara ett exempel på vad vi kan skapa med AI. Tänk om du hade ett verktyg som utgick från just dina kunder, ditt erbjudande och det du vill uppnå. Jag hjälper dig gärna att bygga det: enkelt, användbart och anpassat efter din verksamhet.</p>
-      <div class="row" style="margin-top:14px"><a class="btn btn-pri" href="${MORE}">Läs mer om att skapa din egen Säljmotor</a><a class="btn" style="background:transparent;color:#fff;border-color:#ffffff66" href="${HOME}">Om Head of Passion</a></div>
-      <p class="small" style="margin-top:12px;color:#c9d3e4">Du kan fortsätta använda gratisexemplet precis som det är, utan att boka något.</p>
+      <h2>Vill du ha en Säljmotor som passar ditt företag?</h2>
+      <p class="prose" style="margin-top:8px">Du kan använda det här verktyget precis som det är. Vill du anpassa det till din verksamhet, eller utforska hur AI kan underlätta ditt säljarbete? Jag hjälper dig gärna att komma vidare.</p>
+      <div class="row" style="margin-top:14px"><a class="btn btn-pri" href="${MORE}">Läs om min rådgivning</a><a class="btn" style="background:transparent;color:#fff;border-color:#ffffff66" href="${HOME}">Om Head of Passion</a></div>
+      <p class="small" style="margin-top:12px;color:#c9d3e4">Du behöver inte boka något för att fortsätta använda den här versionen.</p>
     </div>
   </div>`;
 }
