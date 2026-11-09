@@ -534,9 +534,45 @@
     .case-study-link:hover { color: var(--navy); }
     .case-study-compare {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 1.6rem;
     }
+    .case-study-pair { margin-top: 3.2rem; }
+    .case-study-pair-title {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .case-study-pair-title .n {
+      width: 2rem; height: 2rem; border-radius: 50%;
+      background: var(--navy); color: var(--gold);
+      display: grid; place-items: center;
+      font-family: var(--heading); font-weight: 800; font-size: 0.9rem;
+      flex: none;
+    }
+    .case-study-pair-title h3 {
+      font-family: var(--heading); font-size: 1.15rem; font-weight: 800; color: var(--navy);
+    }
+    .case-study-cap {
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .case-study-col a { display: block; cursor: zoom-in; }
+    .case-study-more { margin-top: 3.4rem; }
+    .case-study-more h3 {
+      font-family: var(--heading); font-size: 1.15rem; font-weight: 800; color: var(--navy);
+      margin-bottom: 1rem;
+    }
+    .case-study-new {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.6rem;
+    }
+    .case-study-badge-new { background: var(--salmon); color: var(--navy); }
+    .case-study-foot { margin-top: 2.6rem; }
     .case-study-col {
       flex: 1;
       position: relative;
@@ -570,8 +606,9 @@
       font-weight: 700;
     }
     @media (max-width: 640px) {
-      .case-study-compare { flex-direction: column; gap: 1.2rem; }
-      .case-study-arrow { transform: rotate(90deg); }
+      .case-study-compare { flex-direction: column; gap: 1.2rem; align-items: stretch; }
+      .case-study-arrow { transform: rotate(90deg); align-self: center; }
+      .case-study-new { grid-template-columns: 1fr; }
     }
     .proof-note {
       margin-top: 2.4rem;
@@ -980,16 +1017,93 @@
       <p class="section-intro-p reveal">Monica, sångpedagog och CVT Authorised Teacher, hade trafik till sin sida men ingen köpte medlemskapet. Erbjudandet var otydligt. På några timmar gjorde vi om det till "Ditt röstgym med Monica": ett tydligt erbjudande, ett pris och en köpknapp som leder rakt till betalningen. Livepassen uppdateras från ett kalkylark, nyhetsbrevet samlar in e-post och Monica kan själv ändra sin sida med hjälp av AI.</p>
       <a href="https://rostlabbet.se" target="_blank" rel="noopener" class="case-study-link reveal">rostlabbet.se ↗</a>
     </div>
-    <div class="case-study-compare reveal">
-      <div class="case-study-col">
-        <span class="case-study-badge case-study-badge-before">Före</span>
-        <img src="assets/rostlabbet-fore-dator.png" alt="Röstlabbet.se innan ombyggnaden" loading="lazy" decoding="async" />
+
+    <div class="case-study-pair reveal">
+      <div class="case-study-pair-title"><span class="n">1</span><h3>Startsidan</h3></div>
+      <div class="case-study-compare">
+        <div class="case-study-col">
+          <span class="case-study-badge case-study-badge-before">Före</span>
+          <a href="assets/rostlabbet-fore-dator.png" target="_blank" rel="noopener"><img src="assets/rostlabbet-fore-dator.png" alt="Röstlabbet.se, gamla startsidan med tre porträtt och en knapp" loading="lazy" decoding="async" /></a>
+          <p class="case-study-cap">Tre porträtt och knappen "Läs mer". Inget pris och inget tydligt erbjudande.</p>
+        </div>
+        <span class="case-study-arrow">→</span>
+        <div class="case-study-col">
+          <span class="case-study-badge case-study-badge-after">Efter</span>
+          <a href="assets/rostlabbet-efter-start.jpg" target="_blank" rel="noopener"><img src="assets/rostlabbet-efter-start.jpg" alt="Röstlabbet.se, nya startsidan med erbjudandet Ditt röstgym och priset 349 kr" loading="lazy" decoding="async" /></a>
+          <p class="case-study-cap">Erbjudandet först: "Ditt röstgym", vad som ingår och priset, 349 kr i månaden, med en knapp som leder till köp.</p>
+        </div>
       </div>
-      <span class="case-study-arrow">→</span>
-      <div class="case-study-col">
-        <span class="case-study-badge case-study-badge-after">Efter</span>
-        <img src="assets/rostlabbet-efter-dator.png" alt="Röstlabbet.se efter ombyggnaden" loading="lazy" decoding="async" />
+    </div>
+
+    <div class="case-study-pair reveal">
+      <div class="case-study-pair-title"><span class="n">2</span><h3>Vad man kan köpa</h3></div>
+      <div class="case-study-compare">
+        <div class="case-study-col">
+          <span class="case-study-badge case-study-badge-before">Före</span>
+          <a href="assets/rostlabbet-fore-kurser.png" target="_blank" rel="noopener"><img src="assets/rostlabbet-fore-kurser.png" alt="Röstlabbet.se, gamla kursöversikten med tre kort" loading="lazy" decoding="async" /></a>
+          <p class="case-study-cap">Tre kort med olika priser: ett utan pris, ett för 550 kr och ett för 99 kr. Det var svårt att förstå vad som var vad.</p>
+        </div>
+        <span class="case-study-arrow">→</span>
+        <div class="case-study-col">
+          <span class="case-study-badge case-study-badge-after">Efter</span>
+          <a href="assets/rostlabbet-efter-erbjudande.jpg" target="_blank" rel="noopener"><img src="assets/rostlabbet-efter-erbjudande.jpg" alt="Röstlabbet.se, nya sektionen Allt i ett medlemskap" loading="lazy" decoding="async" /></a>
+          <p class="case-study-cap">Ett medlemskap med innehållet uppräknat: livepass, frågelive, Sjung Smart och övningar att göra när det passar.</p>
+        </div>
       </div>
+    </div>
+
+    <div class="case-study-pair reveal">
+      <div class="case-study-pair-title"><span class="n">3</span><h3>Förklaringen</h3></div>
+      <div class="case-study-compare">
+        <div class="case-study-col">
+          <span class="case-study-badge case-study-badge-before">Före</span>
+          <a href="assets/rostlabbet-fore-forklaring.png" target="_blank" rel="noopener"><img src="assets/rostlabbet-fore-forklaring.png" alt="Röstlabbet.se, gammal textlista över vad medlemskapet innehåller" loading="lazy" decoding="async" /></a>
+          <p class="case-study-cap">En lång lista med text och symboler där man själv fick leta efter vad medlemskapet faktiskt gav.</p>
+        </div>
+        <span class="case-study-arrow">→</span>
+        <div class="case-study-col">
+          <span class="case-study-badge case-study-badge-after">Efter</span>
+          <a href="assets/rostlabbet-efter-forklaring.jpg" target="_blank" rel="noopener"><img src="assets/rostlabbet-efter-forklaring.jpg" alt="Röstlabbet.se, jämförelsen Som ett gymkort, fast för rösten" loading="lazy" decoding="async" /></a>
+          <p class="case-study-cap">"Som ett gymkort, fast för rösten": en enkel jämförelse mellan vad man får på gymmet och i Röstlabbet.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-study-pair reveal">
+      <div class="case-study-pair-title"><span class="n">4</span><h3>Priset</h3></div>
+      <div class="case-study-compare">
+        <div class="case-study-col">
+          <span class="case-study-badge case-study-badge-before">Före</span>
+          <a href="assets/rostlabbet-fore-pris.jpg" target="_blank" rel="noopener"><img src="assets/rostlabbet-fore-pris.jpg" alt="Röstlabbet.se, gamla prisrutorna 99 kr per månad och 999 kr per år" loading="lazy" decoding="async" /></a>
+          <p class="case-study-cap">Två prisrutor, 99 kr i månaden och 999 kr om året, utan att det stod vad som ingick.</p>
+        </div>
+        <span class="case-study-arrow">→</span>
+        <div class="case-study-col">
+          <span class="case-study-badge case-study-badge-after">Efter</span>
+          <a href="assets/rostlabbet-efter-pris.jpg" target="_blank" rel="noopener"><img src="assets/rostlabbet-efter-pris.jpg" alt="Röstlabbet.se, nya prissektionen Ett pris. Allt ingår." loading="lazy" decoding="async" /></a>
+          <p class="case-study-cap">"Ett pris. Allt ingår." Priset, allt som ingår och en nöjd-kund-garanti samlat i ett kort.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-study-more reveal">
+      <h3>Det som tillkom på den nya sidan</h3>
+      <div class="case-study-new">
+        <div class="case-study-col">
+          <span class="case-study-badge case-study-badge-new">Nytt</span>
+          <a href="assets/rostlabbet-nytt-studio.jpg" target="_blank" rel="noopener"><img src="assets/rostlabbet-nytt-studio.jpg" alt="Röstlabbet.se, sektionen Så här tränar vi med en film från studion" loading="lazy" decoding="async" /></a>
+          <p class="case-study-cap">En titt in i studion, så att besökaren ser hur ett livepass går till innan hen bestämmer sig.</p>
+        </div>
+        <div class="case-study-col">
+          <span class="case-study-badge case-study-badge-new">Nytt</span>
+          <a href="assets/rostlabbet-nytt-repschema.jpg" target="_blank" rel="noopener"><img src="assets/rostlabbet-nytt-repschema.jpg" alt="Röstlabbet.se, repschema med kommande livepass" loading="lazy" decoding="async" /></a>
+          <p class="case-study-cap">Ett repschema med månadens livepass. Det uppdateras från ett kalkylark, så Monica slipper ändra på sidan.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-study-foot reveal">
+      <a href="https://rostlabbet.se" target="_blank" rel="noopener" class="case-study-link">Se hela sajten live: rostlabbet.se ↗</a>
     </div>
   </section>
 
