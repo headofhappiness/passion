@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Säljmotorn – ett enkelt säljverktyg | Head of Passion</title>
+<meta name="description" content="Säljmotorn är ett enkelt säljverktyg byggt med Claude Code: VD-check, veckofokus, pipeline och resultat per bransch. Prova direkt i webbläsaren. Allt du skriver stannar på din egen dator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+:root{
+  --navy:#22344e; --navy2:#2c4264; --terra:#bf6a5b; --terra-d:#a5493c; --peach:#eab189; --gold:#f5d39b;
+  --salmon:#e1957a; --sky:#4f86b5; --teal:#3f8f7c; --plum:#7a5c9e;
+  --bg:#fbf8f4; --surface:#ffffff; --surface-2:#f3eee7; --surface-3:#faf6f1;
+  --fg:#22293a; --fg-soft:#55607a; --fg-faint:#7b8499;
+  --line:#e8e1d7; --line-strong:#d3c9bb;
+  --good:#1f6b4f; --good-wash:#dcefe6; --warn:#7a5a07; --warn-wash:#fcefc9; --crit:#8c2f24; --crit-wash:#f7ddd7;
+  --tab:#bf6a5b;
+  --font-d:"Montserrat",system-ui,sans-serif; --font-b:"Open Sans",system-ui,sans-serif;
+  --r:12px; --r-lg:18px;
+  color-scheme:light;
+}
+body[data-view="vecka"]{--tab:#bf6a5b}
+body[data-view="strategi"]{--tab:#e3a23b}
+body[data-view="plan"]{--tab:#3f8f7c}
+body[data-view="prospekt"]{--tab:#4f86b5}
+body[data-view="resultat"]{--tab:#e1957a}
+body[data-view="ideer"]{--tab:#7a5c9e}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-b);font-size:15px;line-height:1.55;-webkit-text-size-adjust:100%}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--font-d);margin:0;text-wrap:balance}
+p{margin:0}
+.prose{font-size:15px;line-height:1.65;color:var(--fg-soft);max-width:68ch}
+.prose strong{color:var(--fg);font-weight:700}
+button{font:inherit;color:inherit}
+input,textarea,select{font:inherit;color:var(--fg);background:#fff;border:1px solid var(--line-strong);border-radius:9px;padding:8px 10px;width:100%}
+input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid #4f86b588;outline-offset:2px}
+textarea{resize:vertical}
+a{color:var(--terra-d)}
+
+.topbar{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff}
+.topbar .wrap{display:flex;align-items:center;gap:14px;padding-block:11px}
+.mark{font-family:var(--font-d);font-weight:800;font-size:18px;letter-spacing:-.01em;display:flex;align-items:center;gap:9px;white-space:nowrap}
+.mark i{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--terra));display:block;flex:none}
+.byline{margin-left:auto;font-size:12px;color:#ffffffb8;white-space:nowrap}
+.byline a{color:var(--gold);text-decoration:none;font-weight:600}
+.tabs{background:var(--navy2);position:sticky;top:46px;z-index:19}
+.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:7px}
+.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{background:none;border:0;color:#ffffffc4;padding:8px 14px;font-family:var(--font-d);font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer;border-radius:999px;display:inline-flex;align-items:center;gap:8px}
+.tab i{width:9px;height:9px;border-radius:50%;background:var(--c);display:block}
+.tab:hover{background:#ffffff1a}
+.tab[aria-current="page"]{background:#fff;color:var(--navy)}
+main{padding-block:22px 64px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--tab);border-radius:var(--r-lg);padding:20px;box-shadow:0 8px 24px -18px rgba(34,52,78,.35)}
+.stack>*+*{margin-top:18px}
+.eyebrow{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-faint)}
+.card h2{font-size:19px;font-weight:800;letter-spacing:-.01em;color:var(--navy)}
+.card h3{font-size:15px;font-weight:700;color:var(--navy)}
+.hd{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.hd .eyebrow{margin-left:auto}
+.grid{display:grid;gap:18px}
+@media(min-width:760px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+.grid>*{min-width:0}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line-strong);background:#fff;border-radius:9px;padding:8px 14px;font-family:var(--font-d);font-size:13px;font-weight:600;cursor:pointer;color:var(--navy)}
+.btn:hover{border-color:var(--navy)}
+.btn-pri{background:var(--terra-d);color:#fff;border-color:transparent}
+.btn-pri:hover{background:#8f3b30;border-color:transparent}
+.btn-ghost{border-color:transparent;background:var(--surface-2)}
+.btn-sm{padding:5px 10px;font-size:12px}
+.btn-link{border:0;background:none;color:var(--terra-d);padding:0;font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+
+.banner{background:var(--warn-wash);border-radius:var(--r);padding:12px 15px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:13.5px;color:#5c4408;margin-bottom:18px}
+.banner b{color:#3d2e05}
+.banner .banner-act{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+.hero{background:linear-gradient(115deg,var(--navy) 0%,#34507a 58%,var(--terra) 140%);color:#fff;border-radius:var(--r-lg);padding:26px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-50px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(245,211,155,.5),transparent 68%);pointer-events:none}
+.hero h1{font-size:27px;font-weight:800;letter-spacing:-.015em;margin-bottom:8px}
+.hero h1 span{color:var(--gold)}
+.hero p{max-width:58ch;color:#e6ecf6;font-size:15.5px;line-height:1.6;position:relative;z-index:1}
+.hero .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;position:relative;z-index:1}
+.hero .chip{background:#ffffff22;border:1px solid #ffffff33;border-radius:999px;padding:5px 13px;font-size:12.5px;font-weight:600;color:#fff}
+.hero .chip b{color:var(--gold);font-family:var(--font-d);font-weight:800;margin-right:4px}
+
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(138px,1fr))}
+.tile{background:var(--surface-3);border:1px solid var(--line);border-radius:var(--r);padding:13px}
+.tile .k{font-family:var(--font-d);font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--fg-faint)}
+.tile .v{font-family:var(--font-d);font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:3px;color:var(--navy);font-variant-numeric:tabular-nums}
+.tile .s{font-size:12px;color:var(--fg-soft)}
+.tile.hi{background:linear-gradient(135deg,#fdeede,#fbe0d5);border-color:transparent}
+.tile.hi .v{color:var(--terra-d)}
+.tile.cool{background:#e4eef7;border-color:transparent}
+.tile.cool .v{color:#2c5f8c}
+.tile.green{background:var(--good-wash);border-color:transparent}
+.tile.green .v{color:var(--good)}
+
+.ck{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;padding:10px 0;border-top:1px solid var(--line)}
+.ck:first-child{border-top:0}
+.ck input[type=checkbox]{width:20px;height:20px;flex:none;margin-top:1px;accent-color:var(--teal)}
+.ck .t{flex:1;min-width:0;font-size:15px;line-height:1.45}
+.ck.done .t{color:var(--fg-faint);text-decoration:line-through}
+.ck .when{font-size:11.5px;color:var(--fg-faint);white-space:nowrap}
+.x{border:0;background:none;color:var(--fg-faint);cursor:pointer;padding:2px 5px;font-size:17px;line-height:1;border-radius:5px}
+.x:hover{color:var(--crit);background:var(--surface-2)}
+
+.steps{display:grid;gap:10px;counter-reset:s}
+@media(min-width:860px){.steps{grid-template-columns:repeat(6,1fr)}}
+.step{background:var(--surface-3);border:1px solid var(--line);border-radius:var(--r);padding:13px;border-top:4px solid var(--c,var(--teal))}
+.step::before{counter-increment:s;content:counter(s);font-family:var(--font-d);font-size:12px;font-weight:800;color:var(--c,var(--teal));display:block;margin-bottom:5px}
+.step b{display:block;font-family:var(--font-d);font-size:13.5px;margin-bottom:3px;color:var(--navy)}
+.step small{color:var(--fg-soft);font-size:12.5px;line-height:1.45;display:block}
+.step.key{background:#fdf1d4}
+
+.fun{display:grid;gap:8px}
+.fun-row{display:grid;grid-template-columns:104px 1fr 40px;align-items:center;gap:10px;font-size:13px}
+.fun-row .lbl{color:var(--fg-soft);font-weight:600}
+.fun-bar{background:var(--surface-2);border-radius:7px;height:26px;overflow:hidden}
+.fun-bar i{display:block;height:100%;border-radius:7px;background:var(--c)}
+.fun-row .n{text-align:right;font-family:var(--font-d);font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums}
+
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:700px}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--surface-2);font-family:var(--font-d);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--fg-soft);font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.s0{background:#e6ebf1;color:#3c5068}
+.s1{background:#fbe6d5;color:#8a4a1c}
+.s2{background:#fcefc9;color:#7a5a07}
+.s3{background:#f9dccf;color:#8f3f26}
+.s4{background:#f3d3cd;color:#8c2f24}
+.s5{background:#d8eee5;color:#1f6b4f}
+.due{color:var(--crit);font-weight:700}
+
+.ideas{display:grid;gap:14px}
+@media(min-width:720px){.ideas{grid-template-columns:1fr 1fr}}
+.idea{background:#fff;border:1px solid var(--line);border-left:5px solid var(--c,var(--plum));border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:9px}
+.idea .top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.idea h4{font-size:15px;font-weight:800;color:var(--navy)}
+.idea .why{font-size:14px;color:var(--fg-soft);line-height:1.55}
+.idea .first{background:var(--surface-3);border-left:3px solid var(--c,var(--plum));border-radius:0 8px 8px 0;padding:9px 11px;font-size:13.5px}
+.idea .foot{display:flex;align-items:center;gap:10px;margin-top:auto;flex-wrap:wrap}
+.idea .time{font-size:12px;color:var(--fg-faint);font-weight:700}
+.prio{display:inline-block;border-radius:6px;padding:2px 8px;font-family:var(--font-d);font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.prio.nu{background:var(--good-wash);color:var(--good)}
+.prio.sen{background:#e4eef7;color:#2c5f8c}
+.prio.pr{background:#ece4f4;color:#5b3f82}
+
+.note{background:var(--surface-3);border:1px solid var(--line);border-left:4px solid var(--sky);border-radius:0 var(--r) var(--r) 0;padding:12px 14px;font-size:14px;color:var(--fg-soft);line-height:1.6}
+.note.warn{border-left-color:#e3a23b;background:var(--warn-wash)}
+.note.good{border-left-color:var(--teal);background:var(--good-wash)}
+.note.next{border-left-color:var(--terra);background:#fdeede}
+.empty{text-align:center;padding:26px 16px;color:var(--fg-soft)}
+.empty b{display:block;font-family:var(--font-d);color:var(--navy);font-size:15px;margin-bottom:5px}
+.fieldset{display:grid;gap:11px}
+.f{display:grid;gap:4px}
+.f label{font-size:12px;font-weight:700;color:var(--fg-soft)}
+.f .hint{font-size:11.5px;color:var(--fg-faint);font-weight:400}
+.small{font-size:12.5px;color:var(--fg-faint)}
+.block{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;border-left:5px solid var(--teal)}
+.block+.block{margin-top:12px}
+.block:nth-child(6n+2){border-left-color:var(--sky)}
+.block:nth-child(6n+3){border-left-color:var(--salmon)}
+.block:nth-child(6n+4){border-left-color:#e3a23b}
+.block:nth-child(6n+5){border-left-color:var(--plum)}
+.block:nth-child(6n+6){border-left-color:var(--terra)}
+.bhead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:11px 13px;background:var(--surface-3);border-bottom:1px solid var(--line)}
+.bhead .pr{font-size:12px;color:var(--fg-faint);font-weight:700;font-variant-numeric:tabular-nums;flex:none}
+.block .body{padding:4px 15px 14px}
+.tedit{background:transparent;border:1px solid transparent;border-radius:7px;padding:4px 6px;width:auto;flex:1;min-width:0;font-size:15px;line-height:1.45}
+.tedit:hover{background:var(--surface-3);border-color:var(--line)}
+.tedit:focus{background:#fff;border-color:var(--sky)}
+.tedit.ttl{font-family:var(--font-d);font-weight:700;font-size:14.5px;color:var(--navy)}
+.tedit.wk{font-family:var(--font-d);font-weight:800;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--terra-d);width:96px;flex:none}
+.idea>.tedit{flex:none;width:100%}
+.ck.done .tedit{color:var(--fg-faint);text-decoration:line-through}
+.tools{display:flex;gap:1px;align-items:center;flex:none}
+.mv{border:0;background:none;color:var(--fg-faint);cursor:pointer;padding:2px 4px;font-size:13px;line-height:1;border-radius:5px}
+.mv:hover{color:var(--fg);background:var(--surface-2)}
+.mv[disabled]{opacity:.35;cursor:default}
+.mv.del:hover{color:var(--crit)}
+.addrow{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.confirm{display:inline-flex;gap:6px;align-items:center;background:var(--crit-wash);border-radius:8px;padding:3px 8px;font-size:12px;color:var(--crit);font-weight:700}
+
+/* strategikoll */
+.q{padding:14px 0;border-top:1px solid var(--line)}
+.q:first-of-type{border-top:0}
+.q .qt{font-size:15px;line-height:1.45;margin-bottom:9px;color:var(--fg)}
+.rates{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.rate{width:36px;height:36px;border-radius:9px;border:1px solid transparent;cursor:pointer;font-family:var(--font-d);font-weight:700;font-size:13px;color:var(--navy);background:var(--bg-c)}
+.rate:hover{filter:brightness(.96);transform:translateY(-1px)}
+.rate[aria-pressed="true"]{background:var(--fg-c);color:#fff;box-shadow:0 4px 10px -4px var(--fg-c)}
+.rate.na{width:auto;padding:0 12px;background:var(--surface-2);font-size:12px}
+.rate.na[aria-pressed="true"]{background:var(--fg-soft)}
+.scale{display:flex;justify-content:space-between;max-width:420px;font-size:11px;color:var(--fg-faint);margin-top:4px}
+.area{display:grid;grid-template-columns:150px 1fr 68px;gap:10px;align-items:center;padding:8px 0;font-size:13px}
+.area .nm{font-weight:700;color:var(--navy)}
+.area .bar{background:var(--surface-2);border-radius:7px;height:20px;overflow:hidden}
+.area .bar i{display:block;height:100%;border-radius:7px}
+.area .sc{text-align:right;font-family:var(--font-d);font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums}
+.verdict{display:inline-block;border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.verdict.low{background:var(--crit-wash);color:var(--crit)}
+.verdict.mid{background:var(--warn-wash);color:var(--warn)}
+.verdict.high{background:var(--good-wash);color:var(--good)}
+.verdict.none{background:var(--surface-2);color:var(--fg-soft)}
+.radar{width:100%;max-width:340px;height:auto;display:block;margin:0 auto}
+svg.chart{width:100%;height:auto;display:block}
+.srcs{font-size:12.5px;color:var(--fg-faint);margin-top:12px;line-height:1.6}
+
+.foot{border-top:1px solid var(--line);margin-top:34px;padding-top:18px;color:var(--fg-faint);font-size:12.5px;line-height:1.7}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:11px 20px;border-radius:999px;font-family:var(--font-d);font-weight:700;font-size:13.5px;opacity:0;transition:.25s;z-index:70;pointer-events:none;box-shadow:0 10px 30px -10px rgba(0,0,0,.5);border:2px solid var(--gold)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+.confetti i{position:absolute;top:-16px;width:9px;height:14px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(108vh) rotate(560deg)}}
+
+@media(max-width:760px){
+  input,select,textarea{font-size:16px}
+  .tedit{font-size:16px}
+  .mv{padding:7px 9px;font-size:15px}
+  .x{padding:6px 9px;font-size:18px}
+  .btn-sm{padding:7px 11px}
+  .ck input[type=checkbox]{width:22px;height:22px}
+  .hero h1{font-size:22px}
+  .byline{display:none}
+  .area{grid-template-columns:1fr 60px}
+  .area .bar{grid-column:1 / -1;order:3}
+  .fun-row{grid-template-columns:90px 1fr 36px}
+  .tabs{top:46px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body data-view="vecka">
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="mark"><i></i>Säljmotorn</div>
+    <div class="byline">Byggt med Claude Code av <a href="index.html">Head of Passion</a></div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Delar">
+  <div class="wrap" id="tabs"></div>
+</nav>
+<main class="wrap">
+  <noscript><p class="prose">Säljmotorn behöver JavaScript för att fungera.</p></noscript>
+  <div id="view"></div>
+  <footer class="foot">
+    Ett exempel på ett enkelt säljverktyg. Allt du skriver stannar i din egen webbläsare. Inget skickas någonstans, och ingen annan ser det. Stäng fliken och det ligger kvar nästa gång, men ta gärna en säkerhetskopia (längst ner under Resultat).<br>
+    <a href="aiverktyg.html#bygg-hemsida">Läs hur man bygger egna verktyg med AI</a> · <a href="timbanken.html">Kostnadsfri rådgivning via Timbanken</a> · <a href="index.html">Head of Passion</a>
+  </footer>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ============== modell ============== */
+const LS="saljmotorn-v2";
+const STAGES=["Prospekt","Kontaktad","Svar","Möte","Offert","Kund"];
+const STAGE_COL=["#8aa0b8","#eab189","#f0c46a","#e1957a","#bf6a5b","#3f8f7c"];
+const KPI=[{k:"nya",t:"Nya prospekt"},{k:"kontakt",t:"Kontakter"},{k:"svar",t:"Svar"},{k:"moten",t:"Möten"},{k:"kunder",t:"Nya kunder"}];
+
+const AREAS=[
+  {id:"a1",name:"Vision och mål",short:"Vision",col:"#bf6a5b",
+   tip:"Skriv din vision i en mening och ett mål för de närmaste tolv månaderna. Visa dem för någon som arbetar nära dig.",
+   qs:[["q1","Har du en tydlig, nedskriven vision?"],
+       ["q2","Har du formulerat mål på lång sikt?"],
+       ["q3","Har du formulerat mål på kort sikt?"],
+       ["q4","Är målen kända av alla som arbetar hos dig?",true]]},
+  {id:"a2",name:"Intäktsbehov",short:"Intäkter",col:"#e3a23b",
+   tip:"Räkna baklänges: vad behöver verksamheten tjäna varje månad för att gå runt och ge dig den lön du vill ha?",
+   qs:[["q5","Vet du exakt hur mycket intäkter företaget behöver?"]]},
+  {id:"a3",name:"Kunder och behov",short:"Kunder",col:"#3f8f7c",
+   tip:"Lista dina fem bästa kunder. Vilket problem hade de när de kom till dig? Skriv ner det med deras egna ord.",
+   qs:[["q6","Vet du vilka dina lönsamma kunder är?"],
+       ["q7","Vet du vilka specifika problem eller behov du hjälper dem med?"]]},
+  {id:"a4",name:"Lönsamhet och priser",short:"Lönsamhet",col:"#4f86b5",
+   tip:"Ta reda på vad din viktigaste produkt faktiskt ger efter kostnader och arbetad tid. Justera priset om siffran överraskar dig.",
+   qs:[["q8","Vet du vad lönsamheten per produkt är, så att du är trygg med dina priser?"]]},
+  {id:"a5",name:"Nya och befintliga kunder",short:"Nya kunder",col:"#e1957a",
+   tip:"Skriv en lista på tio personer du kan höra av dig till den här månaden. Hälften bör redan vara kunder.",
+   qs:[["q9","Har du en plan för att få nya kunder och sälja mer till dem du redan har?"]]},
+  {id:"a6",name:"Positionering och marknad",short:"Position",col:"#7a5c9e",
+   tip:"Beskriv i en mening vem du hjälper och vad du är bäst på. Testa meningen på en kund och se om de känner igen sig.",
+   qs:[["q10","Har du bestämt hur du vill att ditt företag ska uppfattas av din målgrupp?"],
+       ["q11","Vet du hur varje produkt ska marknadsföras och säljas, med tydliga budskap till rätt kunder?"]]},
+  {id:"a7",name:"Säljmål och säljplan",short:"Säljplan",col:"#22344e",
+   tip:"Sätt ett säljmål för kvartalet och bryt ner det i antal samtal per vecka. Lägg in samtalen i kalendern.",
+   qs:[["q12","Har du ett övergripande säljmål?"],
+       ["q13","Har du brutit ner det per produkt?"],
+       ["q14","Har du en säljplanering med riktade aktiviteter för de viktigaste produkterna?"]]}
+];
+
+function seedPlan(){
+  const P=[
+   ["b1","Vecka 1–2","Förstå varför det redan fungerar",[
+     "Gå igenom dina senaste affärer: vilken bransch var kunden i, och vilket problem beskrev de?",
+     "Skriv ner din säljmetod i egna ord, steg för steg, så att den inte tappas bort när volymen ökar.",
+     "Räkna ut vad du faktiskt tjänar per kund efter kostnader och avgifter.",
+     "Kapacitetskoll: hur många kunder hinner du leverera till och supporta samtidigt?",
+     "Formulera i en mening vad kunden köper av dig."]],
+   ["b2","Vecka 3–4","Dubbla ner på branschen som konverterar bäst",[
+     "Välj den bransch där du redan har betalande kunder.",
+     "Hitta 20 nya företag i exakt den branschen.",
+     "Behåll din inbjudan oförändrad den här omgången, så att du kan jämföra.",
+     "Logga varje kontakt i prospektlistan så att du kan mäta per bransch.",
+     "Jämför svarsfrekvensen mot ditt snitt."]],
+   ["b3","Vecka 5–6","Låt kunderna öppna dörrarna",[
+     "Be 2–3 befintliga kunder om en introduktion till någon de känner.",
+     "Skriv två korta kundcase: problemet, vad du gjorde, vad det gav. Hämta godkännande.",
+     "Fråga kunderna vad som fick dem att boka samtalet. Skriv ner svaren ordagrant.",
+     "Mät: konverterar en introduktion bättre än ett kallt mejl?"]],
+   ["b4","Vecka 7–8","Bygg trovärdighet",[
+     "Enkel sida med vad du gör, två kundcase och ett sätt att höra av sig.",
+     "Professionell mejladress på egen domän.",
+     "Skriv ner svaret på den vanligaste invändningen i förväg.",
+     "Skriv en kort text om vad du lärt dig, färdig att publicera."]],
+   ["b5","Vecka 9–10","Nätverk och samarbeten",[
+     "Besök ett affärsnätverk som gäst.",
+     "Kontakta två företag som redan möter dina kunder om att rekommendera dig.",
+     "Boka kostnadsfri rådgivning, till exempel via Timbanken eller NyföretagarCentrum.",
+     "Förbered en kort demo du kan köra på 15 minuter i ett videomöte."]],
+   ["b6","Vecka 11–12","Summera och planera nästa kvartal",[
+     "Summera tre månader: vilken bransch, vilken kanal, vilket erbjudande fungerade bäst?",
+     "Sätt tre aktivitetsmål för nästa kvartal. Inga omsättningsmål.",
+     "Bestäm vad du slutar göra, så att du får plats med mer av det som fungerar.",
+     "Fira det som gick bra. Det här är ett långt lopp."]]
+  ];
+  return P.map(([id,wk,title,tasks])=>({id,wk,title,tasks:tasks.map((text,i)=>({id:id+"t"+(i+1),text,done:false}))}));
+}
+function seedChallenge(){
+  return [
+   ["c1","Gå igenom dina senaste affärer och skriv ner bransch och problem för varje","Vecka 1"],
+   ["c2","Räkna ut vad du tjänar per kund efter kostnader och avgifter","Vecka 1"],
+   ["c3","Välj den bransch som konverterar bäst och hitta 20 nya företag där","Vecka 2"],
+   ["c4","Be två befintliga kunder om en introduktion","Vecka 3"],
+   ["c5","Sammanställ konverteringen per bransch och bestäm nästa test","Vecka 4"]
+  ].map(([id,text,wk])=>({id,text,wk,done:false}));
+}
+const IDEAS=[
+  {id:"i1",c:"#bf6a5b",t:"Introduktioner från dina kunder",p:"nu",time:"20 min",
+   why:"Dina befintliga kunder har redan sagt ja till dig. En rekommendation från dem öppnar dörrar som ett kallt mejl aldrig gör.",
+   first:"Mejla en kund du levererat bra till: \"Känner du någon som har samma problem som du hade?\"",
+   add:"Be en befintlig kund om en introduktion"},
+  {id:"i2",c:"#e3a23b",t:"Branschen du redan vunnit i",p:"nu",time:"45 min",
+   why:"Du kan redan deras problem, deras ord och deras invändningar. Nästa affär i samma bransch är alltid billigare än den första i en ny.",
+   first:"Lista dina kunder, se vilken bransch som återkommer och hitta 20 nya företag där.",
+   add:"Hitta 20 nya företag i min bästa bransch"},
+  {id:"i3",c:"#3f8f7c",t:"Mät konverteringen per bransch",p:"nu",time:"15 min",
+   why:"Fem procent totalt är ett snitt. Under snittet finns branscher som konverterar dubbelt och branscher som inte konverterar alls. Det är där tillväxten ligger.",
+   first:"Fyll i bransch på varje rad i prospektlistan. Siffrorna räknas ut automatiskt.",
+   add:"Fyll i bransch på alla prospekt"},
+  {id:"i4",c:"#4f86b5",t:"Kapacitetskoll innan du växer",p:"nu",time:"20 min",
+   why:"Fler kunder är bara bra om du hinner leverera. En missad support hos en befintlig kund kostar mer än en ny affär ger.",
+   first:"Räkna timmarna: uppstart per kund, support per månad och vad du har kvar efter allt annat.",
+   add:"Gör en kapacitetskoll"},
+  {id:"i5",c:"#e1957a",t:"Samarbeten med dem som möter dina kunder",p:"sen",time:"1 h",
+   why:"Vissa företag sitter redan hos dina kunder och får frågor du kan svara på. Då blir du deras lösning i stället för deras konkurrent.",
+   first:"Hitta tre sådana företag lokalt och föreslå ett enkelt samarbete, till exempel en andel per kund de skickar.",
+   add:"Kontakta tre företag om samarbete"},
+  {id:"i6",c:"#7a5c9e",t:"Affärsnätverk som gäst",p:"sen",time:"2–3 h",
+   why:"Lokala nätverk är fulla av företagare med just de problem du löser. Du går dit som leverantör, inte som någon som behöver bli upptäckt.",
+   first:"Hör av dig till ett nätverk och fråga om gästplats. Förbered 30 sekunder om vad du gör.",
+   add:"Boka gästplats på ett affärsnätverk"},
+  {id:"i7",c:"#22344e",t:"Gratis rådgivning",p:"sen",time:"1 h",
+   why:"Det finns kostnadsfri rådgivning att hämta, bland annat via Timbanken, NyföretagarCentrum och Almi. En timme med någon utifrån ger ofta nästa steg.",
+   first:"Boka ett rådgivningsmöte. Ta med dina siffror och en enda fråga.",
+   add:"Boka en kostnadsfri rådgivningstimme"},
+  {id:"i8",c:"#bf6a5b",t:"Berätta vad du lärt dig",p:"pr",time:"2 h",
+   why:"En kort, ärlig text om vad du lärt dig i din bransch gör att rätt personer hittar dig. Skriv den själv, så blir det enkelt för andra att dela.",
+   first:"Skriv 400 ord om det mest överraskande du lärt dig av dina kunder. Publicera på din sida eller i LinkedIn.",
+   add:"Skriv en kort text om vad jag lärt mig"},
+  {id:"i9",c:"#3f8f7c",t:"Kort demo i stället för webbinarium",p:"sen",time:"3 h",
+   why:"Ett webbinarium kräver publik. En inspelad demo på tio minuter kan du skicka till varje prospekt som vill se innan de bokar.",
+   first:"Spela in en genomgång av något du redan gjort, med kundens godkännande.",
+   add:"Spela in en kort demo"}
+];
+
+/* ============== datum ============== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9);
+const iso=d=>{const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10);};
+const todayISO=()=>iso(new Date());
+const addDays=n=>{const d=new Date();d.setDate(d.getDate()+n);return iso(d);};
+const nf=n=>(Math.round(n)||0).toLocaleString("sv-SE");
+function isoWeek(d){
+  const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
+  const dn=t.getUTCDay()||7; t.setUTCDate(t.getUTCDate()+4-dn);
+  const y0=new Date(Date.UTC(t.getUTCFullYear(),0,1));
+  return t.getUTCFullYear()+"-v"+String(Math.ceil(((t-y0)/86400000+1)/7)).padStart(2,"0");
+}
+const thisWeek=()=>isoWeek(new Date());
+function weekList(){const o=[],d=new Date();for(let i=7;i>=0;i--){const x=new Date(d);x.setDate(x.getDate()-i*7);o.push(isoWeek(x));}return o;}
+function daysTo(s){if(!s)return null;const d=new Date(s+"T00:00:00");if(isNaN(d))return null;return Math.round((d-new Date(todayISO()+"T00:00:00"))/86400000);}
+function planWeek(){
+  if(!S.started)return null;const s=new Date(S.started+"T00:00:00");if(isNaN(s))return null;
+  const n=Math.floor((new Date(todayISO()+"T00:00:00")-s)/(7*86400000))+1;return Math.max(1,Math.min(12,n));
+}
+function blockDates(i){
+  if(!S.started)return"";const s=new Date(S.started+"T00:00:00");if(isNaN(s))return"";
+  const a=new Date(s);a.setDate(a.getDate()+i*14);const b=new Date(a);b.setDate(b.getDate()+13);
+  const f=x=>x.toLocaleDateString("sv-SE",{day:"numeric",month:"short"});return f(a)+" – "+f(b);
+}
+
+/* ============== tillstånd ============== */
+function emptyState(){
+  return {demo:false,started:todayISO(),hours:"",goal:"",learning:"",worked:"",change:"",
+    base:{mails:0,rate:0},biz:{install:0,mrr:0,ext:0,hInstall:0,hSupport:0,fee:0},
+    prios:[],acts:[],prospects:[],weeks:{},strat:{},vd:{},plan:seedPlan(),challenge:seedChallenge(),ideas:[],hidden:[]};
+}
+function sampleState(){
+  const s=emptyState(); s.demo=true; s.hours=6;
+  s.goal="Ta reda på vilken bransch som svarar bäst";
+  s.learning="Korta mejl som ber om ett samtal fungerar bättre än långa som förklarar allt.";
+  s.worked="Korta mejl som ber om ett samtal, inte om ett köp.";
+  s.change="Sluta skriva till flera branscher samtidigt. Svaren går inte att tolka.";
+  s.prios=[{id:"p1",text:"Kontakta tio företag i samma bransch som senaste kunden",done:true},
+           {id:"p2",text:"Följa upp de som öppnat men inte svarat",done:false},
+           {id:"p3",text:"Be en nöjd kund om en introduktion",done:false}];
+  s.acts=[{id:"a1",text:"Samtal med E-handel C om offerten",date:addDays(2),done:false},
+          {id:"a2",text:"Skicka uppföljning till Verkstadsföretag F",date:addDays(4),done:false}];
+  const R=[["Verkstadsföretag A","Anna","Tillverkning",5,"",""],["E-handel B","Jonas","E-handel",5,"Uppstart nästa vecka",addDays(6)],
+    ["E-handel C","Maria","E-handel",4,"Skicka offert",addDays(2)],["Redovisningsbyrå D","Karin","Tjänster",3,"Boka uppföljning",addDays(5)],
+    ["E-handel E","Peter","E-handel",2,"Ringa upp",addDays(1)],["Verkstadsföretag F","Sofia","Tillverkning",1,"Följ upp mejlet",addDays(-1)],
+    ["Tjänsteföretag G","Erik","Tjänster",1,"",""],["E-handel H","Lena","E-handel",1,"Följ upp mejlet",addDays(3)],
+    ["Tillverkare I","Olof","Tillverkning",1,"",""],["E-handel J","Nina","E-handel",3,"Skicka förslag",addDays(7)],
+    ["Konsultbolag K","Ulf","Tjänster",0,"",""],["E-handel L","Hanna","E-handel",0,"",""]];
+  s.prospects=R.map(([company,contact,industry,stage,nextAction,nextDate])=>({id:uid(),company,contact,industry,stage,nextAction,nextDate,note:""}));
+  const wl=weekList(), vals=[[3,2,0,0,0],[5,4,1,1,0],[8,6,2,1,0],[10,8,2,2,1],[12,9,3,2,0],[10,7,2,1,1]];
+  wl.forEach((w,i)=>{ if(i>=2){ const v=vals[i-2]; s.weeks[w]={nya:v[0]+4,kontakt:v[1]*2+3,svar:v[2]+1,moten:v[3],kunder:v[4]}; }});
+  s.base={mails:120,rate:4};
+  s.biz={install:12000,mrr:1500,ext:100,hInstall:8,hSupport:1.5,fee:0};
+  const demo={q1:7,q2:6,q3:8,q4:"na",q5:5,q6:9,q7:9,q8:4,q9:6,q10:7,q11:5,q12:4,q13:3,q14:5};
+  s.strat=demo;
+  return s;
+}
+let S=emptyState(), pendingDel=null;
+function lsRead(){try{const r=localStorage.getItem(LS);if(r)return JSON.parse(r);}catch(e){}return null;}
+function lsWrite(){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}}
+function normalize(o){
+  const b=emptyState(); const s=Object.assign(b,o||{});
+  s.base=Object.assign({},b.base,(o&&o.base)||{}); s.biz=Object.assign({},b.biz,(o&&o.biz)||{});
+  ["prios","acts","prospects","ideas","hidden"].forEach(k=>{if(!Array.isArray(s[k]))s[k]=[];});
+  if(!Array.isArray(s.plan)||!s.plan.length)s.plan=seedPlan();
+  if(!Array.isArray(s.challenge)||!s.challenge.length)s.challenge=seedChallenge();
+  if(!s.weeks||typeof s.weeks!=="object")s.weeks={}; if(!s.strat||typeof s.strat!=="object")s.strat={};
+  if(!s.vd||typeof s.vd!=="object")s.vd={};
+  if(!s.started)s.started=todayISO();
+  return s;
+}
+let st=null,rt=null;
+function save(){lsWrite();}
+function queue(){clearTimeout(st);st=setTimeout(save,500);}
+function queueRender(){clearTimeout(rt);rt=setTimeout(()=>{
+  const a=document.activeElement,id=a&&a.id,pos=a&&a.selectionStart;
+  render();
+  if(id){const n=document.getElementById(id);if(n){n.focus();try{if(pos!=null)n.setSelectionRange(pos,pos);}catch(e){}}}
+},700);}
+
+/* ============== små effekter ============== */
+let tt=null;
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("on"),2600);}
+function celebrate(msg){
+  toast(msg||"Ny kund! Grattis!");
+  if(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+  const cols=["#bf6a5b","#eab189","#f5d39b","#e1957a","#3f8f7c","#4f86b5","#7a5c9e"];
+  const box=document.createElement("div");box.className="confetti";
+  for(let i=0;i<44;i++){const p=document.createElement("i");
+    p.style.left=Math.random()*100+"%";p.style.background=cols[i%cols.length];
+    p.style.animationDelay=(Math.random()*.5)+"s";p.style.animationDuration=(1.7+Math.random()*1.3)+"s";
+    p.style.transform="rotate("+Math.floor(Math.random()*360)+"deg)";box.appendChild(p);}
+  document.body.appendChild(box);setTimeout(()=>box.remove(),3600);
+}
+function toWeek(text){S.acts.push({id:uid(),text,date:"",done:false});save();toast("Tillagd under Inbokat");go("vecka");}
+
+/* ============== flikar ============== */
+const VIEWS=[["vecka","Min vecka","#bf6a5b"],["strategi","VD-check","#e3a23b"],["plan","3-månadersplan","#3f8f7c"],
+  ["prospekt","Prospekt","#4f86b5"],["resultat","Resultat & lönsamhet","#e1957a"],["ideer","Idébank","#7a5c9e"]];
+const RENDER={vecka:renderWeek,strategi:renderStrategy,plan:renderPlan,prospekt:renderProspects,resultat:renderResults,ideer:renderIdeas};
+function cur(){const h=(location.hash||"").replace(/^#/,"");return VIEWS.some(v=>v[0]===h)?h:"vecka";}
+function go(id){if(location.hash==="#"+id){render(true);}else location.hash=id;}
+function render(top){
+  const y=window.scrollY,c=cur();
+  document.body.dataset.view=c;
+  $("#tabs").innerHTML=VIEWS.map(([id,l,col])=>`<button class="tab" data-go="${id}"${id===c?' aria-current="page"':''}><i style="--c:${col}"></i>${esc(l)}</button>`).join("");
+  $("#view").innerHTML=banner()+RENDER[c]();
+  window.scrollTo(0,top?0:y);
+}
+function banner(){
+  if(pendingDel==="clear")return `<div class="banner"><span><b>Rensa exempeldatan och börja eget?</b></span><span class="banner-act"><button class="btn btn-sm btn-pri" data-do="clear" type="button">Ja, rensa</button><button class="btn btn-sm" data-cancel="1" type="button">Nej</button></span></div>`;
+  if(pendingDel==="sample")return `<div class="banner"><span><b>Skriva över dina uppgifter med exemplet?</b> Det du skrivit försvinner. Ta först en säkerhetskopia under Resultat om du vill spara det.</span><span class="banner-act"><button class="btn btn-sm btn-pri" data-do="sample" type="button">Ja, visa exemplet</button><button class="btn btn-sm" data-cancel="1" type="button">Nej</button></span></div>`;
+  return S.demo
+   ? `<div class="banner"><span><b>Du tittar på exempeldata.</b> Klicka runt, ändra, bocka av. Inget går sönder.</span><span class="banner-act"><button class="btn btn-sm" data-ask="clear" type="button">Rensa och börja eget</button></span></div>`
+   : `<div class="banner" style="background:var(--good-wash);color:#164c37"><span><b>Nu är det ditt.</b> Allt sparas i den här webbläsaren.</span><span class="banner-act"><button class="btn btn-sm" data-ask="sample" type="button">Visa exemplet igen</button></span></div>`;
+}
+
+/* ============== strategikoll: beräkningar ============== */
+function areaStat(a){
+  const rel=a.qs.filter(q=>!(q[2]&&S.strat[q[0]]==="na"));
+  const nums=rel.map(q=>S.strat[q[0]]).filter(v=>typeof v==="number");
+  const min=nums.length?Math.min(...nums):null;
+  return {min,complete:rel.length>0&&nums.length===rel.length,answered:nums.length,total:rel.length};
+}
+function verdict(st){
+  if(!st.complete)return ["none","Fyll i alla frågor"];
+  if(st.min<6)return ["low","Prioritera"];
+  if(st.min<9)return ["mid","Utveckla"];
+  return ["high","Bra grund"];
+}
+/* svagaste länken avgör: första området att prioritera, annars första att utveckla */
+function nextStep(){
+  const all=AREAS.map(a=>({a,s:areaStat(a)}));
+  const done=all.filter(x=>x.s.complete);
+  const pri=done.find(x=>x.s.min<6);if(pri)return {kind:"area",...pri};
+  const dev=done.find(x=>x.s.min<9);if(dev)return {kind:"area",...dev};
+  if(done.length===all.length)return {kind:"vd"};
+  return null;
+}
+function answeredCount(){
+  let n=0,t=0;AREAS.forEach(a=>a.qs.forEach(q=>{t++;const v=S.strat[q[0]];if(typeof v==="number"||(q[2]&&v==="na"))n++;}));return [n,t];
+}
+function chipColors(n){
+  if(n<6)return {bg:"#f7ddd7",fg:"#a5493c"};
+  if(n<9)return {bg:"#fcefc9",fg:"#8a6406"};
+  return {bg:"#dcefe6",fg:"#1f6b4f"};
+}
+const VD_STEPS=[["sales","Jag har tittat på hur försäljningen går"],["earn","Jag har tittat på vad jag tjänar"],["goals","Jag har tittat på om jag närmar mig målen"]];
+function vdWeek(){const k=thisWeek();S.vd=S.vd||{};S.vd[k]=S.vd[k]||{};return S.vd[k];}
+
+/* ============== vy: min vecka ============== */
+function renderWeek(){
+  const wk=S.weeks[thisWeek()]||{};
+  const openPrios=S.prios.filter(p=>!p.done).length;
+  const follow=S.prospects.filter(p=>p.stage<5&&p.nextDate).map(p=>({p,d:daysTo(p.nextDate)})).filter(x=>x.d!==null&&x.d<=7).sort((a,b)=>a.d-b.d);
+  const custs=S.prospects.filter(p=>p.stage===5).length;
+  const mailed=S.prospects.filter(p=>p.stage>=1).length;
+  const rate=mailed?custs/mailed*100:null;
+  const [an,at]=answeredCount();
+  const ns=nextStep();
+  const vd=(S.vd&&S.vd[thisWeek()])||{};
+  const vdDone=VD_STEPS.filter(([k])=>vd[k]).length;
+  const dateStr=new Date().toLocaleDateString("sv-SE",{weekday:"long",day:"numeric",month:"long"});
+  return `
+  <div class="stack">
+    <div class="hero">
+      <h1>Hej! Vad ska vi <span>sälja</span> idag?</h1>
+      <p>Målet är att hitta ett sätt att få nya kunder, och rätt kunder, så effektivt som möjligt. Börja med att se vad som redan leder till affär, och gör mer av just det.</p>
+      <div class="chips">
+        <span class="chip">${esc(dateStr)}</span>
+        <span class="chip"><b>${custs}</b>kunder</span>
+        <span class="chip"><b>${S.prospects.length}</b>i listan</span>
+        <span class="chip"><b>${openPrios}</b>prioriteringar kvar</span>
+      </div>
+    </div>
+
+    <div class="card" style="border-top-color:#22344e">
+      <div class="hd"><h2>Veckans VD-timme</h2><span class="eyebrow">${vdDone} av 3 · ${thisWeek()}</span></div>
+      <p class="prose">Sätt av en timme i veckan där du bara är vd för ditt företag. Titta på läget, välj en enda sak att förbättra och boka in den.</p>
+      <div style="margin-top:10px">
+        ${VD_STEPS.map(([k,t])=>`<div class="ck ${vd[k]?'done':''}"><input type="checkbox" data-vd="${k}" ${vd[k]?"checked":""} aria-label="Klar"><span class="t">${esc(t)}</span></div>`).join("")}
+      </div>
+      <div class="f" style="margin-top:12px"><label for="vd-pick">Det här förbättrar jag till nästa vecka</label>
+        <input id="vd-pick" data-vdtext="1" value="${esc(vd.pick||"")}" placeholder="En sak. Inte fem."></div>
+      <div class="row" style="margin-top:12px"><button class="btn btn-pri btn-sm" data-vdbook="1" type="button">Boka in VD-timmen</button></div>
+    </div>
+
+    ${ns&&ns.kind==="area"?`<div class="card" style="border-top-color:#e3a23b">
+      <div class="hd"><h2>Ditt nästa steg från VD-checken</h2><span class="eyebrow">${esc(ns.a.name)}</span></div>
+      <div class="note next"><strong>${esc(ns.a.name)}</strong> ${ns.s.min<6?"är det område du bör prioritera":"är nästa område att utveckla"} (lägsta svaret är ${ns.s.min} av 10). ${esc(ns.a.tip)}</div>
+      <div class="row" style="margin-top:12px"><button class="btn btn-pri btn-sm" data-toweek="${esc(ns.a.name+": "+ns.a.tip)}" type="button">Till min vecka</button><button class="btn btn-sm" data-go="strategi" type="button">Öppna VD-checken</button></div>
+    </div>`:ns&&ns.kind==="vd"?`<div class="card" style="border-top-color:#3f8f7c">
+      <div class="hd"><h2>VD-checken</h2></div>
+      <div class="note good">Du har grunden på plats i alla områden. Då är den bästa vanan att hålla igång VD-timmen varje vecka och välja en sak att förbättra åt gången.</div>
+    </div>`:`<div class="card" style="border-top-color:#e3a23b">
+      <div class="hd"><h2>VD-check</h2><span class="eyebrow">${an} av ${at} besvarade</span></div>
+      <p class="prose">Fjorton frågor om hur det ser ut i din roll som vd, på tio minuter. Svaren visar var du kan börja.</p>
+      <div class="row" style="margin-top:12px"><button class="btn btn-pri btn-sm" data-go="strategi" type="button">Gör VD-checken</button></div>
+    </div>`}
+
+    <div class="card">
+      <div class="hd"><h2>Dina förutsättningar</h2><span class="eyebrow">${planWeek()?("vecka "+planWeek()+" av 12"):"fyll i en gång"}</span></div>
+      <p class="prose">Två uppgifter. Planens datum och kapacitetsberäkningen hämtas härifrån.</p>
+      <div class="grid g2" style="margin-top:14px">
+        <div class="f"><label for="set-started">När startar planen?<span class="hint"> Blocken får sina datum härifrån.</span></label>
+          <input type="date" id="set-started" data-set="started" value="${esc(S.started)}"></div>
+        <div class="f"><label for="set-hours">Hur många timmar i veckan har du realistiskt för försäljning?</label>
+          <input type="number" min="0" max="80" id="set-hours" data-set="hours" value="${esc(S.hours)}" placeholder="t.ex. 6"></div>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <div class="hd"><h2>Veckans fokus</h2></div>
+        <textarea id="goal" data-set="goal" rows="2" placeholder="Ett aktivitetsmål, inte ett omsättningsmål. Till exempel: förstå vilken bransch som konverterar bäst.">${esc(S.goal)}</textarea>
+        <div class="hd" style="margin-top:20px"><h3>Tre prioriteringar</h3><span class="eyebrow">${openPrios} kvar</span></div>
+        ${S.prios.length?S.prios.map(p=>`<div class="ck ${p.done?'done':''}">
+          <input type="checkbox" data-prio="${p.id}" ${p.done?"checked":""} aria-label="Klar">
+          <span class="t">${esc(p.text)}</span>
+          <button class="x" data-delprio="${p.id}" title="Ta bort" aria-label="Ta bort">&times;</button></div>`).join("")
+        :`<p class="small" style="padding:10px 0">Inget valt än. Lägg till högst tre saker. Fler blir ingen prioritering.</p>`}
+        <div class="row" style="margin-top:12px">
+          <input id="newprio" placeholder="Lägg till en prioritering" style="flex:1;min-width:140px">
+          <button class="btn" id="addprio" type="button">Lägg till</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hd"><h2>Inbokat</h2></div>
+        ${S.acts.length?S.acts.slice().sort((a,b)=>(a.date||"9")<(b.date||"9")?-1:1).map(a=>{const d=daysTo(a.date);
+          return `<div class="ck ${a.done?'done':''}">
+            <input type="checkbox" data-act="${a.id}" ${a.done?"checked":""} aria-label="Klar">
+            <span class="t">${esc(a.text)}</span>
+            <span class="when ${(d!==null&&d<0&&!a.done)?'due':''}">${a.date?esc(a.date):"—"}</span>
+            <button class="x" data-delact="${a.id}" title="Ta bort" aria-label="Ta bort">&times;</button></div>`;}).join("")
+        :`<div class="empty"><b>Inget inbokat</b>Lägg in något här, eller skicka hit en aktivitet från Idébanken eller planen.</div>`}
+        <div class="row" style="margin-top:12px">
+          <input id="newact" placeholder="Vad ska göras?" style="flex:1;min-width:120px">
+          <input id="newactd" type="date" style="width:150px">
+          <button class="btn" id="addact" type="button">Boka</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-top-color:#4f86b5">
+      <div class="hd"><h2>Att följa upp</h2><span class="eyebrow">nästa 7 dagar</span></div>
+      ${follow.length?`<div class="tw"><table><thead><tr><th>Företag</th><th>Nästa steg</th><th>Datum</th><th>Läge</th></tr></thead><tbody>
+        ${follow.map(({p,d})=>`<tr><td><b>${esc(p.company)}</b>${p.contact?`<br><span class="small">${esc(p.contact)}</span>`:""}</td>
+          <td>${esc(p.nextAction||"—")}</td>
+          <td class="${d<0?'due':''}">${esc(p.nextDate)}${d<0?" (försenat)":d===0?" (idag)":""}</td>
+          <td><span class="pill s${p.stage}">${esc(STAGES[p.stage])}</span></td></tr>`).join("")}
+      </tbody></table></div>`
+      :`<div class="empty"><b>Inget som brinner</b>Sätt ett datum för nästa steg på dina prospekt, så dyker de upp här av sig själva.</div>`}
+      <p class="small" style="margin-top:10px">Hämtas automatiskt från prospektlistan. Du behöver inte skriva in något två gånger.</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="card" style="border-top-color:#e1957a">
+        <div class="hd"><h2>Veckans siffror</h2><span class="eyebrow">${thisWeek()}</span></div>
+        <div class="fieldset">
+          ${KPI.map(k=>`<div class="f"><label for="w-${k.k}">${esc(k.t)}</label>
+            <input type="number" min="0" id="w-${k.k}" data-week="${k.k}" value="${wk[k.k]!=null?esc(wk[k.k]):""}" placeholder="0"></div>`).join("")}
+        </div>
+        <p class="small" style="margin-top:10px">Fyll i på fredagen. Det tar en minut och är det som gör grafen under Resultat meningsfull.</p>
+      </div>
+      <div class="card" style="border-top-color:#3f8f7c">
+        <div class="hd"><h2>Där du står</h2></div>
+        <div class="tiles">
+          <div class="tile hi"><div class="k">Kontakt → kund</div><div class="v">${rate!==null?rate.toFixed(1).replace(".",",")+" %":(Number(S.base.rate)||0)+" %"}</div><div class="s">${rate!==null?"räknat på listan":"enligt utgångsläget"}</div></div>
+          <div class="tile cool"><div class="k">Typiskt kallt mejl</div><div class="v">1–2 %</div><div class="s">branschsnitt</div></div>
+          <div class="tile green"><div class="k">Kunder i listan</div><div class="v">${custs}</div><div class="s">av ${mailed} kontaktade</div></div>
+        </div>
+        <div class="hd" style="margin-top:20px"><h3>Vad lärde jag mig förra veckan?</h3></div>
+        <textarea id="learning" data-set="learning" rows="3" placeholder="En rad räcker. Det här är det som gör skillnad om tre månader.">${esc(S.learning)}</textarea>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ============== vy: strategikoll ============== */
+function radar(){
+  const cx=170,cy=150,R=108,n=AREAS.length;
+  const pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/n;return [cx+Math.cos(a)*R*v,cy+Math.sin(a)*R*v];};
+  let g="";
+  [.25,.5,.75,1].forEach(r=>{g+=`<polygon points="${AREAS.map((_,i)=>pt(i,r).map(x=>x.toFixed(1)).join(",")).join(" ")}" fill="${r===1?'#faf6f1':'none'}" stroke="#e2d9cc" stroke-width="1"/>`;});
+  AREAS.forEach((a,i)=>{const [x,y]=pt(i,1);g+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#e2d9cc"/>`;});
+  const vals=AREAS.map(a=>{const s=areaStat(a);return s.min==null?0:s.min/10;});
+  g+=`<polygon points="${vals.map((v,i)=>pt(i,v).map(x=>x.toFixed(1)).join(",")).join(" ")}" fill="rgba(191,106,91,.28)" stroke="#bf6a5b" stroke-width="2.5" stroke-linejoin="round"/>`;
+  vals.forEach((v,i)=>{const [x,y]=pt(i,v);g+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" fill="${AREAS[i].col}" stroke="#fff" stroke-width="2"/>`;});
+  AREAS.forEach((a,i)=>{const [x,y]=pt(i,1.2);const anc=x<cx-8?"end":x>cx+8?"start":"middle";
+    g+=`<text x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="${anc}" font-size="11.5" font-weight="700" fill="#22344e" font-family="Montserrat,system-ui,sans-serif">${esc(a.short)}</text>`;});
+  return `<svg class="radar" viewBox="-40 0 420 300" role="img" aria-label="Spindeldiagram över dina sju områden">${g}</svg>`;
+}
+function renderStrategy(){
+  const [an,at]=answeredCount();
+  const ns=nextStep();
+  let qn=0;
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Din VD-check</h2><span class="eyebrow">${an} av ${at} besvarade</span></div>
+      <p class="prose">Att regelbundet titta på nuläget hör till vd-jobbet. Checken visar vad som är på plats och var du bör lägga tiden härnäst.</p>
+      <p class="prose" style="margin-top:8px">Värdera varje fråga från 1 till 10. <strong>1 betyder att det saknas, 5 att det delvis är på plats och 10 att det helt är på plats.</strong> Var ärlig, svaren är bara till dig. Svagaste frågan i ett område avgör området: <strong>under 6 bör du prioritera, 6–8 kan du utveckla och 9–10 är en bra grund.</strong></p>
+    </div>
+
+    <div class="grid g2">
+      <div class="card" style="border-top-color:#e3a23b">
+        <div class="hd"><h2>Dina områden</h2></div>
+        ${AREAS.map(a=>{const s=areaStat(a);const v=verdict(s);
+          return `<div class="area"><span class="nm">${esc(a.name)}</span>
+            <span class="bar"><i style="width:${s.min==null?0:s.min*10}%;background:${a.col}"></i></span>
+            <span class="sc" title="Lägsta svaret i området">${s.min==null?"—":s.min}</span></div>
+            <div style="margin:-4px 0 6px"><span class="verdict ${v[0]}">${esc(v[1])}</span></div>`;}).join("")}
+      </div>
+      <div class="card" style="border-top-color:#bf6a5b">
+        <div class="hd"><h2>Bilden av ditt företag</h2></div>
+        ${radar()}
+      </div>
+    </div>
+
+    <div class="card" style="border-top-color:#bf6a5b">
+      <div class="hd"><h2>Ditt nästa steg</h2></div>
+      ${ns&&ns.kind==="area"?`<div class="note next"><strong>${esc(ns.a.name)}</strong> ${ns.s.min<6?"är det område du bör prioritera":"är nästa område att utveckla"}. Lägsta svaret är ${ns.s.min} av 10. ${esc(ns.a.tip)}</div>
+        <div class="row" style="margin-top:12px"><button class="btn btn-pri btn-sm" data-toweek="${esc(ns.a.name+": "+ns.a.tip)}" type="button">Till min vecka</button></div>`
+      :ns&&ns.kind==="vd"?`<div class="note good"><strong>Du har grunden på plats i alla områden.</strong> Börja med att boka en VD-timme varje vecka. Titta på hur försäljningen går, vad du tjänar och om du närmar dig målen. Välj en sak att förbättra till nästa vecka.</div>
+        <div class="row" style="margin-top:12px"><button class="btn btn-pri btn-sm" data-go="vecka" type="button">Till Veckans VD-timme</button></div>`
+      :`<div class="empty"><b>Fyll i alla frågor i ett område</b>Så får du ett tips om var du kan börja.</div>`}
+    </div>
+
+    ${AREAS.map(a=>{const s=areaStat(a);const v=verdict(s);return `
+    <div class="card" style="border-top-color:${a.col}">
+      <div class="hd"><h2>${esc(a.name)}</h2><span class="verdict ${v[0]}">${esc(v[1])}</span></div>
+      ${a.qs.map(([id,text,opt])=>{qn++;const cur_=S.strat[id];
+        return `<div class="q"><p class="qt"><b>${qn}.</b> ${esc(text)}</p>
+          <div class="rates" role="group" aria-label="Betyg 1 till 10">
+            ${[1,2,3,4,5,6,7,8,9,10].map(n=>{const c=chipColors(n);
+              return `<button class="rate" type="button" data-rate="${id}|${n}" aria-pressed="${cur_===n}" aria-label="${n}" style="--bg-c:${c.bg};--fg-c:${c.fg}">${n}</button>`;}).join("")}
+            ${opt?`<button class="rate na" type="button" data-rate="${id}|na" aria-pressed="${cur_==="na"}">Ej relevant</button>`:""}
+          </div>
+          <div class="scale"><span>1 saknas</span><span>5 delvis</span><span>10 helt på plats</span></div></div>`;}).join("")}
+    </div>`;}).join("")}
+
+    <div class="addrow">
+      ${pendingDel==="strat"
+        ?`<span class="confirm">Nollställa alla svar? <button class="btn btn-sm" data-do="strat" type="button">Ja</button><button class="btn btn-sm btn-ghost" data-cancel="1" type="button">Nej</button></span>`
+        :`<button class="btn btn-sm btn-ghost" data-ask="strat" type="button">Nollställ svaren</button>`}
+    </div>
+  </div>`;
+}
+
+/* ============== vy: plan ============== */
+function renderPlan(){
+  const chDone=S.challenge.filter(c=>c.done).length, pw=planWeek();
+  const COLS=["#bf6a5b","#e3a23b","#3f8f7c","#4f86b5","#7a5c9e","#22344e"];
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Metoden</h2><span class="eyebrow">enkel och behovsorienterad</span></div>
+      <p class="prose">Du säljer inte i första kontakten. Du ber om ett samtal. Modellen finns här för att du ska känna igen den och kunna försvara den när någon tycker att du borde pitcha hårdare.</p>
+      <div class="steps" style="margin-top:16px">
+        <div class="step" style="--c:${COLS[0]}"><b>Hitta rätt</b><small>Sök upp företag som liknar dem du redan vunnit.</small></div>
+        <div class="step" style="--c:${COLS[1]}"><b>Personligt mejl</b><small>Anpassat per mottagare. Inte ett massutskick.</small></div>
+        <div class="step key" style="--c:${COLS[2]}"><b>Samtalsfrågan</b><small>"Skulle det vara intressant att prata om [problemet] i en kvart?" Ingen pitch. Bara en inbjudan.</small></div>
+        <div class="step" style="--c:${COLS[3]}"><b>Du lyssnar</b><small>Kunden beskriver sin verksamhet och vad som skaver. Du frågar vidare.</small></div>
+        <div class="step" style="--c:${COLS[4]}"><b>Du speglar</b><small>Nu visar du lösningen, på just det problem kunden själv beskrev.</small></div>
+        <div class="step" style="--c:${COLS[5]}"><b>Nästa steg</b><small>Offert, uppstart, igång.</small></div>
+      </div>
+      <div class="note warn" style="margin-top:14px">Steg 3 är det som gör dig ovanlig. När du vill växa är frestelsen att skruva upp volymen och göra inbjudan mer säljig. Gör tvärtom: öka antalet rätt mottagare, behåll frågan.</div>
+    </div>
+
+    <div class="card" style="border-top-color:#e3a23b">
+      <div class="hd"><h2>Första 30 dagarna</h2><span class="eyebrow">${chDone} av ${S.challenge.length}</span></div>
+      <p class="prose">Det här är startpunkten: att få syn på vad som redan fungerar, så att du vet vad du ska bygga vidare på för att nå fler av rätt kunder. Skriv om uppgifterna som du vill, de är dina.</p>
+      <div style="margin-top:12px">
+        ${S.challenge.map((c,i)=>`<div class="ck ${c.done?'done':''}">
+          <input type="checkbox" data-chtoggle="${c.id}" ${c.done?"checked":""} aria-label="Klar">
+          <input class="tedit" id="te-${c.id}" data-chtext="${c.id}" value="${esc(c.text)}" aria-label="Uppgift">
+          <input class="tedit wk" data-chwk="${c.id}" value="${esc(c.wk)}" aria-label="När">
+          <span class="tools">
+            <button class="mv" data-chmove="${c.id}|-1" title="Flytta upp" aria-label="Flytta upp"${i===0?" disabled":""}>&uarr;</button>
+            <button class="mv" data-chmove="${c.id}|1" title="Flytta ner" aria-label="Flytta ner"${i===S.challenge.length-1?" disabled":""}>&darr;</button>
+            <button class="mv del" data-chdel="${c.id}" title="Ta bort" aria-label="Ta bort">&times;</button>
+          </span></div>`).join("")}
+      </div>
+      <div class="addrow"><button class="btn btn-sm" id="addch" type="button">+ Lägg till uppgift</button></div>
+    </div>
+
+    <div class="card" style="border-top-color:#3f8f7c">
+      <div class="hd"><h2>Tre månader, steg för steg</h2><span class="eyebrow">${pw?("vecka "+pw+" av 12"):"sätt startdatum under Min vecka"}</span></div>
+      <p class="prose">En testplan, inte ett krav att hinna allt. Skriv om en uppgift, lägg till egna, ta bort det som inte passar din verksamhet. Låt resultaten bestämma vad du fortsätter med.</p>
+      <div style="margin-top:14px">
+        ${S.plan.map((b,i)=>{const d=b.tasks.filter(t=>t.done).length;return `<div class="block">
+          <div class="bhead">
+            <input class="tedit wk" data-pwk="${b.id}" value="${esc(b.wk)}" aria-label="Period">
+            <input class="tedit ttl" data-ptitle="${b.id}" value="${esc(b.title)}" aria-label="Rubrik">
+            <span class="pr">${d}/${b.tasks.length}${blockDates(i)?" · "+blockDates(i):""}</span>
+            <span class="tools">
+              <button class="mv" data-bmove="${b.id}|-1" title="Flytta upp" aria-label="Flytta upp"${i===0?" disabled":""}>&uarr;</button>
+              <button class="mv" data-bmove="${b.id}|1" title="Flytta ner" aria-label="Flytta ner"${i===S.plan.length-1?" disabled":""}>&darr;</button>
+              ${pendingDel===("b:"+b.id)
+                ?`<span class="confirm">Ta bort hela blocket? <button class="btn btn-sm" data-bdel="${b.id}" type="button">Ja</button><button class="btn btn-sm btn-ghost" data-cancel="1" type="button">Nej</button></span>`
+                :`<button class="mv del" data-bask="${b.id}" title="Ta bort blocket" aria-label="Ta bort blocket">&times;</button>`}
+            </span>
+          </div>
+          <div class="body">
+            ${b.tasks.length?b.tasks.map((t,j)=>`<div class="ck ${t.done?'done':''}">
+              <input type="checkbox" data-ptoggle="${b.id}|${t.id}" ${t.done?"checked":""} aria-label="Klar">
+              <input class="tedit" id="te-${t.id}" data-ptext="${b.id}|${t.id}" value="${esc(t.text)}" aria-label="Uppgift">
+              <span class="tools">
+                <button class="mv" data-pmove="${b.id}|${t.id}|-1" title="Flytta upp" aria-label="Flytta upp"${j===0?" disabled":""}>&uarr;</button>
+                <button class="mv" data-pmove="${b.id}|${t.id}|1" title="Flytta ner" aria-label="Flytta ner"${j===b.tasks.length-1?" disabled":""}>&darr;</button>
+                <button class="btn btn-sm btn-ghost" data-ptoweek="${b.id}|${t.id}" type="button">Till min vecka</button>
+                <button class="mv del" data-pdel="${b.id}|${t.id}" title="Ta bort" aria-label="Ta bort">&times;</button>
+              </span></div>`).join("")
+            :`<p class="small" style="padding:12px 0">Inga uppgifter i det här blocket än.</p>`}
+            <div class="addrow"><button class="btn btn-sm" data-padd="${b.id}" type="button">+ Lägg till uppgift</button></div>
+          </div></div>`;}).join("")}
+      </div>
+      <div class="addrow">
+        <button class="btn btn-sm" id="addblock" type="button">+ Lägg till period</button>
+        ${pendingDel==="reset"
+          ?`<span class="confirm">Skriva över planen med originalet? <button class="btn btn-sm" id="doreset" type="button">Ja</button><button class="btn btn-sm btn-ghost" data-cancel="1" type="button">Nej</button></span>`
+          :`<button class="btn btn-sm btn-ghost" id="askreset" type="button">Återställ originalplanen</button>`}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ============== vy: prospekt ============== */
+function renderProspects(){
+  const counts=STAGES.map((_,i)=>S.prospects.filter(p=>p.stage>=i).length), max=Math.max(1,counts[0]);
+  const rows=S.prospects.slice().sort((a,b)=>(b.stage-a.stage)||((a.nextDate||"9")<(b.nextDate||"9")?-1:1));
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Tratten</h2><span class="eyebrow">${S.prospects.length} rader</span></div>
+      ${S.prospects.length?`<div class="fun">${STAGES.map((s,i)=>`<div class="fun-row"><span class="lbl">${esc(s)}</span>
+        <span class="fun-bar"><i style="width:${Math.max(2,counts[i]/max*100)}%;--c:${STAGE_COL[i]}"></i></span><span class="n">${counts[i]}</span></div>`).join("")}</div>
+        <p class="small" style="margin-top:10px">Varje rad räknas i alla steg den passerat, så tratten visar hur långt de kommit, inte var de står just nu.</p>`
+      :`<div class="empty"><b>Tratten är tom</b>Lägg in ett företag nedan, eller importera en CSV från ditt eget prospekteringsverktyg.</div>`}
+    </div>
+    <div class="card" style="border-top-color:#e3a23b">
+      <div class="hd"><h2>Lägg till företag</h2></div>
+      <div class="grid g3">
+        <div class="f"><label for="np-co">Företag</label><input id="np-co" placeholder="Företagsnamn"></div>
+        <div class="f"><label for="np-ct">Kontakt<span class="hint"> förnamn räcker</span></label><input id="np-ct" placeholder="Förnamn"></div>
+        <div class="f"><label for="np-in">Bransch<span class="hint"> viktigast av allt</span></label><input id="np-in" placeholder="t.ex. e-handel" list="industries"></div>
+        <div class="f"><label for="np-st">Läge</label><select id="np-st">${STAGES.map((s,i)=>`<option value="${i}">${esc(s)}</option>`).join("")}</select></div>
+        <div class="f"><label for="np-na">Nästa steg</label><input id="np-na" placeholder="t.ex. följ upp mejlet"></div>
+        <div class="f"><label for="np-nd">Datum</label><input id="np-nd" type="date"></div>
+      </div>
+      <datalist id="industries">${[...new Set(S.prospects.map(p=>p.industry).filter(Boolean))].map(i=>`<option value="${esc(i)}">`).join("")}</datalist>
+      <div class="row" style="margin-top:14px">
+        <button class="btn btn-pri" id="addprospect" type="button">Lägg till</button>
+        <button class="btn" id="imp" type="button">Importera CSV</button>
+        <button class="btn" id="expcsv" type="button">Exportera CSV</button>
+        <input type="file" id="impfile" accept=".csv,text/csv" hidden>
+      </div>
+      <p class="small" style="margin-top:10px">CSV-kolumner: företag, kontakt, bransch, läge, nästa steg, datum, anteckning. Håll personuppgifterna till ett förnamn och en företagsadress.</p>
+    </div>
+    ${rows.length?`<div class="card" style="border-top-color:#4f86b5">
+      <div class="hd"><h2>Alla rader</h2></div>
+      <div class="tw"><table><thead><tr><th>Företag</th><th>Bransch</th><th>Läge</th><th>Nästa steg</th><th>Datum</th><th>Anteckning</th><th></th></tr></thead><tbody>
+        ${rows.map(p=>{const d=daysTo(p.nextDate);return `<tr>
+          <td><b>${esc(p.company)}</b>${p.contact?`<br><span class="small">${esc(p.contact)}</span>`:""}</td>
+          <td>${esc(p.industry||"—")}</td>
+          <td><select data-pstage="${p.id}" style="min-width:130px">${STAGES.map((s,i)=>`<option value="${i}"${i===p.stage?" selected":""}>${esc(s)}</option>`).join("")}</select></td>
+          <td>${esc(p.nextAction||"—")}</td>
+          <td class="${(d!==null&&d<0&&p.stage<5)?'due':''}">${p.nextDate?esc(p.nextDate):"—"}</td>
+          <td>${esc(p.note||"")}</td>
+          <td><button class="x" data-delp="${p.id}" title="Ta bort" aria-label="Ta bort">&times;</button></td></tr>`;}).join("")}
+      </tbody></table></div></div>`:``}
+  </div>`;
+}
+
+/* ============== vy: resultat ============== */
+function chart(data){
+  const W=720,H=210,PL=34,PR=10,PT=14,PB=34,iw=W-PL-PR,ih=H-PT-PB;
+  const keys=["kontakt","moten","kunder"],cols=["#4f86b5","#e3a23b","#3f8f7c"],names=["Kontakter","Möten","Nya kunder"];
+  let max=0;data.forEach(d=>keys.forEach(k=>{max=Math.max(max,Number(d.v[k])||0);}));
+  max=Math.max(4,Math.ceil(max*1.15));
+  const bw=iw/data.length,gw=bw*.62/keys.length;let g="";
+  [0,Math.round(max/2),max].forEach(t=>{const y=PT+ih-(t/max)*ih;
+    g+=`<line x1="${PL}" y1="${y.toFixed(1)}" x2="${W-PR}" y2="${y.toFixed(1)}" stroke="#e8e1d7"/><text x="${PL-6}" y="${(y+4).toFixed(1)}" text-anchor="end" font-size="10" fill="#7b8499" font-family="system-ui">${t}</text>`;});
+  data.forEach((d,i)=>{const x0=PL+i*bw+bw*.19;
+    keys.forEach((k,j)=>{const v=Number(d.v[k])||0,h=(v/max)*ih;
+      if(h>0)g+=`<rect x="${(x0+j*gw).toFixed(1)}" y="${(PT+ih-h).toFixed(1)}" width="${(gw*.82).toFixed(1)}" height="${h.toFixed(1)}" fill="${cols[j]}" rx="3"/>`;});
+    g+=`<text x="${(PL+i*bw+bw/2).toFixed(1)}" y="${H-12}" text-anchor="middle" font-size="9.5" fill="#7b8499" font-family="system-ui">${d.w.slice(5)}</text>`;});
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Kontakter, möten och nya kunder per vecka">${g}</svg>
+  <div class="row" style="margin-top:10px">${names.map((n,j)=>`<span class="small" style="display:inline-flex;align-items:center;gap:6px"><i style="width:11px;height:11px;border-radius:3px;background:${cols[j]};display:inline-block"></i>${n}</span>`).join("")}</div>`;
+}
+function renderResults(){
+  const data=weekList().map(w=>({w,v:S.weeks[w]||{}}));
+  const any=data.some(d=>KPI.some(k=>Number(d.v[k.k])>0));
+  const by={};
+  S.prospects.forEach(p=>{const k=(p.industry||"Utan bransch").trim()||"Utan bransch";
+    by[k]=by[k]||{n:0,kont:0,svar:0,kund:0};by[k].n++;
+    if(p.stage>=1)by[k].kont++;if(p.stage>=2)by[k].svar++;if(p.stage===5)by[k].kund++;});
+  const inds=Object.entries(by).sort((a,b)=>b[1].kund-a[1].kund||b[1].n-a[1].n);
+  const cands=inds.filter(([,v])=>v.kont>=2&&v.kund>0);
+  const best=cands.length?cands.reduce((a,b)=>(b[1].kund/b[1].kont)>(a[1].kund/a[1].kont)?b:a):null;
+  const b=S.biz,fee=Number(b.fee)||0;
+  const grossY=Number(b.install)+Number(b.mrr)*12, extY=Number(b.ext)*12, afterExt=grossY-extY;
+  const netY=afterExt*(1-fee/100), feeCost=afterExt-netY;
+  const hours=Number(b.hInstall)+Number(b.hSupport)*12, perHour=hours>0?netY/hours:null;
+  const cap=(Number(S.hours)||0)*4.3, maxCust=Number(b.hSupport)>0?Math.floor(cap/Number(b.hSupport)):null;
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Vilken bransch svarar bäst?</h2><span class="eyebrow">där tillväxten ligger</span></div>
+      <p class="prose">Det här är hela poängen med att logga. En total konverteringssiffra döljer att vissa branscher köper direkt och andra aldrig svarar.</p>
+      ${inds.length?`<div class="tw"><table><thead><tr><th>Bransch</th><th class="num">Företag</th><th class="num">Kontaktade</th><th class="num">Svar</th><th class="num">Kunder</th><th class="num">Kontakt → kund</th></tr></thead><tbody>
+        ${inds.map(([name,v])=>`<tr><td><b>${esc(name)}</b></td><td class="num">${v.n}</td><td class="num">${v.kont}</td><td class="num">${v.svar}</td><td class="num">${v.kund}</td>
+          <td class="num"><b>${v.kont?Math.round(v.kund/v.kont*100)+" %":"—"}</b></td></tr>`).join("")}
+      </tbody></table></div>
+      ${best?`<div class="note good" style="margin-top:14px"><strong>${esc(best[0])}</strong> konverterar bäst just nu, ${Math.round(best[1].kund/best[1].kont*100)} procent av de kontaktade. Nästa tjugo kontakter borde rimligen gå dit.</div>`:""}
+      <p class="small" style="margin-top:10px">Under tio kontaktade i en bransch är underlaget för litet att dra säkra slutsatser av.</p>`
+      :`<div class="empty"><b>Ingen data än</b>Fyll i bransch på dina prospekt, så räknas tabellen ut åt dig.</div>`}
+    </div>
+    <div class="card" style="border-top-color:#4f86b5">
+      <div class="hd"><h2>Utveckling</h2><span class="eyebrow">åtta veckor</span></div>
+      ${any?chart(data):`<div class="empty"><b>Grafen väntar på sin första fredag</b>Fyll i Veckans siffror under Min vecka. Efter två veckor börjar den säga något.</div>`}
+    </div>
+    <div class="card" style="border-top-color:#e3a23b">
+      <div class="hd"><h2>Utgångsläge</h2><span class="eyebrow">redigerbart</span></div>
+      <p class="prose">Hur det såg ut när du började mäta. Ändra när du har säkrare siffror, det är mot den här raden allt annat jämförs.</p>
+      <div class="grid g3" style="margin-top:14px">
+        <div class="f"><label for="b-mails">Kontakter hittills</label><input type="number" min="0" id="b-mails" data-base="mails" value="${esc(S.base.mails)}"></div>
+        <div class="f"><label for="b-rate">Andel som blivit kund (%)</label><input type="number" min="0" max="100" step="0.1" id="b-rate" data-base="rate" value="${esc(S.base.rate)}"></div>
+        <div class="tile hi"><div class="k">Det blir</div><div class="v">${nf(Number(S.base.mails)*Number(S.base.rate)/100)}</div><div class="s">kunder, om nivån håller</div></div>
+      </div>
+    </div>
+    <div class="card" style="border-top-color:#e1957a">
+      <div class="hd"><h2>Vad tjänar du per kund?</h2></div>
+      <p class="prose">Priset är inte vad du får behålla. Det här är siffran som avgör hur många kunder du behöver.</p>
+      <div class="grid g3" style="margin-top:14px">
+        <div class="f"><label for="z-install">Uppstart, engångspris (kr)</label><input type="number" min="0" id="z-install" data-biz="install" value="${esc(b.install)}"></div>
+        <div class="f"><label for="z-mrr">Abonnemang per månad (kr)</label><input type="number" min="0" id="z-mrr" data-biz="mrr" value="${esc(b.mrr)}"></div>
+        <div class="f"><label for="z-ext">Extern kostnad per kund och månad (kr)<span class="hint"> t.ex. verktyg du betalar för</span></label><input type="number" min="0" id="z-ext" data-biz="ext" value="${esc(b.ext)}"></div>
+        <div class="f"><label for="z-hi">Timmar för uppstart</label><input type="number" min="0" step="0.5" id="z-hi" data-biz="hInstall" value="${esc(b.hInstall)}"></div>
+        <div class="f"><label for="z-hs">Timmar support per månad</label><input type="number" min="0" step="0.5" id="z-hs" data-biz="hSupport" value="${esc(b.hSupport)}"></div>
+        <div class="f"><label for="z-fee">Avgift till förmedlare eller plattform (%)<span class="hint"> 0 om du fakturerar själv</span></label><input type="number" min="0" max="100" id="z-fee" data-biz="fee" value="${esc(b.fee)}"></div>
+      </div>
+      <div class="tiles" style="margin-top:16px">
+        <div class="tile cool"><div class="k">Kunden betalar, år 1</div><div class="v">${nf(grossY)}</div><div class="s">kr</div></div>
+        <div class="tile"><div class="k">Efter externa kostnader</div><div class="v">${nf(afterExt)}</div><div class="s">kr</div></div>
+        <div class="tile hi"><div class="k">Kvar till dig</div><div class="v">${nf(netY)}</div><div class="s">kr per kund, år 1</div></div>
+        <div class="tile green"><div class="k">Per arbetad timme</div><div class="v">${perHour!==null?nf(perHour):"—"}</div><div class="s">${perHour!==null?"kr, "+nf(hours)+" h":"fyll i timmarna"}</div></div>
+      </div>
+      ${fee>0?`<div class="note warn" style="margin-top:14px"><strong>${nf(feeCost)} kr per kund och år</strong> går till avgiften vid ${fee} procent. Har du fem kunder är det ${nf(feeCost*5)} kr om året.</div>`:""}
+      ${maxCust!==null&&maxCust>0?`<div class="note" style="margin-top:12px"><strong>Kapacitet:</strong> med ${esc(S.hours)} timmar i veckan och ${esc(b.hSupport)} timmar support per kund och månad hinner du runt <strong>${maxCust} kunder</strong> parallellt, innan uppstarter räknats in. Nå den gränsen och nästa steg är att höja priset eller lämna ifrån dig arbete, inte att kontakta fler.</div>`:""}
+    </div>
+    <div class="grid g2">
+      <div class="card" style="border-top-color:#3f8f7c"><div class="hd"><h3>Det här fungerade</h3></div>
+        <textarea data-set="worked" rows="4" placeholder="Vilket mejl, vilken bransch, vilket samtal?">${esc(S.worked)}</textarea></div>
+      <div class="card" style="border-top-color:#bf6a5b"><div class="hd"><h3>Det här ändrar jag nästa vecka</h3></div>
+        <textarea data-set="change" rows="4" placeholder="En sak. Inte fem.">${esc(S.change)}</textarea></div>
+    </div>
+    <div class="card" style="border-top-color:#22344e">
+      <div class="hd"><h2>Säkerhetskopia</h2></div>
+      <p class="prose">Allt du skriver sparas automatiskt, men bara i den här webbläsaren. Ta en kopia ibland, så har du den om du byter dator eller rensar webbläsaren.</p>
+      <div class="row" style="margin-top:12px">
+        <button class="btn" id="expjson" type="button">Spara kopia (fil)</button>
+        <button class="btn" id="impjson" type="button">Läs in kopia</button>
+        <input type="file" id="impjsonf" accept=".json,application/json" hidden>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ============== vy: idébank ============== */
+function renderIdeas(){
+  const P={nu:"Gör nu",sen:"När du har tid",pr:"Synlighet"};
+  return `
+  <div class="stack">
+    <div class="card">
+      <div class="hd"><h2>Idébank</h2></div>
+      <p class="prose">Sorterat efter vad som ger mest just nu. De översta handlar om kunder du redan har och branscher du redan vunnit i, vilket är billigast och säkrast. Nätverk, text och rådgivning är bra, men de ska inte konkurrera med det.</p>
+      <p class="small" style="margin-top:10px">Göm det som inte passar dig med krysset, och lägg till egna idéer längst ner.${S.hidden.length?` <button class="btn-link" data-ishow="1" type="button">Visa de ${S.hidden.length} gömda igen</button>`:""}</p>
+    </div>
+    <div class="ideas">
+      ${IDEAS.filter(i=>!S.hidden.includes(i.id)).map(i=>`<div class="idea" style="--c:${i.c}">
+        <div class="top"><span class="prio ${i.p}">${esc(P[i.p])}</span><span class="time">${esc(i.time)}</span>
+          <button class="mv del" data-ihide="${i.id}" style="margin-left:auto" title="Göm" aria-label="Göm">&times;</button></div>
+        <h4>${esc(i.t)}</h4><p class="why">${esc(i.why)}</p>
+        <div class="first"><b>Första steget:</b> ${esc(i.first)}</div>
+        <div class="foot"><button class="btn btn-sm btn-pri" data-toweek="${esc(i.add)}" type="button">Till min vecka</button></div></div>`).join("")}
+      ${S.ideas.map(x=>`<div class="idea" style="--c:#bf6a5b">
+        <div class="top"><span class="prio nu">Min egen</span>
+          <input class="tedit" data-ifield="${x.id}|time" value="${esc(x.time)}" placeholder="Tid" style="width:78px;flex:none" aria-label="Tidsåtgång">
+          <button class="mv del" data-idel="${x.id}" style="margin-left:auto" title="Ta bort" aria-label="Ta bort">&times;</button></div>
+        <input class="tedit ttl" id="ie-${x.id}" data-ifield="${x.id}|t" value="${esc(x.t)}" placeholder="Vad är idén?" aria-label="Rubrik">
+        <input class="tedit" data-ifield="${x.id}|why" value="${esc(x.why)}" placeholder="Varför skulle det fungera?" aria-label="Varför">
+        <input class="tedit" data-ifield="${x.id}|first" value="${esc(x.first)}" placeholder="Vad är första steget?" aria-label="Första steget">
+        <div class="foot"><button class="btn btn-sm btn-pri" data-itoweek="${x.id}" type="button">Till min vecka</button></div></div>`).join("")}
+    </div>
+    <div class="addrow"><button class="btn btn-sm" id="addidea" type="button">+ Lägg till egen idé</button></div>
+
+    <div class="card" style="border-top-color:#3f8f7c">
+      <div class="hd"><h2>Nätverk och rådgivning</h2></div>
+      <p class="prose">Du får oftast komma som gäst en eller två gånger, och det finns ofta flera grupper i samma stad.</p>
+      <ul class="prose" style="margin:10px 0 0;padding-left:20px">
+        <li><strong>Företagarna</strong> – lokala nätverk och aktiviteter.</li>
+        <li><strong>BNI</strong> – gästbesök, flera nätverk per stad.</li>
+        <li><strong>NyföretagarCentrum</strong> – kostnadsfri rådgivning för dig som startar eller driver litet.</li>
+        <li><strong>Almi</strong> – rådgivning och finansiering. Frågor om belopp avgörs i samtal, så räkna inte med en siffra i förväg.</li>
+        <li><strong><a href="timbanken.html">Timbanken</a></strong> – kostnadsfri rådgivning för småföretagare i Halland och Kronoberg.</li>
+      </ul>
+      <p class="srcs">Mer: <a href="https://verksamt.se" target="_blank" rel="noopener">Verksamt</a> · <a href="https://foretagarna.se" target="_blank" rel="noopener">Företagarna</a></p>
+    </div>
+  </div>`;
+}
+
+/* ============== händelser ============== */
+const findBlock=id=>S.plan.find(b=>b.id===id);
+function move(arr,i,d){const j=i+d;if(j<0||j>=arr.length)return;const [x]=arr.splice(i,1);arr.splice(j,0,x);}
+function focusTask(id){const n=document.getElementById("te-"+id);if(n){n.focus();n.scrollIntoView({block:"center"});}}
+
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-go],[data-toweek],[data-ask],[data-do],[data-cancel],[data-rate],[data-vdbook],[data-delprio],[data-delact],[data-delp],[data-chmove],[data-chdel],[data-pmove],[data-pdel],[data-ptoweek],[data-padd],[data-bmove],[data-bask],[data-bdel],[data-ihide],[data-idel],[data-ishow],[data-itoweek],#addprio,#addact,#addprospect,#imp,#expcsv,#expjson,#impjson,#addch,#addblock,#askreset,#doreset,#addidea");
+  if(!t)return;
+  const D=t.dataset;
+  if(D.go!=null){location.hash=D.go;if(cur()===D.go&&document.body.dataset.view===D.go)render(true);return;}
+  if(D.toweek!=null){toWeek(D.toweek);return;}
+  if(D.vdbook){const p=(vdWeek().pick||"").trim();
+    toWeek("VD-timme: titta på försäljning, vad jag tjänar och målen"+(p?". Förbättra: "+p:". Välj en sak att förbättra")+".");return;}
+  if(D.ask){pendingDel=D.ask;render();return;}
+  if(D.cancel){pendingDel=null;render();return;}
+  if(D.do){const k=D.do;pendingDel=null;
+    if(k==="clear"){S=emptyState();}
+    if(k==="sample"){S=sampleState();}
+    if(k==="strat"){S.strat={};}
+    save();render();return;}
+  if(D.rate){const [id,v]=D.rate.split("|");const val=v==="na"?"na":Number(v);
+    if(S.strat[id]===val)delete S.strat[id];else S.strat[id]=val;
+    save();render();const n=document.querySelector('[data-rate="'+D.rate+'"]');if(n)n.focus({preventScroll:true});return;}
+  if(D.delprio){S.prios=S.prios.filter(p=>p.id!==D.delprio);save();render();return;}
+  if(D.delact){S.acts=S.acts.filter(a=>a.id!==D.delact);save();render();return;}
+  if(D.delp){S.prospects=S.prospects.filter(p=>p.id!==D.delp);save();render();return;}
+  if(D.chmove){const [id,d]=D.chmove.split("|");const i=S.challenge.findIndex(c=>c.id===id);if(i>=0){move(S.challenge,i,Number(d));save();render();}return;}
+  if(D.chdel){S.challenge=S.challenge.filter(c=>c.id!==D.chdel);save();render();return;}
+  if(D.pmove){const [bid,tid,d]=D.pmove.split("|");const b=findBlock(bid);if(b){const i=b.tasks.findIndex(x=>x.id===tid);if(i>=0){move(b.tasks,i,Number(d));save();render();}}return;}
+  if(D.pdel){const [bid,tid]=D.pdel.split("|");const b=findBlock(bid);if(b){b.tasks=b.tasks.filter(x=>x.id!==tid);save();render();}return;}
+  if(D.ptoweek){const [bid,tid]=D.ptoweek.split("|");const b=findBlock(bid);const x=b&&b.tasks.find(y=>y.id===tid);if(x&&x.text.trim())toWeek(x.text);return;}
+  if(D.padd){const b=findBlock(D.padd);if(b){const id=uid();b.tasks.push({id,text:"",done:false});save();render();focusTask(id);}return;}
+  if(D.bmove){const [bid,d]=D.bmove.split("|");const i=S.plan.findIndex(b=>b.id===bid);if(i>=0){move(S.plan,i,Number(d));save();render();}return;}
+  if(D.bask){pendingDel="b:"+D.bask;render();return;}
+  if(D.bdel){S.plan=S.plan.filter(b=>b.id!==D.bdel);pendingDel=null;save();render();return;}
+  if(D.ihide){if(!S.hidden.includes(D.ihide))S.hidden.push(D.ihide);save();render();return;}
+  if(D.ishow){S.hidden=[];save();render();return;}
+  if(D.idel){S.ideas=S.ideas.filter(x=>x.id!==D.idel);save();render();return;}
+  if(D.itoweek){const x=S.ideas.find(y=>y.id===D.itoweek);if(x){const txt=(x.t||"").trim()+((x.first||"").trim()?": "+x.first.trim():"");if(txt)toWeek(txt);}return;}
+  switch(t.id){
+    case "addprio":{const i=$("#newprio");const v=i.value.trim();if(!v)return;S.prios.push({id:uid(),text:v,done:false});save();render();break;}
+    case "addact":{const v=$("#newact").value.trim();if(!v)return;S.acts.push({id:uid(),text:v,date:$("#newactd").value||"",done:false});save();render();break;}
+    case "addprospect":{const co=$("#np-co").value.trim();if(!co)return;const stg=Number($("#np-st").value)||0;
+      S.prospects.push({id:uid(),company:co,contact:$("#np-ct").value.trim(),industry:$("#np-in").value.trim(),stage:stg,nextAction:$("#np-na").value.trim(),nextDate:$("#np-nd").value||"",note:""});
+      save();render();if(stg===5)celebrate();break;}
+    case "imp":$("#impfile").click();break;
+    case "impjson":$("#impjsonf").click();break;
+    case "expcsv":exportCSV();break;
+    case "expjson":exportJSON();break;
+    case "addch":{const id=uid();S.challenge.push({id,text:"",wk:"",done:false});save();render();focusTask(id);break;}
+    case "addblock":S.plan.push({id:uid(),wk:"Egen period",title:"Vad jag vill göra",tasks:[]});save();render();break;
+    case "askreset":pendingDel="reset";render();break;
+    case "doreset":S.plan=seedPlan();S.challenge=seedChallenge();pendingDel=null;save();render();break;
+    case "addidea":{const id=uid();S.ideas.push({id,t:"",why:"",first:"",time:""});save();render();const n=document.getElementById("ie-"+id);if(n)n.focus();break;}
+  }
+});
+
+document.addEventListener("change",e=>{
+  const el=e.target,D=el.dataset;
+  if(D.vd){vdWeek()[D.vd]=el.checked;save();render();return;}
+  if(D.prio){const p=S.prios.find(x=>x.id===D.prio);if(p){p.done=el.checked;save();render();}return;}
+  if(D.act){const a=S.acts.find(x=>x.id===D.act);if(a){a.done=el.checked;save();render();}return;}
+  if(D.pstage){const p=S.prospects.find(x=>x.id===D.pstage);if(p){const was=p.stage;p.stage=Number(el.value);save();render();if(p.stage===5&&was<5)celebrate();}return;}
+  if(D.chtoggle){const c=S.challenge.find(x=>x.id===D.chtoggle);if(c){c.done=el.checked;save();render();}return;}
+  if(D.ptoggle){const [bid,tid]=D.ptoggle.split("|");const b=findBlock(bid);const x=b&&b.tasks.find(y=>y.id===tid);if(x){x.done=el.checked;save();render();}return;}
+  if(el.id==="impfile"&&el.files&&el.files[0])importCSV(el.files[0]);
+  if(el.id==="impjsonf"&&el.files&&el.files[0])importJSON(el.files[0]);
+});
+
+document.addEventListener("input",e=>{
+  const el=e.target,D=el.dataset,v=el.value;
+  if(D.vdtext!=null){vdWeek().pick=v;lsWrite();queue();return;}
+  if(D.set!=null){S[D.set]=v;lsWrite();queue();if(D.set==="started"||D.set==="hours")queueRender();return;}
+  if(D.week!=null){const w=thisWeek();S.weeks[w]=S.weeks[w]||{};S.weeks[w][D.week]=v===""?"":Number(v);lsWrite();queue();return;}
+  if(D.base!=null){S.base[D.base]=v===""?0:Number(v);lsWrite();queue();queueRender();return;}
+  if(D.biz!=null){S.biz[D.biz]=v===""?0:Number(v);lsWrite();queue();queueRender();return;}
+  if(D.chtext!=null){const c=S.challenge.find(x=>x.id===D.chtext);if(c){c.text=v;lsWrite();queue();}return;}
+  if(D.chwk!=null){const c=S.challenge.find(x=>x.id===D.chwk);if(c){c.wk=v;lsWrite();queue();}return;}
+  if(D.ptext!=null){const [bid,tid]=D.ptext.split("|");const b=findBlock(bid);const x=b&&b.tasks.find(y=>y.id===tid);if(x){x.text=v;lsWrite();queue();}return;}
+  if(D.ptitle!=null){const b=findBlock(D.ptitle);if(b){b.title=v;lsWrite();queue();}return;}
+  if(D.pwk!=null){const b=findBlock(D.pwk);if(b){b.wk=v;lsWrite();queue();}return;}
+  if(D.ifield!=null){const [id,f]=D.ifield.split("|");const x=S.ideas.find(y=>y.id===id);if(x){x[f]=v;lsWrite();queue();}return;}
+});
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Enter")return;
+  if(e.target.id==="newprio")$("#addprio").click();
+  if(e.target.id==="newact"||e.target.id==="newactd")$("#addact").click();
+  if(["np-co","np-ct","np-in","np-na","np-nd"].includes(e.target.id))$("#addprospect").click();
+});
+window.addEventListener("hashchange",()=>{pendingDel=null;render(true);});
+
+/* ============== csv / json ============== */
+function splitCSV(line){
+  const out=[];let cur_="",q=false;
+  for(let i=0;i<line.length;i++){const c=line[i];
+    if(q){if(c==='"'){if(line[i+1]==='"'){cur_+='"';i++;}else q=false;}else cur_+=c;}
+    else if(c==='"')q=true;else if(c===","||c===";"){out.push(cur_);cur_="";}else cur_+=c;}
+  out.push(cur_);return out.map(s=>s.trim());
+}
+function importCSV(file){
+  const r=new FileReader();
+  r.onload=()=>{const lines=String(r.result).replace(/^﻿/,"").split(/\r?\n/).filter(l=>l.trim());if(!lines.length)return;
+    const first=splitCSV(lines[0]).join(" ").toLowerCase();const start=/f(ö|o)retag|company/.test(first)?1:0;let n=0;
+    for(let i=start;i<lines.length;i++){const c=splitCSV(lines[i]);if(!c[0])continue;
+      const si=STAGES.findIndex(s=>s.toLowerCase()===String(c[3]||"").toLowerCase());
+      S.prospects.push({id:uid(),company:c[0],contact:c[1]||"",industry:c[2]||"",stage:si>=0?si:0,nextAction:c[4]||"",nextDate:/^\d{4}-\d{2}-\d{2}$/.test(c[5]||"")?c[5]:"",note:c[6]||""});n++;}
+    save();render();toast(n+" rader inlästa");};
+  r.readAsText(file);
+}
+function download(name,data,type){
+  try{const b=new Blob([data],{type});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;
+    document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},800);}
+  catch(e){try{navigator.clipboard.writeText(data);toast("Kopierat till urklipp");}catch(_){}}
+}
+function exportCSV(){
+  const q=s=>'"'+String(s==null?"":s).replace(/"/g,'""')+'"';
+  const rows=[["foretag","kontakt","bransch","lage","nasta steg","datum","anteckning"]].concat(S.prospects.map(p=>[p.company,p.contact,p.industry,STAGES[p.stage],p.nextAction,p.nextDate,p.note]));
+  download("prospekt.csv","﻿"+rows.map(r=>r.map(q).join(",")).join("\n"),"text/csv;charset=utf-8");
+}
+function exportJSON(){download("saljmotorn-kopia.json",JSON.stringify(S,null,2),"application/json");}
+function importJSON(file){
+  const r=new FileReader();
+  r.onload=()=>{try{S=normalize(JSON.parse(String(r.result)));save();render();toast("Kopian är inläst");}catch(e){toast("Filen kunde inte läsas");}};
+  r.readAsText(file);
+}
+
+/* ============== start ============== */
+(function boot(){
+  const local=lsRead();
+  S=local?normalize(local):sampleState();
+  if(!local)lsWrite();
+  render(true);
+})();
+</script>
+</body>
+</html>
