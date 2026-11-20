@@ -253,29 +253,34 @@
       left: 1.5rem;
       bottom: 1.5rem;
       right: 1.5rem;
-      max-width: 260px;
+      max-width: 340px;
       margin-left: auto;
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(4px);
+      background: #a5493c;
+      border-left: 5px solid var(--gold);
       border-radius: 6px;
-      padding: 0.9rem 1.2rem;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+      padding: 1.2rem 1.4rem 1.1rem;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.35);
       opacity: 0;
       animation: fadeUp 0.7s 0.9s ease forwards;
     }
-    .hero-caption strong {
+    .hero-caption .hero-quote {
       display: block;
       font-family: var(--heading);
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--navy);
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1.3;
+      color: #fff;
     }
-    .hero-caption span {
+    .hero-caption .hero-quote em { font-style: normal; color: var(--gold); }
+    .hero-caption .hero-by {
       display: block;
-      font-size: 0.78rem;
-      color: var(--muted);
-      font-style: italic;
-      margin-top: 0.25rem;
+      font-family: var(--heading);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fbe3d6;
+      margin-top: 0.7rem;
     }
 
     /* INTRO */
@@ -676,8 +681,10 @@
         position: static; width: 100%; max-width: 320px; height: auto; object-fit: initial;
       }
       .hero-caption {
-        position: static; margin-top: 1.2rem; left: auto; right: auto; bottom: auto; margin-left: 0;
+        position: static; margin-top: 1.4rem; left: auto; right: auto; bottom: auto; margin-left: 0;
+        max-width: none; width: 100%;
       }
+      .hero-caption .hero-quote { font-size: 1.35rem; }
       .hero-left { padding: 3.5rem 6vw; }
       .intro, .timbanken, .ai-section { grid-template-columns: 1fr; gap: 2.5rem; }
       .services-grid { grid-template-columns: 1fr; }
@@ -725,8 +732,8 @@
     <div class="hero-right">
       <img src="assets/hero-lisa.jpg" alt="Lisa – Head of Passion" loading="eager" decoding="async" />
       <div class="hero-caption">
-        <strong>Lisa Jonsson, ekonom och coach</strong>
-        <span>"Det är viktigt för mig att det går bra för dig!"</span>
+        <span class="hero-quote">&ldquo;Det är viktigt för mig att <em>det går bra för dig!</em>&rdquo;</span>
+        <span class="hero-by">Lisa Jonsson, ekonom och coach</span>
       </div>
     </div>
   </section>
