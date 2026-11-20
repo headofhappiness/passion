@@ -961,5 +961,19 @@
       });
     });
   </script>
+  <script>
+    (function () {
+      function jump() {
+        var h = location.hash && location.hash.slice(1);
+        var el = h && document.getElementById(decodeURIComponent(h));
+        if (!el) return;
+        var html = document.documentElement, prev = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+        window.scrollTo(0, el.getBoundingClientRect().top + window.pageYOffset - 80);
+        html.style.scrollBehavior = prev;
+      }
+      window.addEventListener('load', function () { jump(); setTimeout(jump, 400); setTimeout(jump, 1200); });
+    })();
+  </script>
 </body>
 </html>
